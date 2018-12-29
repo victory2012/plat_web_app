@@ -1,18 +1,59 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="banner">
+      <cube-slide :data="items" />
+    </div>
+    <div class="footerBar">
+      <cube-tab-bar v-model="selectedLabelSlots" show-slider inline @click="clickHandler">
+        <cube-tab v-for="item in tabs" :label="item.label" :key="item.label">
+          <!-- name为icon的插槽 -->
+          <i slot="icon" :class="item.icon"></i>
+          <!-- 默认插槽 -->
+          {{item.label}}
+        </cube-tab>
+      </cube-tab-bar>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
   name: 'home',
-  components: {
-    HelloWorld
+  data () {
+    return {
+      selectedLabelSlots: '',
+      tabs: [{
+        label: 'Home',
+        icon: 'cubeic-home'
+      }, {
+        label: 'Like',
+        icon: 'cubeic-like'
+      }, {
+        label: 'Vip',
+        icon: 'cubeic-vip'
+      }, {
+        label: 'Me',
+        icon: 'cubeic-person'
+      }],
+      items: [
+        {
+          // url: 'http://www.didichuxing.com/',
+          image: require('../assets/img/1.jpg')
+        },
+        {
+          // url: 'http://www.didichuxing.com/',
+          image: require('../assets/img/4.jpg')
+        }
+      ]
+    }
+  },
+  methods: {
+    clickHandler () { }
   }
 }
 </script>
+<style lang="stylus" scoped>
+.home {
+  height: 100%;
+}
+</style>
