@@ -3,7 +3,7 @@ import Router from 'vue-router'
 // import TrackRoute from './track-route'
 // import MonitorRoute from './monitor-route'
 const Login = () => import(/* webpackChunkName: "Login" */ '@/login/login.vue')
-const Home = () => import(/* webpackChunkName: "Home" */ '@/views/home.vue')
+const Home = () => import(/* webpackChunkName: "Home" */ '@/views/index.vue')
 
 Vue.use(Router)
 

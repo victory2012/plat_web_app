@@ -3,15 +3,23 @@
     <div class="banner">
       <cube-slide :data="items" />
     </div>
+    <div class="body">
+      <div class="tab-menu">电池检测</div>
+      <div class="tab-menu">电池追踪</div>
+      <div>
+        <video ref="video" id="video" autoplay="" style='width:320px;height:140px'></video>
+        <button @click="getMedia" id='picture'>PICTURE</button>
+        <canvas ref="canvas" id="canvas" width="320" height="140"></canvas>
+      </div>
+    </div>
     <div class="footerBar">
-      <cube-tab-bar v-model="selectedLabelSlots" show-slider inline @click="clickHandler">
-        <cube-tab v-for="item in tabs" :label="item.label" :key="item.label">
-          <!-- name为icon的插槽 -->
-          <i slot="icon" :class="item.icon"></i>
-          <!-- 默认插槽 -->
-          {{item.label}}
-        </cube-tab>
-      </cube-tab-bar>
+     <cube-tab-bar
+      v-model="selectedLabelDefault"
+      :data="tabs"
+      show-slider
+      @click="clickHandler"
+      @change="changeHandler">
+    </cube-tab-bar>
     </div>
   </div>
 </template>
@@ -21,15 +29,15 @@ export default {
   name: 'home',
   data () {
     return {
-      selectedLabelSlots: '',
+      selectedLabelDefault: 'Home',
       tabs: [{
         label: 'Home',
         icon: 'cubeic-home'
       }, {
-        label: 'Like',
+        label: 'News',
         icon: 'cubeic-like'
       }, {
-        label: 'Vip',
+        label: 'User',
         icon: 'cubeic-vip'
       }, {
         label: 'Me',
@@ -48,12 +56,40 @@ export default {
     }
   },
   methods: {
-    clickHandler () { }
+    clickHandler () { },
+    changeHandler () {},
+    getMedia () {
+      const video = this.$refs.video;
+      const context = this.$refs.canvas.getContext('2d');
+      if (navigator.getUserMedia) { // 标准的API
+        navigator.getUserMedia({ 'video': true }, (stream) => {
+          video.src = stream;
+          video.play();
+        }, this.errocb);
+      } else if (navigator.webkitGetUserMedia) { // WebKit 核心的API
+        navigator.webkitGetUserMedia({ 'video': true }, (stream) => {
+          video.src = window.webkitURL.createObjectURL(stream);
+          video.play();
+        }, this.errocb);
+      }
+      context.drawImage(video, 0, 0, 320, 140);
+    },
+    errocb () {
+      console.log('sth wrong')
+    }
   }
 }
 </script>
 <style lang="stylus" scoped>
-.home {
-  height: 100%;
-}
+.home
+  height 100%
+  .footerBar
+    border-top 1px solid $tab-color
+    position fixed
+    left 0
+    right 0
+    bottom 0
+    height $footer-height
+    font-size 16px
+
 </style>
