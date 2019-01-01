@@ -6,11 +6,11 @@
     <div class="body">
       <div class="tab-menu">电池检测</div>
       <div class="tab-menu">电池追踪</div>
-      <div>
+      <!-- <div>
         <video ref="video" id="video" autoplay="" style='width:320px;height:140px'></video>
         <button @click="getMedia" id='picture'>PICTURE</button>
         <canvas ref="canvas" id="canvas" width="320" height="140"></canvas>
-      </div>
+      </div> -->
     </div>
     <div class="footerBar">
      <cube-tab-bar
@@ -84,7 +84,7 @@ export default {
 .home
   height 100%
   .footerBar
-    border-top 1px solid $tab-color
+    box-shadow: 0 0 10px 0 hsla(0,6%,58%,.6);
     position fixed
     left 0
     right 0
