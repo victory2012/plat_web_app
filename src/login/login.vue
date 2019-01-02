@@ -11,15 +11,14 @@
   </div>
 </template>
 <script>
+
 export default {
   name: '',
-  props: [''],
   data () {
     return {
       showAD: true
     }
   },
-  components: {},
   mounted () {
     setTimeout(() => {
       this.showAD = false
@@ -35,22 +34,14 @@ export default {
 
 </script>
 <style lang='stylus' scoped>
-.loginPage {
-  width: 100%;
-  height: 100%;
-
-  .card {
-    // width: 100%;
-    height: 100%;
-
-    &.ad {
-      background-color: blue;
-    }
-
-    &.loginCenter {
-      background-color: #ffffff;
-      padding: 0 10px;
-    }
-  }
-}
+.loginPage
+  width 100%
+  height 100%
+  .card
+    height 100%
+    &.ad
+      background-color blue
+    &.loginCenter
+      background-color #ffffff
+      padding 0 10px
 </style>
