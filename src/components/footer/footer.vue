@@ -1,33 +1,67 @@
 <template>
-  <div>
-    <cube-tab-bar v-model="selectedLabelDefault" @change="chooseMenu" :inline='false' show-slider>
-      <cube-tab v-for="(item) in tabs" :label="item.link" :key="item.label">
-        <i slot="icon" class="tabIcon" :class="item.icon"></i>
-        <router-link :to="item.link">{{item.label}}</router-link>
-      </cube-tab>
-    </cube-tab-bar>
-  </div>
+  <cube-tab-bar v-model="defaultlabel" @change="cubeTabClick" show-slider>
+    <cube-tab v-for="(item) in tabs" :label="item.link" :key="item.label">
+      <i slot="icon" class="tabIcon iconfont" :class="item.icon"></i>
+      {{item.label}}
+      <!-- <router-link :to="item.link">{{item.label}}</router-link> -->
+    </cube-tab>
+  </cube-tab-bar>
 </template>
 
 <script>
 
 export default {
   name: '',
-  props: [''],
+  props: {
+    tabs: {
+      type: Array,
+      default: () => []
+    },
+    defaultValue: {
+      type: String,
+      required: true
+    }
+  },
   data () {
     return {
-
+      defaultlabel: this.defaultValue
     };
   },
-
-  components: {},
-
-  mounted () { },
-
-  methods: {}
+  watch: {
+    defaultValue: {
+      handler: function (val) {
+        this.defaultlabel = val;
+      }
+    }
+  },
+  mounted () {
+    // const routeName = this.$route.name;
+    // this.getTabIndex(routeName)
+  },
+  methods: {
+    getTabIndex (name) {
+      let Index = this.tabs.findIndex((item) => {
+        return item.link === name
+      })
+      if (Index < 0) {
+        Index = 0
+      }
+      return Index
+    },
+    cubeTabClick (item) {
+      console.log('tag', item)
+      this.$router.push(item)
+      const tabIndex = this.getTabIndex(item)
+      this.$emit('tabIndex', tabIndex)
+    }
+  }
 
 }
 
 </script>
-<style lang='' scoped>
+<style lang='stylus' scoped>
+.tabIcon
+  display block
+  font-size 22px
+  margin-bottom 2px
 </style>

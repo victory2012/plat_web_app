@@ -6,70 +6,61 @@
       </transition>
     </div>
     <div class="footerBar">
-      <cube-tab-bar v-model="selectedLabelDefault" @change="chooseMenu" :inline='false' show-slider>
-        <cube-tab v-for="(item) in tabs" :label="item.link" :key="item.label">
-          <i slot="icon" class="tabIcon" :class="item.icon"></i>
-          <router-link :to="item.link">{{item.label}}</router-link>
-        </cube-tab>
-      </cube-tab-bar>
+      <footer-bar @tabIndex="tabIndex" :defaultValue='defaultLable' :tabs='footerBar'></footer-bar>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import { mainFooterBar } from '@/config/footerTab';
+import footerBar from '@/components/footer/footer'
+
 export default {
   name: 'home',
+  components: {
+    footerBar
+  },
   data () {
     return {
-      selectedLabelDefault: 'home',
       routerIndex: 0,
-      tabs: [{
-        label: '首页',
-        icon: 'cubeic-home',
-        link: 'home'
-      }, {
-        label: '消息',
-        icon: 'cubeic-like',
-        link: 'news'
-      }, {
-        label: '用户',
-        icon: 'cubeic-vip',
-        link: 'user'
-      }, {
-        label: '我的',
-        icon: 'cubeic-person',
-        link: 'me'
-      }]
+      tabs: [],
+      defaultLable: ''
     }
   },
-  mounted () {
-    const routeName = this.$route.name;
-    this.getTabIndex(routeName)
+  computed: {
+    ...mapGetters({
+      footerBar: 'getMainTabBar'
+    })
+  },
+  watch: {
+    '$route.name': {
+      handler: function (val) {
+        if (val === 'home') {
+          this.$store.commit('setMainTabBar', mainFooterBar())
+        }
+      }
+    }
+  },
+  created () {
+    this.defaultLable = this.footerBar[0].link;
+    this.getTabIndex(this.$route.name);
   },
   methods: {
-    /**
-     * @function getTabIndex
-     * @desc 根据 name 计算出name在tabs中的索引，并赋值给 routerIndex 修改 selectedLabelDefault默认值
-     * @param {name} 创建时 从路由中获取，footer tab切换时 获取当前激活的tab的 link
-     */
+    // '接收 footer emit 的当前激活tab的索引'
+    tabIndex (index) {
+      // console.log('$on 接收 emit', index);
+      this.routerIndex = index
+    },
     getTabIndex (name) {
-      const Index = this.tabs.findIndex((item) => {
+      let Index = this.footerBar.findIndex((item) => {
         return item.link === name
       })
-      if (Index > 0) {
-        this.routerIndex = Index
-        this.selectedLabelDefault = this.tabs[Index].link
-      } else {
-        this.routerIndex = 0
+      if (Index < 0) {
+        Index = 0
       }
-    },
-    /**
-     * @function chooseMenu
-     * @desc cube-ui对cube-tab-bar提供了change方法，会拿到当前激活的tab的label值
-     * @param {data} 返回的cube-tab 上的label 的值
-     */
-    chooseMenu (data) {
-      this.getTabIndex(data)
+      this.routerIndex = Index
+      this.defaultLable = this.footerBar[Index].link
     },
     /**
      * @function touchstart
@@ -91,23 +82,23 @@ export default {
       this.touchendPointerY = e.changedTouches[0].pageY
       const moveY = Math.abs(this.touchendPointerY - this.touchPointerY)
       const moveX = Math.abs(this.touchendPointerX - this.touchPointerX)
-      if (moveY > moveX) return
+      const len = this.footerBar.length;
+      if (moveY > moveX + 10) return
       if (this.touchendPointerX - this.touchPointerX < -50) {
         this.routerIndex++
-        if (this.routerIndex === this.tabs.length) {
-          this.routerIndex = this.tabs.length - 1
+        if (this.routerIndex === len) {
+          this.routerIndex = len - 1
         }
-        this.$router.push(this.tabs[this.routerIndex].link)
-        this.selectedLabelDefault = this.tabs[this.routerIndex].link
       }
       if (this.touchendPointerX - this.touchPointerX > 50) {
         this.routerIndex--
         if (this.routerIndex < 0) {
           this.routerIndex = 0;
         }
-        this.$router.push(this.tabs[this.routerIndex].link)
-        this.selectedLabelDefault = this.tabs[this.routerIndex].link
       }
+      let link = this.footerBar[this.routerIndex].link;
+      this.$router.push(link)
+      this.defaultLable = link
     }
   }
 }
@@ -128,7 +119,4 @@ export default {
     font-size 12px
     z-index 100
     background-color $btn-primary-color
-    .tabIcon
-      display block
-      font-size 24px
 </style>

@@ -20,6 +20,9 @@ html, body
   font-size 14px
 .cube-tab-bar
   height 100%
+.cube-tab_active
+  a
+    color $tab-active-color
 .cube-slide-item
   a
     img

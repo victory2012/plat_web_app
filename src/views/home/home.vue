@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="banner" @touchmove='touchmove'>
-      <cube-slide :data="items" :options='slideOptions' />
+    <div class="banner">
+      <cube-slide :data="items" />
     </div>
     <div class="body">
       <div class="projects">
-        <div class="tab-menu" v-for="item in projects" :key="item.name">
+        <div class="tab-menu" v-for="item in projects" @click="selectSubProject(item)" :key="item.name">
           <i slot="icon" :class="item.icon"></i>
           {{item.name}}
         </div>
@@ -15,15 +15,13 @@
 </template>
 
 <script>
+import { monitorFooterBar } from '@/config/footerTab'
 
 export default {
   name: '',
   props: [''],
   data () {
     return {
-      slideOptions: {
-        stopPropagation: true
-      },
       items: [
         {
           // url: 'http://www.didichuxing.com/',
@@ -38,7 +36,7 @@ export default {
         {
           icon: 'cubeic-home',
           name: '监测',
-          link: 'moniter'
+          link: 'monitor'
         },
         {
           icon: 'cubeic-like',
@@ -51,6 +49,12 @@ export default {
   methods: {
     touchmove (e) {
       e.stopPropagation()
+    },
+    selectSubProject (item) {
+      this.$router.push(item.link)
+      if (item.link === 'monitor') {
+        this.$store.commit('setMainTabBar', monitorFooterBar())
+      }
     }
   }
 }
