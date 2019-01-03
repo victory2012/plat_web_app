@@ -36,6 +36,7 @@ export default {
   watch: {
     '$route.name': {
       handler: function (val) {
+        this.getTabIndex(this.$route.name);
         if (val === 'home') {
           this.$store.commit('setMainTabBar', mainFooterBar())
         }
@@ -49,7 +50,6 @@ export default {
   methods: {
     // '接收 footer emit 的当前激活tab的索引'
     tabIndex (index) {
-      // console.log('$on 接收 emit', index);
       this.routerIndex = index
     },
     getTabIndex (name) {

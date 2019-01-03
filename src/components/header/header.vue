@@ -51,7 +51,9 @@ export default {
     top 0
     right 0
   .header-title
-    flex 0 0 6rem
-  .header-button
     flex 1
+  .header-button
+    flex 0 0 35px
+    .iconfont
+      font-size 22px
 </style>

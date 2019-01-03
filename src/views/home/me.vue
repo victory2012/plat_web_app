@@ -1,8 +1,10 @@
 <template>
   <div class="userContent">
     <top-header title="个人中心" fixed>
-      <div @click="handleBack" slot="left">back</div>
-      <div @click="right" slot="right">more</div>
+      <div @click="handleBack" slot="left"></div>
+      <div @click="right" slot="right">
+        <i class="iconfont icon-more"></i>
+      </div>
     </top-header>
     <div class="userAvats">
       <cube-scroll ref="scroll" :data="items">
