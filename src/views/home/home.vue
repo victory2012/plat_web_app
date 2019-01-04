@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="banner">
-      <cube-slide :data="items" />
+      <cube-slide :data="items" :options='sildOptions' />
     </div>
     <div class="body">
       <div class="projects">
@@ -18,10 +18,11 @@
 import { monitorFooterBar } from '@/config/footerTab'
 
 export default {
-  name: '',
-  props: [''],
   data () {
     return {
+      sildOptions: {
+        stopPropagation: true
+      },
       items: [
         {
           // url: 'http://www.didichuxing.com/',
@@ -34,12 +35,12 @@ export default {
       ],
       projects: [
         {
-          icon: 'cubeic-home',
+          icon: 'iconfont icon-Monitor-',
           name: '监测',
           link: 'Monitor'
         },
         {
-          icon: 'cubeic-like',
+          icon: 'iconfont icon-tracking_selected',
           name: '追踪',
           link: 'Track'
         }
@@ -47,7 +48,7 @@ export default {
     };
   },
   methods: {
-    touchmove (e) {
+    sildChange (e) {
       e.stopPropagation()
     },
     selectSubProject (item) {
@@ -76,4 +77,6 @@ export default {
       border-radius 5px
       font-size 16px
       color $color-project-blue
+      .iconfont
+        font-size 22px
 </style>
