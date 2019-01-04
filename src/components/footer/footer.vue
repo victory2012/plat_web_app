@@ -28,8 +28,15 @@ export default {
     };
   },
   watch: {
-    defaultValue: {
+    // defaultValue: {
+    //   handler: function (val) {
+    //     console.log('footer defaultValue', val);
+    //     this.defaultlabel = val;
+    //   }
+    // },
+    '$route.name': {
       handler: function (val) {
+        console.log('footer defaultValue', val);
         this.defaultlabel = val;
       }
     }
@@ -49,8 +56,8 @@ export default {
       return Index
     },
     cubeTabClick (item) {
-      console.log('tag', item)
-      this.$router.push(item)
+      // console.log('tag', item)
+      this.$router.push({ name: item })
       const tabIndex = this.getTabIndex(item)
       this.$emit('tabIndex', tabIndex)
     }

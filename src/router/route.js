@@ -26,27 +26,27 @@ const route = [
     children: [
       {
         path: '/',
-        name: 'home',
+        name: 'Home',
         component: Home
       },
       {
-        path: '/news',
-        name: 'news',
+        path: '/home/news',
+        name: 'HomeNews',
         component: News
       },
       {
-        path: '/user',
-        name: 'user',
+        path: '/home/user',
+        name: 'HomeUser',
         component: User
       },
       {
-        path: '/me',
-        name: 'me',
+        path: '/home/me',
+        name: 'HomeMe',
         component: Me
-      },
-      ...MonitorRoute
+      }
     ]
-  }
+  },
+  ...MonitorRoute
 ];
 
 export default route;

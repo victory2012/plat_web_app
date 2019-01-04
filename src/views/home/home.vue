@@ -36,12 +36,12 @@ export default {
         {
           icon: 'cubeic-home',
           name: '监测',
-          link: 'monitor'
+          link: 'Monitor'
         },
         {
           icon: 'cubeic-like',
           name: '追踪',
-          link: 'track'
+          link: 'Track'
         }
       ]
     };
@@ -51,7 +51,7 @@ export default {
       e.stopPropagation()
     },
     selectSubProject (item) {
-      this.$router.push(item.link)
+      this.$router.push({ name: item.link })
       if (item.link === 'monitor') {
         this.$store.commit('setMainTabBar', monitorFooterBar())
       }

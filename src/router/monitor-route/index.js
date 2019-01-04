@@ -1,11 +1,47 @@
 const BatteryMonitor = () =>
-  import(/* webpackChunkName: "BatteryMonitor" */ '../../views/Battery-Monitor/index.vue');
+  import(/* webpackChunkName: "BatteryMonitor" */ '@/views/Battery-Monitor/index.vue');
+const MonitorHome = () =>
+  import(/* webpackChunkName: "MonitorHome" */ '@/views/Battery-Monitor/home/home.vue');
+const MonitorBattery = () =>
+  import(/* webpackChunkName: "MonitorBattery" */ '@/views/Battery-Monitor/battery/battery.vue');
+const MonitorDevice = () =>
+  import(/* webpackChunkName: "MonitorDevice" */ '@/views/Battery-Monitor/device/device.vue');
+const MonitorFence = () =>
+  import(/* webpackChunkName: "MonitorFence" */ '@/views/Battery-Monitor/fence/fence.vue');
+const MonitorAlarm = () =>
+  import(/* webpackChunkName: "MonitorAlarm" */ '@/views/Battery-Monitor/alarm/alarm.vue');
 
 const route = [
   {
     path: '/monitor',
-    name: 'monitor',
-    component: BatteryMonitor
+    component: BatteryMonitor,
+    children: [
+      {
+        path: '/',
+        name: 'Monitor',
+        component: MonitorHome
+      },
+      {
+        path: '/monitor/battery',
+        name: 'MonitorBattery',
+        component: MonitorBattery
+      },
+      {
+        path: '/monitor/device',
+        name: 'MonitorDevice',
+        component: MonitorDevice
+      },
+      {
+        path: '/monitor/fence',
+        name: 'MonitorFence',
+        component: MonitorFence
+      },
+      {
+        path: '/monitor/warn',
+        name: 'MonitorWarn',
+        component: MonitorAlarm
+      }
+    ]
   }
 ];
 
