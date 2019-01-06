@@ -9,7 +9,7 @@
     </transition>
     <transition name='slide-fade'>
       <div class="card loginCenter" v-show="!showAD">
-        <cube-button @click="signIn">test login btn</cube-button>
+        <cube-button @click="signIn">test login</cube-button>
       </div>
     </transition>
   </div>
