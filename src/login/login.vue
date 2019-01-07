@@ -4,7 +4,7 @@
       <div class="card ad" v-show="showAD">
         摩融电池检测管理平台
         <!-- <div class="adinfo">
-          摩融电池检测管理平台1
+         摩融电池检测管理平台
         </div> -->
       </div>
     </transition>
@@ -62,7 +62,7 @@ export default {
   mounted () {
     setTimeout(() => {
       this.showAD = false
-    }, 3000)
+    }, 4000)
   },
   methods: {
     signIn () {
