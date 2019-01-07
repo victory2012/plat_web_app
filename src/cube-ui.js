@@ -23,7 +23,7 @@ import {
   // Select,
   // Switch,
   // Rate,
-  // Validator,
+  Validator,
   // Upload,
   // Form,
   // popup
@@ -41,7 +41,7 @@ import {
   // scroll
   Scroll,
   Slide,
-  IndexList,
+  // IndexList,
   Swipe,
   Sticky,
   ScrollNav,
@@ -63,7 +63,7 @@ Vue.use(Input);
 // Vue.use(Select)
 // Vue.use(Switch)
 // Vue.use(Rate)
-// Vue.use(Validator)
+Vue.use(Validator);
 // Vue.use(Upload)
 // Vue.use(Form)
 // Vue.use(Popup)
@@ -79,7 +79,7 @@ Vue.use(Input);
 // Vue.use(ImagePreview)
 Vue.use(Scroll);
 Vue.use(Slide);
-Vue.use(IndexList);
+// Vue.use(IndexList);
 Vue.use(Swipe);
 Vue.use(Sticky);
 Vue.use(ScrollNav);
