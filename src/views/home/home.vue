@@ -6,8 +6,10 @@
     <div class="body">
       <div class="projects">
         <div class="tab-menu" v-for="item in projects" @click="selectSubProject(item)" :key="item.name">
-          <i slot="icon" :class="item.icon"></i>
-          {{item.name}}
+          <div class="icon">
+            <i slot="icon" :class="item.icon"></i>
+          </div>
+          <div class="content">{{item.name}}</div>
         </div>
       </div>
     </div>
@@ -36,12 +38,12 @@ export default {
       projects: [
         {
           icon: 'iconfont icon-Monitor-',
-          name: '监测',
+          name: '电池监控管理系统',
           link: 'Monitor'
         },
         {
           icon: 'iconfont icon-tracking_selected',
-          name: '追踪',
+          name: '电池定位追踪系统',
           link: 'Track'
         }
       ]
@@ -66,17 +68,38 @@ export default {
 
 .body
   .projects
-    display flex
+    // display flex
     padding 5px 10px
-    justify-content space-between
+    // justify-content space-between
     &>div
-      flex 0 0 4rem
+      position relative
       text-align center
       padding 15px 10px
-      background-color $bg-color-EEE
+      height 80px
       border-radius 5px
       font-size 16px
       color $color-project-blue
-      .iconfont
-        font-size 22px
+      .content
+        position absolute
+        top 30px
+        left 30px
+        right 10px
+        height 50px
+        line-height 50px
+        background-color $bg-color-EEE
+        box-shadow 5px 5px 10px 0 rgba(0, 0, 0, 0.2)
+        border-radius 5px
+      .icon
+        position absolute
+        top 15px
+        left 10px
+        width 80px
+        height 80px
+        line-height 80px
+        background-color $bg-color-EEE
+        border-radius 50%
+        z-index 2
+        box-shadow 5px 5px 10px 0 rgba(0, 0, 0, 0.2)
+        .iconfont
+          font-size 32px
 </style>
