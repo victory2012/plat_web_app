@@ -41,9 +41,10 @@ import {
   // scroll
   Scroll,
   Slide,
-  // IndexList,
+  IndexList,
   Swipe,
-  Sticky,
+  // Sticky,
+  RecycleList,
   ScrollNav,
   ScrollNavBar
 } from 'cube-ui';
@@ -53,7 +54,7 @@ Vue.use(Loading);
 Vue.use(Tip);
 Vue.use(Toolbar);
 Vue.use(TabBar);
-// Vue.use(TabPanels)
+// Vue.use(TabPanels);
 // Vue.use(Checkbox)
 // Vue.use(CheckboxGroup)
 // Vue.use(Radio)
@@ -79,8 +80,9 @@ Vue.use(ActionSheet);
 // Vue.use(ImagePreview)
 Vue.use(Scroll);
 Vue.use(Slide);
-// Vue.use(IndexList);
+Vue.use(IndexList);
 Vue.use(Swipe);
-Vue.use(Sticky);
+// Vue.use(Sticky);
+Vue.use(RecycleList);
 Vue.use(ScrollNav);
 Vue.use(ScrollNavBar);

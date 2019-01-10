@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <div class="homeBody" @touchstart='touchstart' @touchend='touchend'>
+      <!-- <div class="homeBody"> -->
       <transition name="slide-fade" mode="out-in">
         <router-view />
       </transition>
@@ -28,13 +29,13 @@ export default {
       defaultLable: ''
     }
   },
-  watch: {
-    '$route.name': {
-      handler: function (val) {
-        this.getTabIndex(this.$route.name);
-      }
-    }
-  },
+  // watch: {
+  //   '$route.name': {
+  //     handler: function (val) {
+  //       this.getTabIndex(this.$route.name);
+  //     }
+  //   }
+  // },
   methods: {
 
   }

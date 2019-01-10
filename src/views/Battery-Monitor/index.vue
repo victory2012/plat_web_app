@@ -1,13 +1,5 @@
 <template>
   <div class="monitorProject">
-    <top-header title="电池监测" fixed>
-      <div slot="left" @click="goBackToHome">
-        <i class="iconfont icon-back1"></i>
-      </div>
-      <div slot="right">
-        <i class="iconfont icon-more"></i>
-      </div>
-    </top-header>
     <div class="homeBody" @touchstart='touchstart' @touchend='touchend'>
       <transition name="slide-fade" mode="out-in">
         <router-view />
@@ -21,13 +13,10 @@
 <script>
 import footerBar from '@/components/footer/footer';
 import mixins from '@/mixins/mixins'
-import { mainFooterBar } from '@/config/footerTab';
-import topHeader from '@/components/header/header'
 
 export default {
   components: {
-    footerBar,
-    topHeader
+    footerBar
   },
   mixins: [mixins],
   data () {
@@ -37,10 +26,6 @@ export default {
   mounted () {
   },
   methods: {
-    goBackToHome () {
-      this.$router.push('/home')
-      this.$store.commit('setMainTabBar', mainFooterBar())
-    }
   }
 }
 </script>
@@ -49,9 +34,10 @@ export default {
 .monitorProject
   height 100%
   .homeBody
-    padding-top $header-height
+    // padding-top $header-height
     width 100%
     height 100%
+    box-sizing border-box
   .footerBar
     box-shadow $footer-shadow
     position fixed

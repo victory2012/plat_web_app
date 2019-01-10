@@ -3,7 +3,9 @@
     <div class="header-button is-left">
       <slot name="left"></slot>
     </div>
-    <h1 class="header-title" v-text="title"></h1>
+    <div class="header-title">
+      <slot name="mainTab"></slot>
+    </div>
     <div class="header-button is-right">
       <slot name="right"></slot>
     </div>
@@ -41,7 +43,7 @@ export default {
   display flex
   height $header-height
   line-height $header-height
-  font-size 16px
+  // font-size 16px
   text-align center
   background-color $header-bg-color
   box-shadow $header-shadow
@@ -54,6 +56,4 @@ export default {
     flex 1
   .header-button
     flex 0 0 35px
-    .iconfont
-      font-size 22px
 </style>
