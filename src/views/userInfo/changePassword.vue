@@ -1,8 +1,11 @@
 <template>
   <div class="changes">
-    <top-header title="修改密码" fixed>
+    <top-header fixed>
       <div @click="handleBack" slot="left">
         <i class="cubeic-back"></i>
+      </div>
+      <div slot="mainTab">
+        <p>{{title}}</p>
       </div>
     </top-header>
     <div class="changePassword">
@@ -23,19 +26,20 @@
 import topHeader from '@/components/header/header'
 
 export default {
-  data() {
+  data () {
     return {
-      submit: { account: '123', password: 'iii' }
+      submit: { account: '123', password: 'iii' },
+      title: '修改密码'
     }
   },
   components: {
     topHeader
   },
   methods: {
-    handleBack() {
-      this.$router.push({ name: 'HomeMe' })
+    handleBack () {
+      this.$router.push({ name: 'HomeMe' });
     },
-    submitFrom() {
+    submitFrom () {
       this.$createDialog({
         type: 'alert',
         title: '修改成功',

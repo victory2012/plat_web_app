@@ -4,6 +4,9 @@
       <div @click="handleBack" slot="left">
         <i class="cubeic-back"></i>
       </div>
+      <div slot="mainTab">
+        <p>{{title}}</p>
+      </div>
       <div @click="redactMessage()" slot="right">
         <span>{{redact}}</span>
       </div>
@@ -67,7 +70,8 @@ export default {
         prop: 'base64Value'
       },
       saveChecked: true,
-      redact: '编辑'
+      redact: '编辑',
+      title: '个人信息'
     }
   },
   methods: {

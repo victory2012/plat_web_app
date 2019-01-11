@@ -28,18 +28,18 @@ export default {
     };
   },
   watch: {
-    // defaultValue: {
-    //   handler: function (val) {
-    //     console.log('footer defaultValue', val);
-    //     this.defaultlabel = val;
-    //   }
-    // },
-    '$route.name': {
+    defaultValue: {
       handler: function (val) {
         console.log('footer defaultValue', val);
         this.defaultlabel = val;
       }
     }
+    // '$route.name': {
+    //   handler: function (val) {
+    //     console.log('footer defaultValue', val);
+    //     this.defaultlabel = val;
+    //   }
+    // }
   },
   mounted () {
     // const routeName = this.$route.name;

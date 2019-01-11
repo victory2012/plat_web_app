@@ -8,7 +8,7 @@
 export function mainFooterBar () {
   return [
     { label: '首页', icon: 'icon-aui-icon-home', link: 'Home' },
-    { label: '消息', icon: 'icon-SupportNotification', link: 'HomeNews' },
+    // { label: '消息', icon: 'icon-SupportNotification', link: 'HomeNews' },
     { label: '用户', icon: 'icon-iconset0203', link: 'HomeUser' },
     { label: '我的', icon: 'icon-me', link: 'HomeMe' }
   ];

@@ -64,13 +64,13 @@ export default {
       const moveX = Math.abs(this.touchendPointerX - this.touchPointerX)
       const len = this.footerBar.length;
       if (moveY > moveX + 10) return
-      if (this.touchendPointerX - this.touchPointerX < -50) {
+      if (this.touchendPointerX - this.touchPointerX < -80) {
         this.routerIndex++
         if (this.routerIndex === len) {
           this.routerIndex = len - 1
         }
       }
-      if (this.touchendPointerX - this.touchPointerX > 50) {
+      if (this.touchendPointerX - this.touchPointerX > 80) {
         this.routerIndex--
         if (this.routerIndex < 0) {
           this.routerIndex = 0;

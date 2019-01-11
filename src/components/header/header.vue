@@ -1,9 +1,14 @@
 <template>
-  <header class="mint-header" :class="{ 'is-fixed': fixed }">
+  <header
+    class="mint-header"
+    :class="{ 'is-fixed': fixed }"
+  >
     <div class="header-button is-left">
       <slot name="left"></slot>
     </div>
-    <h1 class="header-title" v-text="title"></h1>
+    <div class="header-title">
+      <slot name="mainTab"></slot>
+    </div>
     <div class="header-button is-right">
       <slot name="right"></slot>
     </div>
@@ -27,7 +32,7 @@
  * </top-header>
  */
 export default {
-  name: 'top-header',
+  name: "top-header",
   props: {
     fixed: Boolean,
     title: String
@@ -35,25 +40,30 @@ export default {
 };
 </script>
 <style lang="stylus" scoped>
-@import '../../theme.styl'
+@import '../../theme.styl';
 
-.mint-header
-  display flex
-  height $header-height
-  line-height $header-height
-  font-size 16px
-  text-align center
-  background-color $header-bg-color
-  box-shadow $header-shadow
-  &.is-fixed
-    position fixed
-    left 0
-    top 0
-    right 0
-  .header-title
-    flex 1
-  .header-button
-    flex 0 0 35px
-    .iconfont
-      font-size 22px
+.mint-header {
+  display: flex;
+  height: $header-height;
+  line-height: $header-height;
+  // font-size 16px
+  text-align: center;
+  background-color: $header-bg-color;
+  box-shadow: $header-shadow;
+
+  &.is-fixed {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+  }
+
+  .header-title {
+    flex: 1;
+  }
+
+  .header-button {
+    flex: 0 0 35px;
+  }
+}
 </style>

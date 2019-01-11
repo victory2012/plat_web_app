@@ -1,6 +1,9 @@
 <template>
   <div class="userContent">
-    <top-header title="个人信息" fixed>
+    <top-header fixed>
+      <div slot="mainTab">
+        <p>{{title}}</p>
+      </div>
     </top-header>
     <div class="userAvats">
       <cube-scroll ref="scroll" :data="items">
@@ -37,32 +40,32 @@ export default {
   },
   name: '',
   props: [''],
-  data() {
+  data () {
     return {
-      items: [
-      ],
-      nickname: '昵称'
+      items: [],
+      nickname: '昵称',
+      title: '个人资料'
     };
   },
 
-  mounted() { },
+  mounted () { },
 
   methods: {
-    handleBack(e) {
-      console.log('handleBack')
+    handleBack (e) {
+      console.log('handleBack');
       e.stopPropagation();
     },
-    right(e) {
-      console.log('right')
+    right (e) {
+      console.log('right');
       e.stopPropagation();
     },
-    personalData() {
-      this.$router.push({ name: 'personalData' })
+    personalData () {
+      this.$router.push({ name: 'personalData' });
     },
-    changePassword() {
-      this.$router.push({ name: 'changePassword' })
+    changePassword () {
+      this.$router.push({ name: 'changePassword' });
     },
-    logout() {
+    logout () {
       this.$createDialog({
         type: 'confirm',
         icon: 'cubeic-alert',
@@ -84,14 +87,12 @@ export default {
             type: 'warn',
             time: 1000,
             txt: '退出成功'
-          }).show()
+          }).show();
         }
-      }).show()
+      }).show();
     }
   }
-
-}
-
+};
 </script>
 <style lang='stylus' scoped>
 @import '../../theme.styl';
