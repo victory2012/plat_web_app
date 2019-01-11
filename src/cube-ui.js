@@ -4,48 +4,47 @@ import Vue from 'vue';
 // Only reserve the components on demand and remove the rest.
 // Style is always required.
 import {
-  /* eslint-disable no-unused-vars */
-  Style,
-  // basic
-  Button,
-  Loading,
-  Tip,
-  Toolbar,
-  TabBar,
-  // TabPanels,
-  // form
-  // Checkbox,
-  // CheckboxGroup,
-  // Radio,
-  // RadioGroup,
-  Input,
-  // Textarea,
-  // Select,
-  // Switch,
-  // Rate,
-  Validator,
-  // Upload,
-  // Form,
-  // popup
-  // Popup,
-  Toast,
-  // Picker,
-  // CascadePicker,
-  // DatePicker,
-  // TimePicker,
-  // SegmentPicker,
-  // Dialog,
-  ActionSheet,
-  // Drawer,
-  // ImagePreview,
-  // scroll
-  Scroll,
-  Slide,
-  // IndexList,
-  Swipe,
-  Sticky,
-  ScrollNav,
-  ScrollNavBar
+    /* eslint-disable no-unused-vars */
+    Style,
+    // basic
+    Button,
+    Loading,
+    Tip,
+    Toolbar,
+    TabBar,
+    // TabPanels,
+    // form
+    // Checkbox,
+    // CheckboxGroup,
+    // Radio,
+    // RadioGroup,
+    Input,
+    // Textarea,
+    // Select,
+    // Switch,
+    // Rate,
+    Validator,
+    Upload,
+    // Form,
+    Popup,
+    Toast,
+    // Picker,
+    // CascadePicker,
+    // DatePicker,
+    // TimePicker,
+    // SegmentPicker,
+    // Dialog,
+    ActionSheet,
+    // Drawer,
+    // ImagePreview,
+    // scroll
+    Scroll,
+    Slide,
+    // IndexList,
+    Swipe,
+    Sticky,
+    ScrollNav,
+    ScrollNavBar
 } from 'cube-ui';
 
 Vue.use(Button);
@@ -64,9 +63,9 @@ Vue.use(Input);
 // Vue.use(Switch)
 // Vue.use(Rate)
 Vue.use(Validator);
-// Vue.use(Upload)
-// Vue.use(Form)
-// Vue.use(Popup)
+Vue.use(Upload)
+    // Vue.use(Form)
+Vue.use(Popup)
 Vue.use(Toast);
 // Vue.use(Picker)
 // Vue.use(CascadePicker)
