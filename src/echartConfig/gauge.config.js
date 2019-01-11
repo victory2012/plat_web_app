@@ -154,12 +154,13 @@ const data = {
   series: [
     {
       type: 'gauge',
-      center: ['26%', '55%'], // 默认全局居中
-      radius: '65%', // 仪表大小
+      center: ['25%', '65%'], // 默认全局居中
+      radius: '89%', // 仪表大小
       // startAngle: 200, // 开始角度
       endAngle: 45, // 结束角度
       data: [{ value: 1.5, name: 'x1000 r/min' }],
       splitNumber: 10,
+      fontsize: 12,
       axisLine: {
         lineStyle: {
           color: [[0.2, '#ff4500'], [0.8, '#48b'], [1, '#228b22']],
@@ -183,14 +184,14 @@ const data = {
       pointer: {
         width: 5
       },
-      title: {
-        offsetCenter: [0, '-30%'] // x, y，单位px
-        // show: true,
-        // offsetCenter: [0, '-40%'],
-        // textStyle: {
-        //   fontWeight: 'bolder'
-        // }
-      },
+      // title: {
+      //   offsetCenter: [0, '-30%'], // x, y，单位px
+      //   show: true,
+      //   // offsetCenter: [0, '-40%'],
+      //   textStyle: {
+      //     fontWeight: 'bolder'
+      //   }
+      // },
       detail: {
         formatter: '{value}%',
         textStyle: {
@@ -201,10 +202,11 @@ const data = {
     },
     {
       type: 'gauge',
-      center: ['65%', '50%'], // 仪表位置
-      radius: '85%', // 仪表大小
+      center: ['69%', '58%'], // 仪表位置
+      radius: '110%', // 仪表大小
       z: 3,
       data: [],
+      fontsize: 12,
       splitNumber: 10,
       axisLine: {
         lineStyle: {

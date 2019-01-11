@@ -448,23 +448,6 @@ export default {
     pullingUp () {
       console.log('pullUpLoadObj')
     },
-    onFetch () {
-      let items = []
-      return new Promise((resolve) => {
-        // 模拟请求 50 条数据，因为 size 设置为 50
-        setTimeout(() => {
-          for (let i = 0; i < 20; i++) {
-            items.push({
-              id: i,
-              avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/danpliego/128.jpg',
-              msg: '123',
-              time: 'Thu Oct 25 2018 15:02:12 GMT+0800 (中国标准时间)'
-            })
-          }
-          resolve(items)
-        }, 1000)
-      })
-    },
     handleClick (e) {
       e.stopPropagation();
     }
@@ -483,7 +466,7 @@ export default {
     // margin-bottom 5px
     border-bottom 8px solid $boder-coloGray
     .handle
-      padding 10px 0
+      padding 15px 0
       p
         flex 1
         text-align center

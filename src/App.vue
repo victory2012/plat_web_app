@@ -29,9 +29,9 @@ html, body
       width 100%
       height $banner-height
 .slide-fade-enter-active
-  transition all 0.3s ease
+  transition all 0.15s ease
 .slide-fade-leave-active
-  transition all 0.3s cubic-bezier(1, 0.5, 0.8, 1)
+  transition all 0.15s cubic-bezier(1, 0.5, 0.8, 1)
 .slide-fade-enter, .slide-fade-leave-to
   // transform translateX(30px)
   opacity 0

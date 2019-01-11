@@ -17,27 +17,27 @@
       </div>
     </top-header>
     <div class="slide-wrapper">
-      <cube-slide :loop=false :auto-play=false :show-dots=false :initialIndex='initialIndex' :threshold='0.2' ref='slide'>
+      <!-- <cube-slide :loop=false :auto-play=false :show-dots=false :initialIndex='initialIndex' :threshold='0.2' ref='slide'>
         <cube-slide-item>
           <user-manager></user-manager>
         </cube-slide-item>
         <cube-slide-item>
           <company-manager></company-manager>
         </cube-slide-item>
-      </cube-slide>
+      </cube-slide> -->
+      <component :is="showComponent"></component>
     </div>
   </div>
 </template>
 
 <script>
 import topHeader from '@/components/header/header'
-import userManager from './userComponent/user-manager'
-import companyManager from './userComponent/company-manager'
 
 export default {
   data () {
     return {
       selectedLabelDefault: 'User',
+      showComponent: 'User',
       tabs: [{
         label: 'User',
         name: '用户管理'
@@ -50,24 +50,19 @@ export default {
   },
   components: {
     topHeader,
-    userManager,
-    companyManager
+    'User': () => import('./userComponent/user-manager'),
+    'Company': () => import('./userComponent/company-manager')
   },
 
   mounted () {
-    const activeName = this.$route.name;
-    if (activeName === 'HomeUser') {
-      this.userManager = true
-    } else {
-      this.userManager = false
-    }
   },
   methods: {
     clickHandler (name) {
       console.log('clickHandler name', name);
-      this.initialIndex = this.tabs.findIndex(item => {
-        return item.label === name
-      })
+      this.showComponent = name
+      // this.initialIndex = this.tabs.findIndex(item => {
+      //   return item.label === name
+      // })
     },
     toUserManager () {
       this.userManager = true;

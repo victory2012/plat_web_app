@@ -67,5 +67,5 @@ export default {
 <style lang="stylus" scoped>
 .chat
   width 100vw
-  height 240px
+  height 200px
 </style>
