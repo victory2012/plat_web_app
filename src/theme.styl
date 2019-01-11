@@ -21,6 +21,10 @@ bodyMinHeight(tatol, top, bottom)
   tatol = unit(tatol, px)
   tatol - top - bottom
 /* ----------------------------------------------------------- */
+SetAllBorder(num)
+  num = unit(num, px)
+  border num solid $boder-coloGray
+/* ----------------------------------------------------------- */
 SetBorder(num, str)
   num = unit(num, px)
   border-{str} num solid $boder-coloGray

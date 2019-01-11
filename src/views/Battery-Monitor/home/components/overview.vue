@@ -1,15 +1,15 @@
 <template>
-  <div class="overview-wrapper">
+  <div ref="wrapper" class="overview-wrapper">
     <!-- 仪表盘 -->
-    <gauge-component></gauge-component>
-    <div class="subTabsContent">
+    <gauge-component ref="gauge"></gauge-component>
+    <div ref="subTabsContent" class="subTabsContent">
       <div v-for="item in subTabs" :key="item.icon">
         <div><i class="iconfont" :class="item.icon"></i></div>
         <div class="numb">{{item.numb}}</div>
         <div class="tabText">{{item.text}}</div>
       </div>
     </div>
-    <alarm-list></alarm-list>
+    <alarm-list :height="height"></alarm-list>
   </div>
 </template>
 
@@ -18,10 +18,9 @@ import gaugeComponent from './dashboard'
 import alarmList from './alarmList'
 
 export default {
-  name: '',
-  props: [''],
   data () {
     return {
+      height: 0,
       subTabs: [
         {
           icon: 'icon-devices',
@@ -46,6 +45,9 @@ export default {
     alarmList
   },
   mounted () {
+    this.height = this.$refs.wrapper.offsetHeight - this.$refs.subTabsContent.offsetHeight - 200 - 60
+    // console.log(this.$refs.gauge.offsetHeight)
+    // console.log(this.$refs.subTabsContent.offsetHeight)
   },
   methods: {}
 
@@ -59,9 +61,9 @@ export default {
   .subTabsContent
     display flex
     padding 15px
-    margin 5px 0
+    margin 5px 0 20px 0
     SetBorder(1px, top)
-    SetBorder(1px, bottom)
+    // SetBorder(1px, bottom)
     .numb
       font-size 16px
       font-weight bold

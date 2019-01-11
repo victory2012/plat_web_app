@@ -35,4 +35,6 @@ html, body
 .slide-fade-enter, .slide-fade-leave-to
   // transform translateX(30px)
   opacity 0
+.amap-copyright, .amap-logo
+    display none !important
 </style>

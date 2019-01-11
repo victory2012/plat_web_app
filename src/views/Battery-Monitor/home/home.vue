@@ -16,49 +16,47 @@
       </div>
     </top-header>
     <div class="slide-wrapper">
-      <cube-slide :loop=false :auto-play=false :show-dots=false :initialIndex='initialIndex' :threshold='0.2' ref='slide'>
+      <!-- <cube-slide :loop=false :auto-play=false :show-dots=false :initialIndex='initialIndex' :threshold='0.2' ref='slide'>
         <cube-slide-item>
           <overview></overview>
         </cube-slide-item>
-        <!-- <cube-slide-item>
-          <company-manager></company-manager>
-        </cube-slide-item> -->
-      </cube-slide>
+      </cube-slide> -->
+      <component :is="componentId"></component>
     </div>
   </div>
 </template>
 
 <script>
-import { mainFooterBar } from '@/config/footerTab';
+import Mixins from '@/mixins/mixins'
 import topHeader from '@/components/header/header';
-import overview from './components/overview';
 
 export default {
   data () {
     return {
       selectedLabelDefault: 'overview',
+      componentId: 'overview',
       tabs: [{
         label: 'overview',
         name: '概览'
       }, {
-        label: 'map',
+        label: 'mainMap',
         name: '地图'
       }],
       initialIndex: 0
     };
   },
+  mixins: [Mixins],
   components: {
     topHeader,
-    overview
+    'overview': () => import('./components/overview'),
+    'mainMap': () => import('./components/map')
   },
   mounted () {
   },
 
   methods: {
-    clickHandler () { },
-    goBackToHome () {
-      this.$router.push('/home')
-      this.$store.commit('setMainTabBar', mainFooterBar())
+    clickHandler (name) {
+      this.componentId = name
     }
   }
 

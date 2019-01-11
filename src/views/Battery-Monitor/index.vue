@@ -1,6 +1,7 @@
 <template>
   <div class="monitorProject">
-    <div class="homeBody" @touchstart='touchstart' @touchend='touchend'>
+    <!-- <div class="homeBody" @touchstart='touchstart' @touchend='touchend'> -->
+    <div class="homeBody">
       <transition name="slide-fade" mode="out-in">
         <router-view />
       </transition>

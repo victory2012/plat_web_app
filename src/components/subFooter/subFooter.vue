@@ -1,8 +1,7 @@
 <template>
-  <cube-tab-bar v-model="defaultlabel" @change="cubeTabClick" show-slider>
-    <cube-tab v-for="(item) in tabs" :label="item.link" :key="item.label">
-      <i slot="icon" class="tabIcon iconfont" :class="item.icon"></i>
-      {{item.label}}
+  <cube-tab-bar class="subFooter" v-model="defaultlabel" @change="cubeTabClick" show-slider>
+    <cube-tab v-for="(item) in tabs" :label="item.label" :key="item.label">
+      {{item.name}}
       <!-- <router-link :to="item.link">{{item.label}}</router-link> -->
     </cube-tab>
   </cube-tab-bar>
@@ -56,7 +55,7 @@ export default {
       return Index
     },
     cubeTabClick (item) {
-      this.$router.push({ name: item })
+      // this.$router.push({ name: item })
       const tabIndex = this.getTabIndex(item)
       this.$emit('tabIndex', tabIndex)
     }
@@ -66,8 +65,6 @@ export default {
 
 </script>
 <style lang='stylus' scoped>
-.tabIcon
-  display block
-  font-size 22px
-  margin-bottom 2px
+.subFooter
+  height 40px
 </style>

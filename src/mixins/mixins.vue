@@ -79,6 +79,10 @@ export default {
       let link = this.footerBar[this.routerIndex].link;
       this.$router.push({ name: link })
       this.defaultLable = link
+    },
+    goBackToHome () {
+      this.$router.push('/home')
+      this.$store.commit('setMainTabBar', mainFooterBar())
     }
   }
 
