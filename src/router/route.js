@@ -1,24 +1,22 @@
 // import TrackRoute from './track-route'
 import MonitorRoute from './monitor-route';
-const Login = () =>
-  import( /* webpackChunkName: "Login" */ '@/login/login.vue');
-const Index = () =>
-  import( /* webpackChunkName: "Index" */ '@/views/index.vue');
-const Me = () =>
-  import( /* webpackChunkName: "Me" */ '@/views/home/me.vue');
+const Login = () => import(/* webpackChunkName: "Login" */ '@/login/login.vue');
+const Index = () => import(/* webpackChunkName: "Index" */ '@/views/index.vue');
+const Me = () => import(/* webpackChunkName: "Me" */ '@/views/home/me.vue');
 const Home = () =>
-  import( /* webpackChunkName: "Home" */ '@/views/home/home.vue');
+  import(/* webpackChunkName: "Home" */ '@/views/home/home.vue');
 const News = () =>
-  import( /* webpackChunkName: "News" */ '@/views/home/news.vue');
+  import(/* webpackChunkName: "News" */ '@/views/home/news.vue');
 const User = () =>
-  import( /* webpackChunkName: "User" */ '@/views/home/user.vue');
-import( /* webpackChunkName: "User" */ '@/views/home/user.vue');
+  import(/* webpackChunkName: "User" */ '@/views/home/user.vue');
+import(/* webpackChunkName: "User" */ '@/views/home/user.vue');
 // const UserManager = () =>
 //   import(/* webpackChunkName: "UserManager" */ '@/views/home/userComponent/user-manager.vue');
 // const CompanyManager = () =>
 //   import(/* webpackChunkName: "CompanyManager" */ '@/views/home/userComponent/company-manager.vue');
 
-const route = [{
+const route = [
+  {
     path: '/',
     redirect: 'login'
   },
@@ -30,7 +28,8 @@ const route = [{
   {
     path: '/home',
     component: Index,
-    children: [{
+    children: [
+      {
         path: '/',
         name: 'Home',
         component: Home

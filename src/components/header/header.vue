@@ -32,7 +32,7 @@
  * </top-header>
  */
 export default {
-  name: "top-header",
+  name: 'top-header',
   props: {
     fixed: Boolean,
     title: String
