@@ -1,7 +1,7 @@
 <template>
   <cube-tab-bar v-model="defaultlabel" @change="cubeTabClick" show-slider>
     <cube-tab v-for="(item) in tabs" :label="item.link" :key="item.label">
-      <i slot="icon" class="tabIcon iconfont" :class="item.icon"></i>
+      <i v-if="item.icon" slot="icon" class="tabIcon iconfont" :class="item.icon"></i>
       {{item.label}}
       <!-- <router-link :to="item.link">{{item.label}}</router-link> -->
     </cube-tab>
@@ -13,6 +13,10 @@
 export default {
   name: '',
   props: {
+    isSubTab: {
+      type: Boolean,
+      default: false
+    },
     tabs: {
       type: Array,
       default: () => []
@@ -56,7 +60,9 @@ export default {
       return Index
     },
     cubeTabClick (item) {
-      this.$router.push({ name: item })
+      if (!this.isSubTab) {
+        this.$router.push({ name: item })
+      }
       const tabIndex = this.getTabIndex(item)
       this.$emit('tabIndex', tabIndex)
     }

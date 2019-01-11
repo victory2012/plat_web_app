@@ -2,8 +2,8 @@ const BatteryMonitor = () =>
   import(/* webpackChunkName: "BatteryMonitor" */ '@/views/Battery-Monitor/index.vue');
 const MonitorHome = () =>
   import(/* webpackChunkName: "MonitorHome" */ '@/views/Battery-Monitor/home/home.vue');
-const MonitorBattery = () =>
-  import(/* webpackChunkName: "MonitorBattery" */ '@/views/Battery-Monitor/battery/battery.vue');
+// const MonitorBattery = () =>
+//   import(/* webpackChunkName: "MonitorBattery" */ '@/views/Battery-Monitor/battery/battery.vue');
 const MonitorDevice = () =>
   import(/* webpackChunkName: "MonitorDevice" */ '@/views/Battery-Monitor/device/device.vue');
 const MonitorFence = () =>
@@ -21,11 +21,11 @@ const route = [
         name: 'Monitor',
         component: MonitorHome
       },
-      {
-        path: '/monitor/battery',
-        name: 'MonitorBattery',
-        component: MonitorBattery
-      },
+      // {
+      //   path: '/monitor/battery',
+      //   name: 'MonitorBattery',
+      //   component: MonitorBattery
+      // },
       {
         path: '/monitor/device',
         name: 'MonitorDevice',

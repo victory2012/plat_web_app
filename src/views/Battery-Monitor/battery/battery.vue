@@ -2,18 +2,22 @@
   <div>
     <cube-slide :loop=false :auto-play=false :show-dots=false :initialIndex='initialIndex' :threshold='0.2' ref='slide'>
       <cube-slide-item>
-        <running></running>
+        <batteryAlarm></batteryAlarm>
+      </cube-slide-item>
+      <cube-slide-item>
+        <batteryRunning></batteryRunning>
       </cube-slide-item>
     </cube-slide>
-    <div>
-      <subFooter :tabs="tabs" :defaultValue="tabs[1].label"></subFooter>
+    <div class="footerBar">
+      <batteryFooter :tabs="tabs" :isSubTab="true" :defaultValue="tabs[1].link"></batteryFooter>
     </div>
   </div>
 </template>
 
 <script>
-import running from './component/running'
-import subFooter from '@/components/subFooter/subFooter'
+import batteryRunning from './component/running'
+import batteryFooter from '@/components/footer/footer'
+import batteryAlarm from './component/alarm'
 
 export default {
   data () {
@@ -21,24 +25,25 @@ export default {
       selectedLabelDefault: 'run',
       tabs: [
         {
-          label: 'alarm',
-          name: '告警'
+          link: 'alarm',
+          label: '告警'
         },
         {
-          label: 'run',
-          name: '运行'
+          link: 'run',
+          label: '运行'
         },
         {
-          label: 'ratio',
-          name: '对比'
+          link: 'ratio',
+          label: '对比'
         }
       ],
-      initialIndex: 0
+      initialIndex: 1
     };
   },
   components: {
-    running,
-    subFooter
+    batteryRunning,
+    batteryFooter,
+    batteryAlarm
   },
   mounted () { },
 
@@ -50,5 +55,19 @@ export default {
 
 </script>
 <style lang='stylus' scoped>
-
+.leftIcon
+  .iconfont
+    font-size 22px
+.slide-item
+  height calc(100vh - 45px)
+.footerBar
+  box-shadow $footer-shadow
+  position fixed
+  left 0
+  right 0
+  bottom 0
+  height $footer-height
+  font-size 12px
+  z-index 100
+  background-color $btn-primary-color
 </style>

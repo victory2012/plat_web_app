@@ -13,6 +13,8 @@ const UserManager = () =>
   import(/* webpackChunkName: "UserManager" */ '@/views/home/userComponent/user-manager.vue');
 const CompanyManager = () =>
   import(/* webpackChunkName: "CompanyManager" */ '@/views/home/userComponent/company-manager.vue');
+const MonitorBattery = () =>
+  import(/* webpackChunkName: "MonitorBattery" */ '@/views/Battery-Monitor/battery/battery.vue');
 
 const route = [
   {
@@ -60,6 +62,11 @@ const route = [
         component: Me
       }
     ]
+  },
+  {
+    path: '/monitor/battery',
+    name: 'MonitorBattery',
+    component: MonitorBattery
   },
   ...MonitorRoute
 ];
