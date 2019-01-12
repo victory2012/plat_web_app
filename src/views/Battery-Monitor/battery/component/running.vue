@@ -1,6 +1,9 @@
 <template>
-  <div class="batteryRunning">
+  <div ref="batteryRunning" class="batteryRunning">
     <top-header>
+      <div slot="left" class="backIcon">
+        <i @click="goBack" class="backIcon iconfont icon-back1"></i>
+      </div>
       <div class="searchWarper" slot="mainTab">
         <div class="searchIcon"><i class="iconfont icon-Search"></i></div>
         <div class="inputPart">
@@ -14,35 +17,159 @@
         <i @click="goBackToHome" class="iconfont icon-Close"></i>
       </div>
     </top-header>
-    <div class="filterPart">
-      <div class="select">
+    <div ref="filterPart" class="filterPart">
+      <div @click="companyClick" :class="{'selcetBy': showPopup.company}" class="select">
         <span>客户企业</span>
-        <span class="iconfont icon-downarrow"></span>
+        <span class="iconfont icon-downarrow1"></span>
       </div>
-      <div class="select">
+      <div @click="showBatteryList" class="select">
         <span>电池型号</span>
-        <span class="iconfont icon-downarrow"></span>
+        <span class="iconfont icon-downarrow1"></span>
       </div>
-      <div class="select">
+      <div @click="companyStatusClick" :class="{'selcetBy': showPopup.status}" class="select">
         <span>状态</span>
-        <span class="iconfont icon-downarrow"></span>
+        <span class="iconfont icon-downarrow1"></span>
       </div>
-      <div class="select">
-        地图
-        <span class="iconfont icon-downarrow"></span>
+      <span @click="swichMapOrList" class="iconfont icon-map">
+      </span>
+    </div>
+    <div class="popupWraper" v-show="showPopup.wrap">
+      <div class="company" v-show="showPopup.company">
+        <div class="production">
+          <h2>生产企业</h2>
+          <cube-scroll class="productionList" ref="productionscroll" :options="options">
+            <ul>
+              <li v-for="item in testCompany" :key="item.id" @click="chooseItem(item)" :class="{'choosed': item.choose}">{{item.name}}</li>
+            </ul>
+          </cube-scroll>
+        </div>
+        <div class="purchase">
+          <h2>采购企业</h2>
+          <cube-scroll class="productionList" ref="purchasescroll" :options="options">
+            <ul>
+              <li v-for="item in testCompany" :key="item.id" @click="chooseItem(item)" :class="{'choosed': item.choose}">{{item.name}}</li>
+            </ul>
+          </cube-scroll>
+        </div>
+        <section class="companyBtn">
+          <p @click="companyCancelHandle">取消</p>
+          <p class="sure">确定</p>
+        </section>
       </div>
+      <div class="allStatus" v-show="showPopup.status">
+        <div class="status" v-for="item in status" :key="item.id">
+          <h2>{{item.title}}</h2>
+          <ul>
+            <li v-for="info in item.data" @click="choosStatuItem(info, item.data)" :key="info.id" :class="{'active': info.choose}">{{info.label}}</li>
+          </ul>
+        </div>
+        <section class="companyBtn">
+          <p @click="statusCancelHandle">取消</p>
+          <p class="sure">确定</p>
+        </section>
+      </div>
+    </div>
+    <div class="batteryWrapper" :style="{height:height +'px'}">
+      <component :is="showComponent"></component>
+      <!-- <battery-list ref="batteryList"></battery-list> -->
     </div>
   </div>
 </template>
 
 <script>
 import topHeader from '@/components/header/header';
-import Mixins from '@/mixins/mixins'
+import Mixins from '@/mixins/monitor-mixin'
+// import batteryList from './batteryList/battery'
+
+const column1 = [
+  { text: 'Text12346', value: '123456' },
+  { text: 'Text12346', value: 'aad' },
+  { text: 'Text12346', value: 'ddeef' },
+  { text: 'Text12346', value: 'gdfg' },
+  { text: 'Text12346', value: 'fgh' },
+  { text: 'Text12346', value: 'ddeghjef' }
+]
 export default {
-  name: '',
-  props: [''],
   data () {
     return {
+      showComponent: 'batteryMap',
+      height: 0,
+      showPopup: {
+        wrap: false,
+        company: false,
+        status: false
+      },
+      status: [
+        {
+          id: Math.random(),
+          title: '绑定状态',
+          data: [
+            {
+              label: '全部',
+              id: 'all',
+              choose: true
+            },
+            {
+              label: '未绑定',
+              id: 'nobind',
+              choose: false
+            },
+            {
+              label: '已绑定',
+              id: 'hasbind',
+              choose: false
+            }
+          ]
+        },
+        {
+          id: Math.random(),
+          title: '在线状态',
+          data: [
+            {
+              label: '全部',
+              id: 'allOline',
+              choose: true
+            },
+            {
+              label: '在线',
+              id: 'online',
+              choose: false
+            },
+            {
+              label: '离线',
+              id: 'offline',
+              choose: false
+            }
+          ]
+        },
+        {
+          id: Math.random(),
+          title: '运行状态',
+          data: [
+            {
+              label: '全部',
+              id: 'runall',
+              choose: true
+            }, {
+              label: '已激活',
+              id: 'hasactive',
+              choose: false
+            }, {
+              label: '未激活',
+              id: 'noactive',
+              choose: false
+            }, {
+              label: '激活中',
+              id: 'activing',
+              choose: false
+            }, {
+              label: '取消告警中',
+              id: 'cancelActive',
+              choose: false
+            }
+          ]
+        }
+      ],
       searchArr: [
         {
           id: Math.random(),
@@ -52,24 +179,194 @@ export default {
           name: '生产企业XXX'
         }
 
+      ],
+      testCompany: [],
+      companyData: [
+        {
+          id: Math.random(),
+          name: '生产企业',
+          choose: false
+        }, {
+          id: Math.random(),
+          name: '生产企业',
+          choose: false
+        }, {
+          id: Math.random(),
+          name: '生产企业',
+          choose: false
+        }, {
+          id: Math.random(),
+          name: '生产企业',
+          choose: false
+        }, {
+          id: Math.random(),
+          name: '生产企业',
+          choose: false
+        }, {
+          id: Math.random(),
+          name: '生产企业',
+          choose: false
+        }, {
+          id: Math.random(),
+          name: '生产企业',
+          choose: false
+        }, {
+          id: Math.random(),
+          name: '生产企业',
+          choose: false
+        }, {
+          id: Math.random(),
+          name: '生产企业',
+          choose: false
+        }, {
+          id: Math.random(),
+          name: '生产企业',
+          choose: false
+        }, {
+          id: Math.random(),
+          name: '生产企业',
+          choose: false
+        }, {
+          id: Math.random(),
+          name: '生产企业',
+          choose: false
+        }, {
+          id: Math.random(),
+          name: '生产企业',
+          choose: false
+        }, {
+          id: Math.random(),
+          name: '生产企业',
+          choose: false
+        }, {
+          id: Math.random(),
+          name: '生产企业',
+          choose: false
+        }, {
+          id: Math.random(),
+          name: '生产企业',
+          choose: false
+        }, {
+          id: Math.random(),
+          name: '生产企业',
+          choose: false
+        }
       ]
     };
   },
+  computed: {
+    options () {
+      return {
+        scrollbar: false, // 是否显示滚动条
+        click: false
+      }
+    }
+  },
   mixins: [Mixins],
   components: {
-    topHeader
+    topHeader,
+    'battery': () => import('./batteryList/battery'),
+    'batteryMap': () => import('./batteryList/batteryMap')
+  },
+  created () {
+
+  },
+  mounted () {
+    // this.$refs.batteryList.jisuan(1, 2, 3)
+    /*
+    * js 计算出 电池列表内容区域的高度
+    * 40 : header 组件的高度
+    */
+    this.height = this.getOffsetHeight('batteryRunning') - this.getOffsetHeight('filterPart') - 40
   },
 
-  mounted () { },
-
-  methods: {}
+  methods: {
+    chooseItem (item) {
+      console.log(item)
+      item.choose = !item.choose
+    },
+    swichMapOrList () {
+      if (this.showComponent === 'battery') {
+        this.showComponent = 'batteryMap';
+      } else {
+        this.showComponent = 'battery';
+      }
+    },
+    companyClick () {
+      this.showPopup.wrap = true
+      this.showPopup.company = true
+      this.showPopup.status = false
+      this.testCompany = this.companyData
+    },
+    companyCancelHandle () {
+      this.showPopup.wrap = false
+      this.showPopup.status = false
+      this.showPopup.company = false
+    },
+    companyStatusClick () {
+      this.showPopup.wrap = true
+      this.showPopup.status = true
+      this.showPopup.company = false
+    },
+    statusCancelHandle () {
+      this.showPopup.wrap = false
+      this.showPopup.status = false
+      this.showPopup.company = false
+    },
+    choosStatuItem (info, data) {
+      data.forEach(key => {
+        key.choose = false
+      });
+      info.choose = true
+    },
+    showBatteryList () {
+      this.showPopup.wrap = false
+      if (!this.picker) {
+        this.picker = this.$createPicker({
+          title: 'Picker',
+          data: [column1],
+          onSelect: this.selectHandle,
+          onCancel: this.cancelHandle
+        })
+      }
+      this.picker.show()
+    },
+    selectHandle (selectedVal, selectedIndex, selectedText) {
+      // this.$createDialog({
+      //   type: 'warn',
+      //   content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+      //   icon: 'cubeic-alert'
+      // }).show()
+    },
+    cancelHandle () {
+      // this.$createToast({
+      //   type: 'correct',
+      //   txt: 'Picker canceled',
+      //   time: 1000
+      // }).show()
+    }
+  }
 
 }
-
 </script>
 <style lang='stylus' scoped>
+.backIcon
+  font-size 20px
+section
+  height 40px
+  display flex
+  p
+    flex 1
+    text-align center
+    line-height 40px
+    border 1px solid $color-project-blue
+    color $color-project-blue
+    &.sure
+      background $color-project-blue
+      color #ffffff
 .batteryRunning
   width 100%
+  position relative
   height calc(100vh - 45px)
   .searchWarper
     display flex
@@ -121,18 +418,88 @@ export default {
     &>div
       flex 1
   .filterPart
-    height $header-height
-    box-sizing border-box
     padding 5px 10px
     display flex
+    justify-content space-between
+    align-items center
+    margin-top 5px
+    SetBorder(1px, bottom)
+    &>.iconfont
+      margin-right 8px
+      font-size 20px
+      color $icon-color-gray
     .select
       flex 0 0 80px
       line-height 30px
+      height 30px
       display flex
-      margin-right 15px
       justify-content space-between
       font-size 13px
+      SetAllBorder(1px)
+      border-radius 5px
+      padding-left 6px
+      box-sizing border-box
+      &.selcetBy
+        color $color-project-blue
+        border-color $color-project-blue
       .iconfont
-        font-size 12px
-        color #bcbcbc
+        font-size 28px
+        color $icon-color-gray
+  .popupWraper
+    position absolute
+    top 85px
+    left 0
+    width 100%
+    z-index 11
+    background-color #ffffff
+    .company
+      .production
+        SetBorder(1px, bottom)
+      &>div
+        height 180px
+        .productionList
+          height 146px
+        h2
+          line-height 30px
+          padding-left 15px
+        ul
+          display flex
+          justify-content space-between
+          flex-wrap wrap
+          padding 10px
+          li
+            flex 0 0 26%
+            text-align center
+            line-height 26px
+            border 1px solid $color-project-blue
+            background #ffffff
+            color $color-project-blue
+            margin-bottom 10px
+            overflow hidden
+            white-space nowrap
+            text-overflow ellipsis
+            &.choosed
+              background-color $color-project-blue
+              color #ffffff
+    .allStatus
+      padding 0 10px 10px
+      .status
+        // padding 10px
+        h2
+          font-size 15px
+          line-height 30px
+        ul
+          display flex
+          flex-wrap wrap
+          li
+            flex 0 0 75px
+            line-height 28px
+            text-align center
+            border 1px solid $color-project-blue
+            margin-right 15px
+            font-size 13px
+            margin-bottom 15px
+            &.active
+              background-color $color-project-blue
+              color #ffffff
 </style>
