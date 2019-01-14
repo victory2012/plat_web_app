@@ -71,6 +71,9 @@
     </div>
     <div class="batteryWrapper" :style="{height:height +'px'}">
       <component :is="showComponent"></component>
+      <div class="pb" @click="goToRegisterBattery">
+        登记电池
+      </div>
       <!-- <battery-list ref="batteryList"></battery-list> -->
     </div>
   </div>
@@ -92,7 +95,7 @@ const column1 = [
 export default {
   data () {
     return {
-      showComponent: 'batteryMap',
+      showComponent: 'battery',
       height: 0,
       showPopup: {
         wrap: false,
@@ -292,6 +295,11 @@ export default {
         this.showComponent = 'battery';
       }
     },
+    goToRegisterBattery () {
+      this.$router.push({
+        name: 'MonitorBatteryRegister'
+      })
+    },
     companyClick () {
       this.showPopup.wrap = true
       this.showPopup.company = true
@@ -320,7 +328,7 @@ export default {
       info.choose = true
     },
     showBatteryList () {
-      this.showPopup.wrap = false
+      this.companyCancelHandle()
       if (!this.picker) {
         this.picker = this.$createPicker({
           title: 'Picker',
@@ -502,4 +510,19 @@ section
             &.active
               background-color $color-project-blue
               color #ffffff
+.pb
+  position fixed
+  top 75%
+  right 20px
+  width 61px
+  height 61px
+  line-height 61px
+  color rgb(255, 255, 255)
+  background-color rgb(113, 191, 219)
+  font-size 14px
+  text-align center
+  border-radius 50%
+  transition transform 0.1s ease-in-out
+  box-shadow 0 5px 12px rgba(0, 0, 0, 0.175)
+  z-index 99
 </style>

@@ -244,11 +244,11 @@ export default {
           background #0099cc
     &>div > p
       font-weight bolder
-      line-height 25px
+      line-height 30px
       font-size 14px
   .itemMid
     padding-right 25px
-    margin 10px 0
+    margin 15px 0
     justify-content space-between
     &>p
       margin-right 5px
