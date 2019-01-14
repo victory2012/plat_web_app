@@ -1,8 +1,5 @@
 <template>
-  <header
-    class="mint-header"
-    :class="{ 'is-fixed': fixed }"
-  >
+  <header class="mint-header" :class="{ 'is-fixed': fixed }">
     <div class="header-button is-left">
       <slot name="left"></slot>
     </div>
