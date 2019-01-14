@@ -1,5 +1,5 @@
 <template>
-  <div ref="batteryRunning" class="batteryRunning">
+  <div class="batteryAlarm">
     <top-header>
       <div slot="left" class="backIcon">
         <i @click="goBack" class="backIcon iconfont icon-back1"></i>
@@ -17,7 +17,22 @@
         <i @click="goBackToHome" class="iconfont icon-Close"></i>
       </div>
     </top-header>
-    <div ref="filterPart" class="filterPart">
+    <div class="timeSelect">
+      <div class="timeInfo">
+        <span>从</span>
+        <span @click="timeSelect('start')" class="timeInput">
+          {{startTime}}
+        </span>
+        <span>至</span>
+        <span @click="timeSelect('end')" class="timeInput">
+          {{endTime}}
+        </span>
+      </div>
+      <div @click="showMoreSelect" class="timeBtn">筛选
+        <span class="iconfont icon-downarrow1"></span>
+      </div>
+    </div>
+    <div ref="filterPart" class="filterPart" v-show="moreSelect">
       <div @click="companyClick" :class="{'selcetBy': showPopup.company}" class="select">
         <span>客户企业</span>
         <span class="iconfont icon-downarrow1"></span>
@@ -26,12 +41,12 @@
         <span>电池型号</span>
         <span class="iconfont icon-downarrow1"></span>
       </div>
-      <div @click="companyStatusClick" :class="{'selcetBy': showPopup.status}" class="select">
+      <div @click="StatusClick" :class="{'selcetBy': showPopup.status}" class="select">
         <span>状态</span>
         <span class="iconfont icon-downarrow1"></span>
       </div>
-      <span @click="swichMapOrList" class="iconfont icon-map">
-      </span>
+      <!-- <span @click="swichMapOrList" class="iconfont icon-map">
+      </span> -->
     </div>
     <div class="popupWraper" v-show="showPopup.wrap">
       <div class="company" v-show="showPopup.company">
@@ -64,17 +79,24 @@
           </ul>
         </div>
         <section class="companyBtn">
-          <p @click="statusCancelHandle">取消</p>
+          <p @click="companyCancelHandle">取消</p>
           <p class="sure">确定</p>
         </section>
       </div>
     </div>
-    <div class="batteryWrapper" :style="{height:height +'px'}">
-      <component :is="showComponent"></component>
-      <div class="pb" @click="goToRegisterBattery" v-show="showComponent === 'battery'">
-        登记电池
-      </div>
-      <!-- <battery-list ref="batteryList"></battery-list> -->
+    <div class="alarmWraper">
+      <alarm-itme @showMap="showMap"></alarm-itme>
+    </div>
+    <div class="mapWrapper" :class="{'out': showPopupMap}">
+      <top-header>
+        <div slot="left" class="backIcon">
+          <i @click="closePopupMap" class="backIcon iconfont icon-back1"></i>
+        </div>
+        <div slot="mainTab">
+          告警位置
+        </div>
+      </top-header>
+      <div class="mapContent" id="mapContent"></div>
     </div>
   </div>
 </template>
@@ -82,7 +104,7 @@
 <script>
 import topHeader from '@/components/header/header';
 import Mixins from '@/mixins/monitor-mixin'
-// import batteryList from './batteryList/battery'
+import alarmItme from './alarmItem'
 
 const column1 = [
   { text: 'Text12346', value: '123456' },
@@ -95,8 +117,11 @@ const column1 = [
 export default {
   data () {
     return {
-      showComponent: 'battery',
-      height: 0,
+      showPopupMap: false,
+      searchArr: [],
+      startTime: '年/月/日',
+      endTime: '年/月/日',
+      moreSelect: false,
       showPopup: {
         wrap: false,
         company: false,
@@ -173,16 +198,6 @@ export default {
           ]
         }
       ],
-      searchArr: [
-        {
-          id: Math.random(),
-          name: '生产企业XXX'
-        }, {
-          id: Math.random(),
-          name: '生产企业XXX'
-        }
-
-      ],
       testCompany: [],
       companyData: [
         {
@@ -257,6 +272,11 @@ export default {
       ]
     };
   },
+  mixins: [Mixins],
+  components: {
+    topHeader,
+    alarmItme
+  },
   computed: {
     options () {
       return {
@@ -265,42 +285,51 @@ export default {
       }
     }
   },
-  mixins: [Mixins],
-  components: {
-    topHeader,
-    'battery': () => import('./batteryList/battery'),
-    'batteryMap': () => import('./batteryList/batteryMap')
-  },
-  created () {
-
-  },
   mounted () {
-    // this.$refs.batteryList.jisuan(1, 2, 3)
-    /*
-    * js 计算出 电池列表内容区域的高度
-    * 40 : header 组件的高度
-    */
-    this.height = this.getOffsetHeight('batteryRunning') - this.getOffsetHeight('filterPart') - 40
+    this.mapInit()
   },
 
   methods: {
-    chooseItem (item) {
-      console.log(item)
-      item.choose = !item.choose
+    mapInit () {
+      const lang = sessionStorage.getItem('locale') === 'en' ? 'en' : 'zh_cn';
+      // eslint-disable-next-line
+      this.map = new AMap.Map('mapContent', {
+        resizeEnable: true,
+        zoom: 15,
+        lang
+      });
     },
-    swichMapOrList () {
-      if (this.showComponent === 'battery') {
-        this.showComponent = 'batteryMap';
-      } else {
-        this.showComponent = 'battery';
+    showMap ({ show }) {
+      console.log(show)
+      this.showPopupMap = show
+    },
+    closePopupMap () {
+      this.showPopupMap = false
+    },
+    timeSelect (type) {
+      this.TimeType = type
+      if (!this.datePicker) {
+        this.datePicker = this.$createDatePicker({
+          title: 'Date Picker',
+          max: new Date(2040, 9, 20),
+          value: new Date(),
+          onSelect: (data) => {
+            console.log('this.TimeType', this.TimeType)
+            if (this.TimeType === 'start') {
+              this.startTime = data
+            } else {
+              this.endTime = data
+            }
+          }
+        })
       }
-      this.companyCancelHandle()
+      this.datePicker.show()
     },
-    goToRegisterBattery () {
-      this.companyCancelHandle()
-      this.$router.push({
-        name: 'MonitorBatteryRegister'
-      })
+    showMoreSelect () {
+      if (this.moreSelect) {
+        this.companyCancelHandle()
+      }
+      this.moreSelect = !this.moreSelect
     },
     companyClick () {
       this.showPopup.wrap = true
@@ -313,14 +342,9 @@ export default {
       this.showPopup.status = false
       this.showPopup.company = false
     },
-    companyStatusClick () {
+    StatusClick () {
       this.showPopup.wrap = true
       this.showPopup.status = true
-      this.showPopup.company = false
-    },
-    statusCancelHandle () {
-      this.showPopup.wrap = false
-      this.showPopup.status = false
       this.showPopup.company = false
     },
     choosStatuItem (info, data) {
@@ -335,29 +359,17 @@ export default {
         this.picker = this.$createPicker({
           title: 'Picker',
           data: [column1],
-          onSelect: this.selectHandle,
-          onCancel: this.cancelHandle
+          onSelect: this.selectHandle
         })
       }
       this.picker.show()
     },
     selectHandle (selectedVal, selectedIndex, selectedText) {
-      // this.$createDialog({
-      //   type: 'warn',
-      //   content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-      //   icon: 'cubeic-alert'
-      // }).show()
-    },
-    cancelHandle () {
-      // this.$createToast({
-      //   type: 'correct',
-      //   txt: 'Picker canceled',
-      //   time: 1000
-      // }).show()
     }
   }
 
 }
+
 </script>
 <style lang='stylus' scoped>
 .backIcon
@@ -374,28 +386,31 @@ section
     &.sure
       background $color-project-blue
       color #ffffff
-.batteryRunning
+.batteryAlarm
   width 100vw
-  position relative
   height calc(100vh - 45px)
-  .batteryWrapper
-    width 100vw
-    position relative
-    .pb
-      position absolute
-      top 75%
-      right 20px
-      width 61px
-      height 61px
-      line-height 61px
-      color rgb(255, 255, 255)
-      background-color rgb(113, 191, 219)
-      font-size 14px
-      text-align center
-      border-radius 50%
-      transition transform 0.1s ease-in-out
-      box-shadow 0 5px 12px rgba(0, 0, 0, 0.175)
-      z-index 99
+  position relative
+  .mapWrapper
+    position absolute
+    top 0
+    right 0
+    bottom 0
+    left 0
+    z-index 119
+    background-color red
+    opacity 0
+    display none
+    transition all 1s ease-in
+    &.out
+      transition all 1s ease-in
+      opacity 1
+      display block
+    .mapContent
+      width 100%
+      height calc(100vh - 45px)
+      SetBorder(1px, top)
+  .alarmWraper
+    height calc(100% - 80px)
   .searchWarper
     display flex
     box-sizing border-box
@@ -445,12 +460,60 @@ section
               text-overflow ellipsis
     &>div
       flex 1
+  .timeSelect
+    height 40px
+    display flex
+    padding 0 20px 0 10px
+    align-items center
+    background-color $color-project-blue
+    .timeBtn
+      flex 0 0 60px
+      margin-left 10px
+      height 28px
+      line-height 28px
+      padding-left 5px
+      background #ffffff
+      box-sizing border-box
+      .iconfont
+        vertical-align middle
+        font-size 23px
+    .timeInfo
+      flex 1
+      font-size 0
+      span
+        vertical-align middle
+        text-align center
+        height 40px
+        line-height 40px
+        font-size 14px
+        display inline-block
+        width 10%
+        color #ffffff
+        &.timeInput
+          width 40%
+          height 28px
+          line-height 28px
+          font-size 14px
+          color #717171
+          text-align left
+          padding-left 8px
+          box-sizing border-box
+          background-color #ffffff
+          overflow hidden
+          text-overflow ellipsis
+          white-space nowrap
   .filterPart
+    position absolute
+    top 80px
+    left 0
+    width 100vw
+    box-sizing border-box
     padding 5px 10px
     display flex
     justify-content space-between
     align-items center
-    margin-top 5px
+    z-index 111
+    background-color #ffffff
     SetBorder(1px, bottom)
     &>.iconfont
       margin-right 8px
@@ -475,10 +538,11 @@ section
         color $icon-color-gray
   .popupWraper
     position absolute
-    top 85px
+    top 125px
     left 0
-    width 100%
     z-index 11
+    width 100vw
+    box-sizing border-box
     background-color #ffffff
     .company
       .production

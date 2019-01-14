@@ -13,11 +13,13 @@ const UserManager = () =>
   import(/* webpackChunkName: "UserManager" */ '@/views/home/userComponent/user-manager.vue');
 const CompanyManager = () =>
   import(/* webpackChunkName: "CompanyManager" */ '@/views/home/userComponent/company-manager.vue');
+
 const MonitorBattery = () =>
   import(/* webpackChunkName: "MonitorBattery" */ '@/views/Battery-Monitor/battery/battery.vue');
-
 const MonitorRegBattery = () =>
   import(/* webpackChunkName: "MonitorRegBattery" */ '@/views/Battery-Monitor/battery/component/batteryList/registerBattery.vue');
+const MonitorBatteryDetail = () =>
+  import(/* webpackChunkName: "MonitorBatteryDetail" */ '@/views/Battery-Monitor/battery/component/batteryList/batteryDetail.vue');
 
 const route = [
   {
@@ -75,6 +77,11 @@ const route = [
     path: '/monitor/battery-register',
     name: 'MonitorBatteryRegister',
     component: MonitorRegBattery
+  },
+  {
+    path: '/monitor/battery-detail',
+    name: 'MonitorBatteryDetail',
+    component: MonitorBatteryDetail
   },
   ...MonitorRoute
 ];

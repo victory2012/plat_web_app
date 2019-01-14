@@ -169,6 +169,7 @@ export default {
   font-size 20px
 .moreOptionWraper
   padding 10px
+  border-radius 5px
   background-color #868686
   li
     line-height 30px
@@ -176,7 +177,7 @@ export default {
   padding-top $header-height
   li
     display flex
-    padding 10px
+    padding 5px 10px
     .tit
       flex 0 0 100px
       line-height 40px

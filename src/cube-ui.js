@@ -27,11 +27,11 @@ import {
   // Upload,
   // Form,
   // popup
-  // Popup,
+  Popup,
   Toast,
   Picker,
   // CascadePicker,
-  // DatePicker,
+  DatePicker,
   // TimePicker,
   // SegmentPicker,
   Dialog,
@@ -67,11 +67,11 @@ Vue.use(Select);
 Vue.use(Validator);
 // Vue.use(Upload)
 // Vue.use(Form)
-// Vue.use(Popup)
+Vue.use(Popup);
 Vue.use(Toast);
 Vue.use(Picker);
 // Vue.use(CascadePicker)
-// Vue.use(DatePicker)
+Vue.use(DatePicker);
 // Vue.use(TimePicker)
 // Vue.use(SegmentPicker)
 Vue.use(Dialog);

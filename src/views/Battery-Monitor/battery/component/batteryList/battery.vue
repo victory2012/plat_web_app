@@ -22,7 +22,7 @@
       <div v-show="item.showBtn" class="itemHandle">
         <p>解绑</p>|
         <p>删除</p>|
-        <p>详情</p>
+        <p @click="DolookDetail(item)">详情</p>
       </div>
       <p @click.stop="showBtn(item)" :class="{'down': item.showBtn}" class="rightIcon">
         <span class="iconfont icon-right"></span>
@@ -201,10 +201,13 @@ export default {
     pullingUp () {
       console.log('pullingUp')
     },
+    DolookDetail (item) {
+      this.$router.push({
+        name: 'MonitorBatteryDetail'
+      })
+    },
     showBtn (item) {
       console.log(item)
-      // e.stopPropagation();
-
       item.showBtn = !item.showBtn
     }
   }

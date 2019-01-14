@@ -1,24 +1,21 @@
 <template>
   <div>
-    <alarm-list></alarm-list>
+    this is contrast page
   </div>
 </template>
 
 <script>
-import alarmList from './alarmList/alarmlist'
 
 export default {
   name: '',
   props: [''],
   data () {
     return {
-      componentId: 'alarm-list'
+
     };
   },
 
-  components: {
-    alarmList
-  },
+  components: {},
 
   mounted () { },
 

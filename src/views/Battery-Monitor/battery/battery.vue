@@ -1,54 +1,61 @@
 <template>
   <div>
-    <cube-slide :loop=false :auto-play=false :show-dots=false :initialIndex='initialIndex' :threshold='0.2' ref='slide'>
+    <cube-slide :loop=false :auto-play=false @change="slideChange" :show-dots=false :initialIndex='initialIndex' :threshold='0.2' ref='slide'>
       <cube-slide-item>
         <batteryAlarm></batteryAlarm>
       </cube-slide-item>
       <cube-slide-item>
         <batteryRunning></batteryRunning>
       </cube-slide-item>
+      <cube-slide-item>
+        <batteryContrast></batteryContrast>
+      </cube-slide-item>
     </cube-slide>
     <div class="footerBar">
-      <batteryFooter :tabs="tabs" :isSubTab="true" :defaultValue="tabs[1].link"></batteryFooter>
+      <batteryFooter @tabIndex="tabIndex" :tabs="tabs" :isSubTab="true" :defaultValue="selectedLabelDefault"></batteryFooter>
     </div>
   </div>
 </template>
 
 <script>
-import batteryRunning from './component/running'
+import { mapGetters } from 'vuex'
 import batteryFooter from '@/components/footer/footer'
+import batteryRunning from './component/running'
 import batteryAlarm from './component/alarm'
+import batteryContrast from './component/contrast'
 
 export default {
   data () {
     return {
-      selectedLabelDefault: 'run',
-      tabs: [
-        {
-          link: 'alarm',
-          label: '告警'
-        },
-        {
-          link: 'run',
-          label: '运行'
-        },
-        {
-          link: 'ratio',
-          label: '对比'
-        }
-      ],
-      initialIndex: 1
+      selectedLabelDefault: ''
     };
+  },
+  computed: {
+    ...mapGetters({
+      initialIndex: 'getMonitorBatteryIndex',
+      tabs: 'getMonitorBatteryFooter'
+    })
   },
   components: {
     batteryRunning,
     batteryFooter,
-    batteryAlarm
+    batteryAlarm,
+    batteryContrast
   },
-  mounted () { },
+  mounted () {
+    this.selectedLabelDefault = this.tabs[1].link
+  },
 
   methods: {
-    clickHandler () {}
+    clickHandler () { },
+    tabIndex (index) {
+      console.log(index);
+      this.$store.commit('setMinitorBatteryIndex', index)
+    },
+    slideChange (index) {
+      console.log(index);
+      this.selectedLabelDefault = this.tabs[index].link
+    }
   }
 
 }

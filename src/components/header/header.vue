@@ -52,9 +52,11 @@ export default {
     left 0
     top 0
     right 0
-    z-index 99
+    z-index 101
   .header-title
     flex 1
-  .header-button
+  .is-left
     flex 0 0 35px
+  .is-right
+    flex 0 0 45px
 </style>

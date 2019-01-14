@@ -1,11 +1,19 @@
 <template>
   <div class="mapWrapper">
-    <div class="mapContentBattery" id="mapContentBattery"></div>
+    <top-header>
+      <div slot="left" class="backIcon">
+        <i @click="goBack" class="backIcon iconfont icon-back1"></i>
+      </div>
+      <div class="searchWarper" slot="mainTab">
+        告警位置
+      </div>
+    </top-header>
+    <div class="mapContent" id="mapContent"></div>
   </div>
 </template>
 
 <script>
-
+import topHeader from '@/components/header/header';
 export default {
   name: '',
   props: [''],
@@ -15,7 +23,9 @@ export default {
     };
   },
 
-  components: {},
+  components: {
+    topHeader
+  },
 
   mounted () {
     this.mapInit()
@@ -25,11 +35,14 @@ export default {
     mapInit () {
       const lang = sessionStorage.getItem('locale') === 'en' ? 'en' : 'zh_cn';
       // eslint-disable-next-line
-      this.map = new AMap.Map('mapContentBattery', {
+      this.map = new AMap.Map('mapContent', {
         resizeEnable: true,
         zoom: 15,
         lang
       });
+    },
+    goBack () {
+
     }
   }
 
@@ -40,7 +53,7 @@ export default {
 .mapWrapper
   height 100%
   width 100%
-  .mapContentBattery
+  .mapContent
     width 100%
     height 100%
 </style>
