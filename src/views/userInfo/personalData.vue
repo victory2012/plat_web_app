@@ -31,7 +31,7 @@ export default {
   components: {
     topHeader
   },
-  data() {
+  data () {
     return {
       list: [{
         title: '昵称',
@@ -75,10 +75,10 @@ export default {
     }
   },
   methods: {
-    handleBack() {
+    handleBack () {
       this.$router.push({ name: 'HomeMe' })
     },
-    redactMessage() {
+    redactMessage () {
       if (this.redact === '编辑') {
         this.redact = '保存';
       } else if (this.redact === '保存') {
@@ -86,16 +86,16 @@ export default {
       }
       this.saveChecked = !this.saveChecked;
     },
-    processFile(file, next) {
-      compress(file, {
-        compress: {
-          width: 1600,
-          height: 1600,
-          quality: 0.5
-        }
-      }, next)
+    processFile (file, next) {
+      // compress(file, {
+      //   compress: {
+      //     width: 1600,
+      //     height: 1600,
+      //     quality: 0.5
+      //   }
+      // }, next)
     },
-    fileSubmitted(file) {
+    fileSubmitted (file) {
       file.base64Value = file.file.base64
     }
   }
