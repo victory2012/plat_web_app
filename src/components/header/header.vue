@@ -63,4 +63,24 @@ export default {
     flex: 0 0 35px;
   }
 }
+
+text-align center, background-color $header-bg-color, box-shadow $header-shadow, &.is-fixed {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 101;
+}
+
+.header-title {
+  flex: 1;
+}
+
+.is-left {
+  flex: 0 0 35px;
+}
+
+.is-right {
+  flex: 0 0 45px;
+}
 </style>

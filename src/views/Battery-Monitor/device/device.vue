@@ -1,8 +1,11 @@
 <template>
   <div>
     <top-header fixed>
+      <div slot="left">
+        <i class="cubeic-search"></i>
+      </div>
       <div slot="mainTab">
-        <cube-input class="input"><i class="cubeic-search"></i></cube-input>
+        <cube-input class="input"></cube-input>
       </div>
       <div slot="right" class="rightBtn">
         <div class="closeIcon">
@@ -25,6 +28,7 @@
         <equipment-list></equipment-list>
       </cube-scroll>
     </div>
+    <div class="register" @click="register">注册设备</div>
   </div>
 </template>
 
@@ -52,12 +56,28 @@ export default {
     },
     changes() {
       this.$router.push()
+    },
+    register() {
+      this.$router.push({ name: 'register' })
     }
   }
 }
 </script>
 <style lang='stylus' scoped>
 @import '../../../theme.styl';
+
+.register {
+  height: 1.7rem;
+  width: 1.7rem;
+  border-radius: 50%;
+  background: #0099ff;
+  color: white;
+  position: fixed;
+  right: 0.5rem;
+  bottom: 1.5rem;
+  line-height: 1.7rem;
+  text-align: center;
+}
 
 .closeIcon {
   padding: 0 1.24rem;

@@ -40,7 +40,7 @@ export default {
   },
   name: '',
   props: [''],
-  data () {
+  data() {
     return {
       items: [],
       nickname: '昵称',
@@ -48,24 +48,24 @@ export default {
     };
   },
 
-  mounted () { },
+  mounted() { },
 
   methods: {
-    handleBack (e) {
+    handleBack(e) {
       console.log('handleBack');
       e.stopPropagation();
     },
-    right (e) {
+    right(e) {
       console.log('right');
       e.stopPropagation();
     },
-    personalData () {
+    personalData() {
       this.$router.push({ name: 'personalData' });
     },
-    changePassword () {
+    changePassword() {
       this.$router.push({ name: 'changePassword' });
     },
-    logout () {
+    logout() {
       this.$createDialog({
         type: 'confirm',
         icon: 'cubeic-alert',

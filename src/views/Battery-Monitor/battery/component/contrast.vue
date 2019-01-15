@@ -1,6 +1,6 @@
 <template>
   <div>
-    this is alarm page
+    this is contrast page
   </div>
 </template>
 

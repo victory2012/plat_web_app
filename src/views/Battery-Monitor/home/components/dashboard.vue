@@ -65,7 +65,8 @@ export default {
 };
 </script>
 <style lang="stylus" scoped>
-.chat
-  width 100vw
-  height 240px
+.chat {
+  width: 100vw;
+  height: 200px;
+}
 </style>

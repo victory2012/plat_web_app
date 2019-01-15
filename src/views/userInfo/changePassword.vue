@@ -19,6 +19,15 @@
       </div>
     </div>
     <cube-button type="submit" class="SubmitBtn" @click="submitFrom()">确认修改</cube-button>
+    <!-- <p>账号:</p>
+        <cube-input class="input" placeholder="请输入账号" v-model="submit.account"></cube-input>
+      </div>
+      <div class="password flex">
+        <p>密码:</p>
+        <cube-input class="input" type='password' placeholder="请输入密码" v-model="submit.password"></cube-input>
+      </div>
+    </div>
+    <cube-button type="submit" class="SubmitBtn" @click="submitFrom()">Submit Button</cube-button> -->
   </div>
 </template>
 
@@ -39,6 +48,11 @@ export default {
     handleBack() {
       this.$router.push({ name: 'HomeMe' });
     },
+    submitFrom() { },
+    handleBack() {
+      this.$router.push({ name: 'HomeMe' });
+    }
+    ,
     submitFrom() {
       this.$createDialog({
         type: 'alert',
@@ -51,6 +65,8 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
+@import './personalData.styl';
+
 .changes {
   box-sizing: border-box;
   padding-top: $header-height;

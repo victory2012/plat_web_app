@@ -22,7 +22,7 @@ export default {
   components: {
     footerBar
   },
-  data () {
+  data() {
     return {
       routerIndex: 0,
       tabs: [],
@@ -42,19 +42,24 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
-.home
-  height 100%
-  .homeBody
-    width 100%
-    height 100%
-  .footerBar
-    box-shadow $footer-shadow
-    position fixed
-    left 0
-    right 0
-    bottom 0
-    height $footer-height
-    font-size 12px
-    z-index 100
-    background-color $btn-primary-color
+.home {
+  height: 100%;
+
+  .homeBody {
+    width: 100%;
+    height: 100%;
+  }
+
+  .footerBar {
+    box-shadow: $footer-shadow;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: $footer-height;
+    font-size: 12px;
+    z-index: 100;
+    background-color: $btn-primary-color;
+  }
+}
 </style>

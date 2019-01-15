@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="(list,index) in list" :key=index>
+    <div v-for="(list,index) in list" :key='index'>
       <hr>
       <div class="first">
         <div>
@@ -14,8 +14,8 @@
           <h2>{{list.serial}}</h2>
           <h2>电池编号</h2>
         </div>
-        <div>
-          <i class="cubeic-arrow" ref="pull" @click="pullDown()"></i>
+        <div class="selectBtn">
+          <span :class="list.checked ? 'cubeic-select' : 'cubeic-arrow'" ref="pull" @click="pullDown(list)"></span>
         </div>
       </div>
       <div class="second">
@@ -37,7 +37,7 @@
           <cube-button class="btn" @click="realData">查看</cube-button>
         </div>
       </div>
-      <div class="fourth" v-show="chicked">
+      <div class="fourth" v-show="list.checked">
         <span>删除</span>
         <span>激活</span>
         <span>拉黑</span>
@@ -50,7 +50,8 @@
 export default {
   data() {
     return {
-      chicked: false,
+      checked: true,
+      item: null,
       list: [{
         equipment: '1230099111',
         serial: '48',
@@ -60,7 +61,8 @@ export default {
         activation: '激活中',
         onLine: '在线',
         binding: '已绑定',
-        time: '2018-01-20 01:11'
+        time: '2018-01-20 01:11',
+        checked: false
       }, {
         equipment: '1230099111',
         serial: '48',
@@ -70,7 +72,8 @@ export default {
         activation: '激活中',
         onLine: '在线',
         binding: '已绑定',
-        time: '2018-01-20 01:11'
+        time: '2018-01-20 01:11',
+        checked: false
       }, {
         equipment: '1230099111',
         serial: '48',
@@ -80,7 +83,8 @@ export default {
         activation: '激活中',
         onLine: '在线',
         binding: '已绑定',
-        time: '2018-01-20 01:11'
+        time: '2018-01-20 01:11',
+        checked: false
       }, {
         equipment: '1230099111',
         serial: '48',
@@ -90,7 +94,8 @@ export default {
         activation: '激活中',
         onLine: '在线',
         binding: '已绑定',
-        time: '2018-01-20 01:11'
+        time: '2018-01-20 01:11',
+        checked: false
       }, {
         equipment: '1230099111',
         serial: '48',
@@ -100,14 +105,15 @@ export default {
         activation: '激活中',
         onLine: '在线',
         binding: '已绑定',
-        time: '2018-01-20 01:11'
+        time: '2018-01-20 01:11',
+        checked: false
       }]
     }
   },
   methods: {
-    pullDown() {
-      this.chicked = !this.chicked
-      if (this.chicked) {
+    pullDown(list) {
+      list.checked = !list.checked;
+      if (list.checked) {
         this.$refs.pull.className = 'cubeic-select';
       } else {
         this.$refs.pull.className = 'cubeic-arrow';
@@ -124,12 +130,26 @@ export default {
 .first {
   display: flex;
 
+  .selectBtn {
+    margin-top: 0.2rem;
+  }
+
+  div {
+    margin-left: 0.5rem;
+
+    h2 {
+      font-weight: bold;
+      font-size: 0.3 0.5rem;
+    }
+  }
+
   .bindingState {
-    width: 1rem;
-    height: 0.6rem;
+    width: 1.2rem;
+    height: 0.5rem;
     background: #519af2;
     border-radius: 0.3rem;
     margin-top: 0.3rem;
+    line-height: 0.5rem;
 
     .binding {
       color: white;
@@ -173,7 +193,6 @@ export default {
       padding: 0 0.4rem;
       flex: 1;
       text-align: left;
-      color: red;
     }
 
     p {

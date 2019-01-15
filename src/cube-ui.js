@@ -5,7 +5,7 @@ import Vue from 'vue';
 // Style is always required.
 import {
     /* eslint-disable no-unused-vars */
-    Style,
+    // Style,
     // basic
     Button,
     Loading,
@@ -28,12 +28,12 @@ import {
     // Form,
     Popup,
     Toast,
-    // Picker,
+    Picker,
     // CascadePicker,
     // DatePicker,
     // TimePicker,
     // SegmentPicker,
-    // Dialog,
+    Dialog,
     ActionSheet,
     // Drawer,
     // ImagePreview,
@@ -85,7 +85,50 @@ import {
     IndexList,
     // Swipe,
     // Sticky,
-    RecycleList
+    RecycleList,
+    // ScrollNav,
+    // ScrollNavBar
+    /* eslint-disable no-unused-vars */
+    Style,
+    // basic
+    // Button,
+    // Loading,
+    // Tip,
+    // Toolbar,
+    // TabBar,
+    // TabPanels,
+    // form
+    // Checkbox,
+    // CheckboxGroup,
+    // Radio,
+    // RadioGroup,
+    // Input,
+    // Textarea,
+    // Select,
+    // Switch,
+    // Rate,
+    // Validator,
+    // Upload,
+    // Form,
+    // popup
+    // Popup,
+    // Toast,
+    // Picker,
+    // CascadePicker,
+    DatePicker,
+    // TimePicker,
+    // SegmentPicker,
+    // Dialog,
+    // ActionSheet,
+    // Drawer,
+    // ImagePreview,
+    // scroll
+    // Scroll,
+    // Slide,
+    // IndexList,
+    // Swipe,
+    // Sticky,
+    // RecycleList,
     // ScrollNav,
     // ScrollNavBar
 } from 'cube-ui';
@@ -109,13 +152,20 @@ Vue.use(Validator);
 Vue.use(Upload)
     // Vue.use(Form)
 Vue.use(Popup)
+Vue.use(Select);
+// Vue.use(Switch)
+// Vue.use(Rate)
+Vue.use(Validator);
+// Vue.use(Upload)
+// Vue.use(Form)
+Vue.use(Popup);
 Vue.use(Toast);
-// Vue.use(Picker)
+Vue.use(Picker);
 // Vue.use(CascadePicker)
-// Vue.use(DatePicker)
+Vue.use(DatePicker);
 // Vue.use(TimePicker)
 // Vue.use(SegmentPicker)
-// Vue.use(Dialog)
+Vue.use(Dialog);
 Vue.use(ActionSheet);
 // Vue.use(Drawer)
 // Vue.use(ImagePreview)

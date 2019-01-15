@@ -17,27 +17,27 @@
       </div>
     </top-header>
     <div class="slide-wrapper">
-      <cube-slide :loop=false :auto-play=false :show-dots=false :initialIndex='initialIndex' :threshold='0.2' ref='slide'>
+      <!-- <cube-slide :loop=false :auto-play=false :show-dots=false :initialIndex='initialIndex' :threshold='0.2' ref='slide'>
         <cube-slide-item>
           <user-manager></user-manager>
         </cube-slide-item>
         <cube-slide-item>
           <company-manager></company-manager>
         </cube-slide-item>
-      </cube-slide>
+      </cube-slide> -->
+      <component :is="showComponent"></component>
     </div>
   </div>
 </template>
 
 <script>
 import topHeader from '@/components/header/header'
-import userManager from './userComponent/user-manager'
-import companyManager from './userComponent/company-manager'
 
 export default {
-  data () {
+  data() {
     return {
       selectedLabelDefault: 'User',
+      showComponent: 'User',
       tabs: [{
         label: 'User',
         name: '用户管理'
@@ -50,32 +50,27 @@ export default {
   },
   components: {
     topHeader,
-    userManager,
-    companyManager
+    'User': () => import('./userComponent/user-manager'),
+    'Company': () => import('./userComponent/company-manager')
   },
 
-  mounted () {
-    const activeName = this.$route.name;
-    if (activeName === 'HomeUser') {
-      this.userManager = true
-    } else {
-      this.userManager = false
-    }
+  mounted() {
   },
   methods: {
-    clickHandler (name) {
+    clickHandler(name) {
       console.log('clickHandler name', name);
-      this.initialIndex = this.tabs.findIndex(item => {
-        return item.label === name
-      })
+      this.showComponent = name
+      // this.initialIndex = this.tabs.findIndex(item => {
+      //   return item.label === name
+      // })
     },
-    toUserManager () {
+    toUserManager() {
       this.userManager = true;
       this.$router.push({
         name: 'HomeUser'
       })
     },
-    toCompanyManager () {
+    toCompanyManager() {
       this.userManager = false;
       this.$router.push({
         name: 'companyManager'
@@ -87,27 +82,35 @@ export default {
 
 </script>
 <style lang='stylus' scoped>
-.user-wrapper
-  width 100%
-  height 100%
-  .slide-wrapper
-    position fixed
-    top contentFixedTop(5)
-    left 0
-    bottom contentFixedBottom(0)
-    -webkit-overflow-scrolling touch
-    overflow scroll
-    overflow-scrolling touch
-    width 100%
-  .userTab
-    margin 3px auto
-    width 80%
-    overflow hidden
-    height 32px
-    border 1px solid $color-project-blue
-    border-radius 3px
-    .userSetClass
-      &.cube-tab_active
-        color #ffffff
-        background-color $color-project-blue
+.user-wrapper {
+  width: 100%;
+  height: 100%;
+
+  .slide-wrapper {
+    position: fixed;
+    top: contentFixedTop(5);
+    left: 0;
+    bottom: contentFixedBottom(0);
+    -webkit-overflow-scrolling: touch;
+    overflow: scroll;
+    overflow-scrolling: touch;
+    width: 100%;
+  }
+
+  .userTab {
+    margin: 3px auto;
+    width: 80%;
+    overflow: hidden;
+    height: 32px;
+    border: 1px solid $color-project-blue;
+    border-radius: 3px;
+
+    .userSetClass {
+      &.cube-tab_active {
+        color: #ffffff;
+        background-color: $color-project-blue;
+      }
+    }
+  }
+}
 </style>
