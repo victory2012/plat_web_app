@@ -10,15 +10,15 @@
     </top-header>
     <div class="changePassword">
       <div class="account flex">
-        <p>账号:</p>
-        <cube-input class="input" placeholder="请输入账号" v-model="submit.account"></cube-input>
+        <p>旧密码:</p>
+        <cube-input class="input" placeholder="请输入旧密码" v-model="submit.account"></cube-input>
       </div>
       <div class="password flex">
-        <p>密码:</p>
-        <cube-input class="input" type='password' placeholder="请输入密码" v-model="submit.password"></cube-input>
+        <p>新密码:</p>
+        <cube-input class="input" type='password' placeholder="请输入新密码" v-model="submit.password"></cube-input>
       </div>
     </div>
-    <cube-button type="submit" class="SubmitBtn" @click="submitFrom()">Submit Button</cube-button>
+    <cube-button type="submit" class="SubmitBtn" @click="submitFrom()">确认修改</cube-button>
   </div>
 </template>
 
@@ -26,7 +26,7 @@
 import topHeader from '@/components/header/header'
 
 export default {
-  data () {
+  data() {
     return {
       submit: { account: '123', password: 'iii' },
       title: '修改密码'
@@ -36,10 +36,10 @@ export default {
     topHeader
   },
   methods: {
-    handleBack () {
+    handleBack() {
       this.$router.push({ name: 'HomeMe' });
     },
-    submitFrom () {
+    submitFrom() {
       this.$createDialog({
         type: 'alert',
         title: '修改成功',
@@ -51,8 +51,6 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import './personalData.styl';
-
 .changes {
   box-sizing: border-box;
   padding-top: $header-height;

@@ -9,7 +9,7 @@
 export default {
   name: '',
   props: [''],
-  data () {
+  data() {
     return {
 
     };
@@ -17,7 +17,7 @@ export default {
 
   components: {},
 
-  mounted () { },
+  mounted() { },
 
   methods: {}
 
