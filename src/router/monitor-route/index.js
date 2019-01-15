@@ -6,8 +6,7 @@ const MonitorHome = () =>
 //   import(/* webpackChunkName: "MonitorBattery" */ '@/views/Battery-Monitor/battery/battery.vue');
 const MonitorDevice = () =>
   import(/* webpackChunkName: "MonitorDevice" */ '@/views/Battery-Monitor/device/device.vue');
-const MonitorFence = () =>
-  import(/* webpackChunkName: "MonitorFence" */ '@/views/Battery-Monitor/fence/fence.vue');
+
 const MonitorAlarm = () =>
   import(/* webpackChunkName: "MonitorAlarm" */ '@/views/Battery-Monitor/alarm/alarm.vue');
 
@@ -30,11 +29,6 @@ const route = [
         path: '/monitor/device',
         name: 'MonitorDevice',
         component: MonitorDevice
-      },
-      {
-        path: '/monitor/fence',
-        name: 'MonitorFence',
-        component: MonitorFence
       },
       {
         path: '/monitor/warn',

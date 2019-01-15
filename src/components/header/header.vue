@@ -57,6 +57,8 @@ export default {
     flex 1
   .is-left
     flex 0 0 35px
+    .iconfont
+      font-size 20px
   .is-right
     flex 0 0 45px
 </style>

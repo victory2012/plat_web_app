@@ -457,7 +457,7 @@ section
       font-size 20px
       color $icon-color-gray
     .select
-      flex 0 0 80px
+      flex 0 0 100px
       line-height 30px
       height 30px
       display flex

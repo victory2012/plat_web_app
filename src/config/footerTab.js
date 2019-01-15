@@ -39,17 +39,22 @@ export function monitorFooterBar () {
  */
 export function monitorBatteryFooterBar () {
   return [
-    {
-      link: 'alarm',
-      label: '告警'
-    },
-    {
-      link: 'run',
-      label: '运行'
-    },
-    {
-      link: 'ratio',
-      label: '对比'
-    }
+    { link: 'MonitorBattery', label: '运行' },
+    { link: 'MonitorBatteryAlarm', label: '告警' },
+    { link: 'MonitorBatteryContrast', label: '对比' }
+  ];
+}
+/**
+ * @function monitorFenceFooterBar
+ * @desc 电池检测 子项目的围栏 footerTab数据配置
+ * @desc label： 显示的文字
+ * @desc icon：  显示的图标
+ * @desc link：  和路由配置中的 name属性一直，作为路由跳转使用
+ */
+export function monitorFenceFooterBar () {
+  return [
+    { link: 'MonitorFence', label: '围栏' },
+    { link: 'MonitorThreshold', label: '阈值' },
+    { link: 'MonitorNotice', label: '通知' }
   ];
 }

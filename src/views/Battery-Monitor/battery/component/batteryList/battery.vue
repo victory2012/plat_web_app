@@ -24,7 +24,7 @@
         <p>删除</p>|
         <p @click="DolookDetail(item)">详情</p>
       </div>
-      <p @click.stop="showBtn(item)" :class="{'down': item.showBtn}" class="rightIcon">
+      <p @click="showHandleBtn(item)" :class="{'down': item.showBtn}" class="rightIcon">
         <span class="iconfont icon-right"></span>
       </p>
     </div>
@@ -189,7 +189,7 @@ export default {
         pullDownRefresh: this.pullDownRefreshObj,
         pullUpLoad: this.pullUpLoadObj,
         scrollbar: true,
-        click: false
+        click: true
       }
     }
   },
@@ -206,7 +206,7 @@ export default {
         name: 'MonitorBatteryDetail'
       })
     },
-    showBtn (item) {
+    showHandleBtn (item) {
       console.log(item)
       item.showBtn = !item.showBtn
     }
@@ -255,7 +255,7 @@ export default {
     justify-content space-between
     &>p
       margin-right 5px
-      font-size 13px
+      font-size 12px
       color #464646
   .itemHandle
     margin 30px 0 10px

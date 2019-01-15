@@ -1,6 +1,6 @@
 <template>
   <div>
-    <cube-slide :loop=false :auto-play=false @change="slideChange" :show-dots=false :initialIndex='initialIndex' :threshold='0.2' ref='slide'>
+    <!-- <cube-slide :loop=false :auto-play=false @change="slideChange" :show-dots=false :initialIndex='initialIndex' :threshold='0.2' ref='slide'>
       <cube-slide-item>
         <batteryAlarm></batteryAlarm>
       </cube-slide-item>
@@ -10,9 +10,10 @@
       <cube-slide-item>
         <batteryContrast></batteryContrast>
       </cube-slide-item>
-    </cube-slide>
+    </cube-slide> -->
+    <router-view></router-view>
     <div class="footerBar">
-      <batteryFooter @tabIndex="tabIndex" :tabs="tabs" :isSubTab="true" :defaultValue="selectedLabelDefault"></batteryFooter>
+      <batteryFooter @tabIndex="tabIndex" :tabs="tabs" :defaultValue="selectedLabelDefault"></batteryFooter>
     </div>
   </div>
 </template>
@@ -20,9 +21,6 @@
 <script>
 import { mapGetters } from 'vuex'
 import batteryFooter from '@/components/footer/footer'
-import batteryRunning from './component/running'
-import batteryAlarm from './component/alarm'
-import batteryContrast from './component/contrast'
 
 export default {
   data () {
@@ -37,13 +35,10 @@ export default {
     })
   },
   components: {
-    batteryRunning,
-    batteryFooter,
-    batteryAlarm,
-    batteryContrast
+    batteryFooter
   },
   mounted () {
-    this.selectedLabelDefault = this.tabs[1].link
+    this.selectedLabelDefault = this.tabs[0].link
   },
 
   methods: {

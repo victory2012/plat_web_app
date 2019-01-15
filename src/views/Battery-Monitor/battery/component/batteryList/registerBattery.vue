@@ -85,7 +85,7 @@
         </div>
       </li>
     </ul>
-    <moreOptions v-on:onchange="changeHandle" :showComponent="showMore">
+    <moreOptions @onchange="changeHandle" :showComponent="showMore">
       <div slot="options">
         <ul class="moreOptionWraper">
           <li @click="showAlert(item)" v-for="item in moreOptions" :key="item.id">{{item.name}}</li>

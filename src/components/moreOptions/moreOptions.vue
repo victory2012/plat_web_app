@@ -4,7 +4,7 @@
       <p class="icon">
         <span class="iconfont"></span>
       </p>
-      <slot class="options" name="options">asdasd</slot>
+      <slot class="options" name="options"></slot>
     </div>
   </div>
 </template>

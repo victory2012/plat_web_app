@@ -2,9 +2,9 @@
   <div class="mapWrapper">
     <top-header>
       <div slot="left" class="backIcon">
-        <i @click="goBack" class="backIcon iconfont icon-back1"></i>
+        <i @click="closeLocaltionMap" class="backIcon iconfont icon-back1"></i>
       </div>
-      <div class="searchWarper" slot="mainTab">
+      <div slot="mainTab">
         告警位置
       </div>
     </top-header>
@@ -41,8 +41,10 @@ export default {
         lang
       });
     },
-    goBack () {
-
+    closeLocaltionMap () {
+      this.$router.push({
+        name: 'MonitorBatteryAlarm'
+      })
     }
   }
 
@@ -51,9 +53,9 @@ export default {
 </script>
 <style lang='stylus' scoped>
 .mapWrapper
-  height 100%
   width 100%
+  height calc(100vh - 45px)
   .mapContent
     width 100%
-    height 100%
+    height calc(100vh - 45px)
 </style>
