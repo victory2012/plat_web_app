@@ -37,50 +37,28 @@ export default {
 };
 </script>
 <style lang="stylus" scoped>
-@import '../../theme.styl';
+@import '../../theme.styl'
 
-.mint-header {
-  display: flex;
-  height: $header-height;
-  line-height: $header-height;
+.mint-header
+  display flex
+  height $header-height
+  line-height $header-height
   // font-size 16px
-  text-align: center;
-  background-color: $header-bg-color;
-  box-shadow: $header-shadow;
-
-  &.is-fixed {
-    position: fixed;
-    left: 0;
-    top: 0;
-    right: 0;
-  }
-
-  .header-title {
-    flex: 1;
-  }
-
-  .header-button {
-    flex: 0 0 35px;
-  }
-}
-
-text-align center, background-color $header-bg-color, box-shadow $header-shadow, &.is-fixed {
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  z-index: 101;
-}
-
-.header-title {
-  flex: 1;
-}
-
-.is-left {
-  flex: 0 0 35px;
-}
-
-.is-right {
-  flex: 0 0 45px;
-}
+  text-align center
+  background-color $header-bg-color
+  box-shadow $header-shadow
+  &.is-fixed
+    position fixed
+    left 0
+    top 0
+    right 0
+    z-index 101
+  .header-title
+    flex 1
+  .is-left
+    flex 0 0 35px
+    .iconfont
+      font-size 20px
+  .is-right
+    flex 0 0 45px
 </style>

@@ -85,11 +85,11 @@ import topHeader from '../../../components/header/header.vue';
 import eChacts from './echacts'
 export default {
   components: { topHeader, eChacts },
-  data() {
+  data () {
     return {}
   },
   methods: {
-    goBack() {
+    goBack () {
       this.$router.push({ name: 'MonitorDevice' });
     }
   }

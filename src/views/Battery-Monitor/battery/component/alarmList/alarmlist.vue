@@ -281,7 +281,7 @@ export default {
     options () {
       return {
         scrollbar: false, // 是否显示滚动条
-        click: false
+        click: true
       }
     }
   },

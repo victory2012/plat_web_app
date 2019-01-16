@@ -46,7 +46,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       checked: true,
       item: null,
@@ -142,7 +142,7 @@ export default {
     }
   },
   methods: {
-    pullDown(list) {
+    pullDown (list) {
       list.checked = !list.checked;
       if (list.checked) {
         this.$refs.pull.className = 'cubeic-select';
@@ -150,7 +150,7 @@ export default {
         this.$refs.pull.className = 'cubeic-arrow';
       }
     },
-    realData() {
+    realData () {
       this.$router.push({ name: 'realData' })
     }
   }

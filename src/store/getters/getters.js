@@ -7,5 +7,8 @@ export default {
   },
   getMonitorBatteryFooter (state) {
     return state.BatteryFooterBar;
+  },
+  getMonitorFenceFooter (state) {
+    return state.MoniterFenceTab;
   }
 };

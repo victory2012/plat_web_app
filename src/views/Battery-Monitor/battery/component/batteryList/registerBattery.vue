@@ -85,7 +85,7 @@
         </div>
       </li>
     </ul>
-    <moreOptions v-on:onchange="changeHandle" :showComponent="showMore">
+    <moreOptions @onchange="changeHandle" :showComponent="showMore">
       <div slot="options">
         <ul class="moreOptionWraper">
           <li @click="showAlert(item)" v-for="item in moreOptions" :key="item.id">{{item.name}}</li>
@@ -101,7 +101,7 @@ import moreOptions from '@/components/moreOptions/moreOptions'
 export default {
   name: '',
   props: [''],
-  data() {
+  data () {
     return {
       moreOptions: [
         {
@@ -128,21 +128,21 @@ export default {
     moreOptions
   },
 
-  mounted() { },
+  mounted () { },
 
   methods: {
-    back() {
+    back () {
       this.$router.push({
         name: 'MonitorBattery'
       })
     },
-    addMore() {
+    addMore () {
       this.showMore = !this.showMore
     },
-    changeHandle({ showOrhide }) {
+    changeHandle ({ showOrhide }) {
       this.showMore = showOrhide
     },
-    showAlert(item) {
+    showAlert (item) {
       this.dialog = this.$createDialog({
         type: 'prompt',
         title: item.name,
@@ -165,35 +165,22 @@ export default {
 
 </script>
 <style lang='stylus' scoped>
-.backIcon {
-  font-size: 20px;
-}
-
-.moreOptionWraper {
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #868686;
-
-  li {
-    line-height: 30px;
-  }
-}
-
-.addwraper {
-  padding-top: $header-height;
-
-  li {
-    display: flex;
-    padding: 5px 10px;
-
-    .tit {
-      flex: 0 0 100px;
-      line-height: 40px;
-    }
-
-    .inputContent {
-      flex: 1;
-    }
-  }
-}
+.backIcon
+  font-size 20px
+.moreOptionWraper
+  padding 10px
+  border-radius 5px
+  background-color #868686
+  li
+    line-height 30px
+.addwraper
+  padding-top $header-height
+  li
+    display flex
+    padding 5px 10px
+    .tit
+      flex 0 0 100px
+      line-height 40px
+    .inputContent
+      flex 1
 </style>

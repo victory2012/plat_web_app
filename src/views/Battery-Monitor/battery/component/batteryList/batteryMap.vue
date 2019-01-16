@@ -9,7 +9,7 @@
 export default {
   name: '',
   props: [''],
-  data() {
+  data () {
     return {
 
     };
@@ -17,12 +17,12 @@ export default {
 
   components: {},
 
-  mounted() {
+  mounted () {
     this.mapInit()
   },
 
   methods: {
-    mapInit() {
+    mapInit () {
       const lang = sessionStorage.getItem('locale') === 'en' ? 'en' : 'zh_cn';
       // eslint-disable-next-line
       this.map = new AMap.Map('mapContentBattery', {
@@ -37,13 +37,10 @@ export default {
 
 </script>
 <style lang='stylus' scoped>
-.mapWrapper {
-  height: 100%;
-  width: 100%;
-
-  .mapContentBattery {
-    width: 100%;
-    height: 100%;
-  }
-}
+.mapWrapper
+  height 100%
+  width 100%
+  .mapContentBattery
+    width 100%
+    height 100%
 </style>
