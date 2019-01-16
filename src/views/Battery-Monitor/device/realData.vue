@@ -188,30 +188,34 @@ export default {
 
   .realBtn {
     display: flex;
+    padding: 0.3rem 0;
 
     .cube-btn {
-      height: 1rem;
+      height: 0.95rem;
       width: 2.6rem;
       border-radius: 0.2rem;
       line-height: 0.1rem;
       background: white;
       border: 1px solid black;
       color: black;
+      margin-right: 0.5rem;
     }
   }
 
   .realFrom {
-    width: 100%;
+    width: 9.8rem;
+    margin: 0 auto;
+    margin-top: -0.8rem;
   }
 }
 
 .realBtn {
   display: flex;
   line-height: 1rem;
-  margin: 0.4rem 0 0.4rem 0.5rem;
+  margin: 0.3rem 0 0.4rem 0.55rem;
 
   span {
-    font-size: 0.45rem;
+    font-size: 0.48rem;
     width: 6rem;
   }
 

@@ -40,6 +40,6 @@ export default {
 <style scoped lang="stylus">
 #main {
   width: 9.8rem;
-  height: 8rem;
+  height: 7rem;
 }
 </style>
