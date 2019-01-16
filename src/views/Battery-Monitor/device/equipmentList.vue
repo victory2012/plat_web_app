@@ -1,7 +1,6 @@
 <template>
   <div>
-    <div v-for="(list,index) in list" :key='index'>
-      <hr>
+    <div v-for="(list,index) in list" :key='index' class="list">
       <div class="first">
         <div>
           <h2>{{list.equipment}}</h2>
@@ -20,18 +19,17 @@
       </div>
       <div class="second">
         <div>
-          <span>电池型号</span>
-          <span>{{list.model}}</span>
-          <span>电池组规格{{list.specification}}</span>
-          <span>额定电压{{list.pressure}}V</span>
+          <span>电池型号:{{list.model}}</span>
+          <span>电池组规格:{{list.specification}}</span>
+          <span>额定电压:{{list.pressure}}V</span>
         </div>
       </div>
-      <div class="third">
+      <div class="third" v-show="list.checked">
         <div>
           <span>{{list.activation}}</span>
           <span>{{list.onLine}}</span>
           <span>{{list.binding}}</span>
-          <p>创建时间 {{list.time}}</p>
+          <p>创建时间:{{list.time}}</p>
         </div>
         <div>
           <cube-button class="btn" @click="realData">查看</cube-button>
@@ -107,6 +105,39 @@ export default {
         binding: '已绑定',
         time: '2018-01-20 01:11',
         checked: false
+      }, {
+        equipment: '1230099111',
+        serial: '48',
+        model: '123456789',
+        specification: '48',
+        pressure: '13',
+        activation: '激活中',
+        onLine: '在线',
+        binding: '已绑定',
+        time: '2018-01-20 01:11',
+        checked: false
+      }, {
+        equipment: '1230099111',
+        serial: '48',
+        model: '123456789',
+        specification: '48',
+        pressure: '13',
+        activation: '激活中',
+        onLine: '在线',
+        binding: '已绑定',
+        time: '2018-01-20 01:11',
+        checked: false
+      }, {
+        equipment: '1230099111',
+        serial: '48',
+        model: '123456789',
+        specification: '48',
+        pressure: '13',
+        activation: '激活中',
+        onLine: '在线',
+        binding: '已绑定',
+        time: '2018-01-20 01:11',
+        checked: false
       }]
     }
   },
@@ -127,11 +158,17 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
+.list {
+  border-bottom: 2px solid #bcbcbc;
+  margin: 0.2rem 0 0.2rem 0;
+}
+
 .first {
   display: flex;
+  height: 1.4rem;
 
   .selectBtn {
-    margin-top: 0.2rem;
+    margin-top: 0.4rem;
   }
 
   div {
@@ -148,11 +185,12 @@ export default {
     height: 0.5rem;
     background: #519af2;
     border-radius: 0.3rem;
-    margin-top: 0.3rem;
+    margin-top: 0.35rem;
     line-height: 0.5rem;
 
     .binding {
       color: white;
+      line-height: 0.5rem;
     }
   }
 
@@ -171,18 +209,21 @@ export default {
     height: 0.8rem;
     line-height: 0.6rem;
     text-align: center;
-    padding-left: 0.2rem;
+    padding-left: 0.1rem;
+    margin-bottom: 0.2rem;
 
     span {
       padding: 0 0.2rem;
       flex: 1;
       text-align: center;
+      color: #666666;
     }
   }
 }
 
 .third {
   display: flex;
+  margin: -0.2rem 0 0.2rem -0.11rem;
 
   div {
     height: 1.6rem;
@@ -212,6 +253,7 @@ export default {
 
 .fourth {
   display: flex;
+  margin-bottom: 0.2rem;
 
   span {
     flex: 1;
