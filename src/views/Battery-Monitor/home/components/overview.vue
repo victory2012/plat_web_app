@@ -45,7 +45,7 @@ export default {
     alarmList
   },
   mounted () {
-    this.height = this.$refs.wrapper.offsetHeight - this.$refs.subTabsContent.offsetHeight - 200 - 60
+    this.height = this.$refs.wrapper.offsetHeight - this.$refs.subTabsContent.offsetHeight - 200 - 40
     // console.log(this.$refs.gauge.offsetHeight)
     // console.log(this.$refs.subTabsContent.offsetHeight)
   },
@@ -55,27 +55,38 @@ export default {
 
 </script>
 <style lang='stylus' scoped>
-.overview-wrapper
-  width 100%
-  height 100%
-  .subTabsContent
-    display flex
-    padding 15px
-    margin 5px 0 20px 0
-    SetBorder(1px, top)
+.overview-wrapper {
+  width: 100%;
+  height: 100%;
+
+  .subTabsContent {
+    display: flex;
+    padding: 15px;
+    margin-top: 5px;
+    SetBorder(1px, top);
+
     // SetBorder(1px, bottom)
-    .numb
-      font-size 16px
-      font-weight bold
-      padding 6px 0
-      color $main-text-color
-    .tabText
-      font-size 14px
-      color $subText-color
-    &>div
-      text-align center
-      flex 1
-      .iconfont
-        font-size 30px
-        color $color-project-blue
+    .numb {
+      font-size: 16px;
+      font-weight: bold;
+      padding: 6px 0;
+      color: $main-text-color;
+    }
+
+    .tabText {
+      font-size: 14px;
+      color: $subText-color;
+    }
+
+    &>div {
+      text-align: center;
+      flex: 1;
+
+      .iconfont {
+        font-size: 30px;
+        color: $color-project-blue;
+      }
+    }
+  }
+}
 </style>

@@ -23,7 +23,7 @@ import { mapGetters } from 'vuex'
 import batteryFooter from '@/components/footer/footer'
 
 export default {
-  data () {
+  data() {
     return {
       selectedLabelDefault: ''
     };
@@ -37,17 +37,22 @@ export default {
   components: {
     batteryFooter
   },
-  mounted () {
-    this.selectedLabelDefault = this.tabs[0].link
+  // watch: {
+
+  // },
+  mounted() {
+    console.log('name', this.$route.name)
+    this.selectedLabelDefault = this.$route.name
+    // this.selectedLabelDefault = this.tabs[0].link
   },
 
   methods: {
-    clickHandler () { },
-    tabIndex (index) {
+    clickHandler() { },
+    tabIndex(index) {
       console.log(index);
       this.$store.commit('setMinitorBatteryIndex', index)
     },
-    slideChange (index) {
+    slideChange(index) {
       console.log(index);
       this.selectedLabelDefault = this.tabs[index].link
     }
@@ -57,11 +62,6 @@ export default {
 
 </script>
 <style lang='stylus' scoped>
-.leftIcon
-  .iconfont
-    font-size 22px
-.slide-item
-  height calc(100vh - 45px)
 .footerBar
   box-shadow $footer-shadow
   position fixed

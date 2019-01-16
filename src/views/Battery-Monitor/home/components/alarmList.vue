@@ -22,7 +22,7 @@
 export default {
   name: '',
   props: ['height'],
-  data () {
+  data() {
     return {
       wraperHeight: 0,
       alarmData: [
@@ -149,7 +149,7 @@ export default {
     };
   },
   computed: {
-    options () {
+    options() {
       return {
         pullDownRefresh: this.pullDownRefreshObj,
         pullUpLoad: this.pullUpLoadObj,
@@ -157,15 +157,15 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     this.wraperHeight = this.height - this.$refs.alarmTit.offsetHeight
   },
 
   methods: {
-    pullingDown () {
+    pullingDown() {
       console.log('pullDownRefreshObj')
     },
-    pullingUp () {
+    pullingUp() {
       console.log('pullUpLoadObj')
     }
   }
@@ -174,30 +174,42 @@ export default {
 
 </script>
 <style lang='stylus' scoped>
-.view-wrapper
-  .alarmTit
-    display flex
-    SetBorder(1px, bottom)
-    padding 10px
-    li
-      flex 1
-      text-align center
-      color $subText-color
-      &.time
-        text-align left
-        flex 0 0 35%
-  .alarmList
-    // height 200px
-    .alarmItem
-      display flex
-      padding 15px 10px
-      SetBorder(1px, bottom)
-      .time
-        text-align left
-        flex 0 0 35%
-        font-size 13px
-      & > div
-        flex 1
-        text-align center
+.view-wrapper {
+  .alarmTit {
+    display: flex;
+    SetBorder(1px, bottom);
+    padding: 10px;
 
+    li {
+      flex: 1;
+      text-align: center;
+      color: $subText-color;
+
+      &.time {
+        text-align: left;
+        flex: 0 0 35%;
+      }
+    }
+  }
+
+  .alarmList {
+    // height 200px
+    .alarmItem {
+      display: flex;
+      padding: 15px 10px;
+      SetBorder(1px, bottom);
+
+      .time {
+        text-align: left;
+        flex: 0 0 35%;
+        font-size: 13px;
+      }
+
+      & > div {
+        flex: 1;
+        text-align: center;
+      }
+    }
+  }
+}
 </style>

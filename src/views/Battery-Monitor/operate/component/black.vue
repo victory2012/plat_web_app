@@ -1,6 +1,6 @@
 <template>
   <div>
-    this is alarm page
+    this is black
   </div>
 </template>
 
@@ -9,7 +9,7 @@
 export default {
   name: '',
   props: [''],
-  data () {
+  data() {
     return {
 
     };
@@ -17,7 +17,7 @@ export default {
 
   components: {},
 
-  mounted () { },
+  mounted() { },
 
   methods: {}
 

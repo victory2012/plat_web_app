@@ -9,7 +9,7 @@
 export default {
   name: '',
   props: [''],
-  data () {
+  data() {
     return {
       map: ''
     };
@@ -17,12 +17,12 @@ export default {
 
   components: {},
 
-  mounted () {
+  mounted() {
     this.mapInit()
   },
 
   methods: {
-    mapInit () {
+    mapInit() {
       const lang = sessionStorage.getItem('locale') === 'en' ? 'en' : 'zh_cn';
       // eslint-disable-next-line
       this.map = new AMap.Map('mapContent', {
@@ -37,10 +37,13 @@ export default {
 
 </script>
 <style lang='stylus' scoped>
-.mapWrapper
-  width 100%
-  height 100%
-  .mapContent
-    width 100%
-    height 100%
+.mapWrapper {
+  width: 100%;
+  height: 100%;
+
+  .mapContent {
+    width: 100%;
+    height: 100%;
+  }
+}
 </style>

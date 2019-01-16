@@ -1,14 +1,17 @@
 export default {
-  getMainTabBar (state) {
+  getMainTabBar(state) {
     return state.mainTabBar;
   },
-  getMonitorBatteryIndex (state) {
+  getMonitorBatteryIndex(state) {
     return state.MoniterinitIndex;
   },
-  getMonitorBatteryFooter (state) {
+  getMonitorBatteryFooter(state) {
     return state.BatteryFooterBar;
   },
-  getMonitorFenceFooter (state) {
+  getMonitorFenceFooter(state) {
     return state.MoniterFenceTab;
+  },
+  getMonitorOperateFooter(state) {
+    return state.MoniterOperateTab;
   }
 };

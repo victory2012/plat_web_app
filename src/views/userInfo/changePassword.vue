@@ -10,7 +10,16 @@
     </top-header>
     <div class="changePassword">
       <div class="account flex">
-        <p>账号:</p>
+        <p>旧密码:</p>
+        <cube-input class="input" placeholder="请输入旧密码" v-model="submit.account"></cube-input>
+      </div>
+      <div class="password flex">
+        <p>新密码:</p>
+        <cube-input class="input" type='password' placeholder="请输入新密码" v-model="submit.password"></cube-input>
+      </div>
+    </div>
+    <cube-button type="submit" class="SubmitBtn" @click="submitFrom()">确认修改</cube-button>
+    <!-- <p>账号:</p>
         <cube-input class="input" placeholder="请输入账号" v-model="submit.account"></cube-input>
       </div>
       <div class="password flex">
@@ -18,7 +27,7 @@
         <cube-input class="input" type='password' placeholder="请输入密码" v-model="submit.password"></cube-input>
       </div>
     </div>
-    <cube-button type="submit" class="SubmitBtn" @click="submitFrom()">Submit Button</cube-button>
+    <cube-button type="submit" class="SubmitBtn" @click="submitFrom()">Submit Button</cube-button> -->
   </div>
 </template>
 
@@ -51,43 +60,28 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import './personalData.styl';
+@import './personalData.styl'
 
-.changes {
-  box-sizing: border-box;
-  padding-top: $header-height;
-  padding-bottom: $footer-height;
-  height: 100vh;
-}
-
-.changePassword {
-  margin: 60px auto 0;
-
-  .flex {
-    display: flex;
-
-    p {
-      flex: 0 0 55px;
-      text-align: center;
-      line-height: 40px;
-    }
-
-    .input {
-      width: 7.5rem;
-    }
-  }
-
-  .account {
-    margin-bottom: 15px;
-  }
-
-  .password {
-    margin-bottom: 40px;
-  }
-}
-
-.SubmitBtn {
-  width: 7.5rem;
-  margin: 0 auto;
-}
+.changes
+  box-sizing border-box
+  padding-top $header-height
+  padding-bottom $footer-height
+  height 100vh
+.changePassword
+  margin 60px auto 0
+  .flex
+    display flex
+    p
+      flex 0 0 55px
+      text-align center
+      line-height 40px
+    .input
+      width 7.5rem
+  .account
+    margin-bottom 15px
+  .password
+    margin-bottom 40px
+.SubmitBtn
+  width 7.5rem
+  margin 0 auto
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    this is news page
+    this is active
   </div>
 </template>
 

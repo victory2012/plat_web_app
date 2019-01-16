@@ -34,7 +34,7 @@
 export default {
   name: '',
   props: [''],
-  data () {
+  data() {
     return {
       threshold: 20,
       pullUpLoad: true,
@@ -431,7 +431,7 @@ export default {
     };
   },
   computed: {
-    options () {
+    options() {
       return {
         pullDownRefresh: this.pullDownRefreshObj,
         pullUpLoad: this.pullUpLoadObj,
@@ -439,16 +439,16 @@ export default {
       }
     }
   },
-  mounted () { },
+  mounted() { },
 
   methods: {
-    pullingDown () {
+    pullingDown() {
       console.log('pullDownRefreshObj')
     },
-    pullingUp () {
+    pullingUp() {
       console.log('pullUpLoadObj')
     },
-    handleClick (e) {
+    handleClick(e) {
       e.stopPropagation();
     }
   }
@@ -457,30 +457,44 @@ export default {
 
 </script>
 <style lang='stylus' scoped>
-.userList
+.userList {
   // background-color $boder-coloGray
-  .userItem
-    padding 5px 15px
-    box-sizing border-box
-    background-color #ffffff
+  .userItem {
+    padding: 5px 15px;
+    box-sizing: border-box;
+    background-color: #ffffff;
     // margin-bottom 5px
-    border-bottom 8px solid $boder-coloGray
-    .handle
-      padding 15px 0
-      p
-        flex 1
-        text-align center
-        color #FF0000
-    &>div
-      display flex
-      span
-        padding 10px 0
-        flex 1
-        text-align center
-        &.tit
-          text-align left
-          color $subText-color
-          flex 0 0 65px
-        &.userRole
-          border-bottom 1px solid #cacaca
+    border-bottom: 8px solid $boder-coloGray;
+
+    .handle {
+      padding: 15px 0;
+
+      p {
+        flex: 1;
+        text-align: center;
+        color: #FF0000;
+      }
+    }
+
+    &>div {
+      display: flex;
+
+      span {
+        padding: 10px 0;
+        flex: 1;
+        text-align: center;
+
+        &.tit {
+          text-align: left;
+          color: $subText-color;
+          flex: 0 0 65px;
+        }
+
+        &.userRole {
+          border-bottom: 1px solid #cacaca;
+        }
+      }
+    }
+  }
+}
 </style>

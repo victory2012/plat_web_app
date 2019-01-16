@@ -34,7 +34,7 @@
 import topHeader from '@/components/header/header'
 
 export default {
-  data () {
+  data() {
     return {
       selectedLabelDefault: 'User',
       showComponent: 'User',
@@ -54,23 +54,23 @@ export default {
     'Company': () => import('./userComponent/company-manager')
   },
 
-  mounted () {
+  mounted() {
   },
   methods: {
-    clickHandler (name) {
+    clickHandler(name) {
       console.log('clickHandler name', name);
       this.showComponent = name
       // this.initialIndex = this.tabs.findIndex(item => {
       //   return item.label === name
       // })
     },
-    toUserManager () {
+    toUserManager() {
       this.userManager = true;
       this.$router.push({
         name: 'HomeUser'
       })
     },
-    toCompanyManager () {
+    toCompanyManager() {
       this.userManager = false;
       this.$router.push({
         name: 'companyManager'
@@ -82,27 +82,35 @@ export default {
 
 </script>
 <style lang='stylus' scoped>
-.user-wrapper
-  width 100%
-  height 100%
-  .slide-wrapper
-    position fixed
-    top contentFixedTop(5)
-    left 0
-    bottom contentFixedBottom(0)
-    -webkit-overflow-scrolling touch
-    overflow scroll
-    overflow-scrolling touch
-    width 100%
-  .userTab
-    margin 3px auto
-    width 80%
-    overflow hidden
-    height 32px
-    border 1px solid $color-project-blue
-    border-radius 3px
-    .userSetClass
-      &.cube-tab_active
-        color #ffffff
-        background-color $color-project-blue
+.user-wrapper {
+  width: 100%;
+  height: 100%;
+
+  .slide-wrapper {
+    position: fixed;
+    top: contentFixedTop(5);
+    left: 0;
+    bottom: contentFixedBottom(0);
+    -webkit-overflow-scrolling: touch;
+    overflow: scroll;
+    overflow-scrolling: touch;
+    width: 100%;
+  }
+
+  .userTab {
+    margin: 3px auto;
+    width: 80%;
+    overflow: hidden;
+    height: 32px;
+    border: 1px solid $color-project-blue;
+    border-radius: 3px;
+
+    .userSetClass {
+      &.cube-tab_active {
+        color: #ffffff;
+        background-color: $color-project-blue;
+      }
+    }
+  }
+}
 </style>

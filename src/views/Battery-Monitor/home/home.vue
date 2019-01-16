@@ -64,28 +64,38 @@ export default {
 
 </script>
 <style lang='stylus' scoped>
-.userTab
-  margin 3px auto
-  width 80%
-  overflow hidden
-  height 32px
-  border 1px solid $color-project-blue
-  border-radius 3px
-  .userSetClass
-    &.cube-tab_active
-      color #ffffff
-      background-color $color-project-blue
-.CloseIcon
-  height 100%
-  .iconfont
-    font-size 14px
-.slide-wrapper
-  position fixed
-  top contentFixedTop(5)
-  left 0
-  bottom contentFixedBottom(0)
-  -webkit-overflow-scrolling touch
-  overflow scroll
-  overflow-scrolling touch
-  width 100%
+.userTab {
+  margin: 3px auto;
+  width: 80%;
+  overflow: hidden;
+  height: 32px;
+  border: 1px solid $color-project-blue;
+  border-radius: 3px;
+
+  .userSetClass {
+    &.cube-tab_active {
+      color: #ffffff;
+      background-color: $color-project-blue;
+    }
+  }
+}
+
+.CloseIcon {
+  height: 100%;
+
+  .iconfont {
+    font-size: 14px;
+  }
+}
+
+.slide-wrapper {
+  position: fixed;
+  top: contentFixedTop(5);
+  left: 0;
+  bottom: contentFixedBottom(0);
+  -webkit-overflow-scrolling: touch;
+  overflow: scroll;
+  overflow-scrolling: touch;
+  width: 100%;
+}
 </style>

@@ -158,7 +158,12 @@ const data = {
       radius: '89%', // 仪表大小
       // startAngle: 200, // 开始角度
       endAngle: 45, // 结束角度
-      data: [{ value: 1.5, name: 'x1000 r/min' }],
+      data: [
+        {
+          value: 1.5,
+          name: 'x1000 r/min'
+        }
+      ],
       splitNumber: 10,
       fontsize: 12,
       axisLine: {
