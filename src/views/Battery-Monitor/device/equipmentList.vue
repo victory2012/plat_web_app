@@ -14,7 +14,7 @@
           <h2>电池编号</h2>
         </div>
         <div class="selectBtn">
-          <span :class="list.checked ? 'cubeic-select' : 'cubeic-arrow'" ref="pull" @click="pullDown(list)"></span>
+          <span :class="list.checked ? 'cubeic-select' : 'cubeic-arrow'" @click="pullDown(list)"></span>
         </div>
       </div>
       <div class="second">
@@ -144,11 +144,6 @@ export default {
   methods: {
     pullDown(list) {
       list.checked = !list.checked;
-      if (list.checked) {
-        this.$refs.pull.className = 'cubeic-select';
-      } else {
-        this.$refs.pull.className = 'cubeic-arrow';
-      }
     },
     realData() {
       this.$router.push({ name: 'realData' })
@@ -159,7 +154,7 @@ export default {
 
 <style lang='stylus' scoped>
 .list {
-  border-bottom: 2px solid #bcbcbc;
+  border-bottom: 4px solid #eaeaea;
   margin: 0.2rem 0 0.2rem 0;
 }
 

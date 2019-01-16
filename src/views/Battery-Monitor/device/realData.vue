@@ -33,38 +33,11 @@
         </div>
       </div>
       <div class="data">
-        <div>
+        <div v-for="(item) in list" :key="item.title">
           <div>
-            <img src="../../../assets/img/temp.png">
-            <h2>异常</h2>
-            <p>液位</p>
-          </div>
-          <div>
-            <img src="../../../assets/img/level.png">
-            <h2>24.2C</h2>
-            <p>温度</p>
-          </div>
-          <div>
-            <img src="../../../assets/img/voltage.png">
-            <h2>37.7V</h2>
-            <p>电压</p>
-          </div>
-        </div>
-        <div>
-          <div>
-            <img src="../../../assets/img/voltage_total.png">
-            <h2>0.021V</h2>
-            <p>单位电压</p>
-          </div>
-          <div>
-            <img src="../../../assets/img/current.png">
-            <h2>0A</h2>
-            <p>电流</p>
-          </div>
-          <div>
-            <img src="../../../assets/img/capacity.png">
-            <h2>0%</h2>
-            <p>电池</p>
+            <img :src="item.src">
+            <h2>{{item.main}}</h2>
+            <p>{{item.title}}</p>
           </div>
         </div>
       </div>
@@ -85,11 +58,37 @@ import topHeader from '../../../components/header/header.vue';
 import eChacts from './echacts'
 export default {
   components: { topHeader, eChacts },
-  data () {
-    return {}
+  data() {
+    return {
+      list: [{
+        title: '液位',
+        main: '异常',
+        src: require('../../../assets/img/temp.png')
+      }, {
+        title: '温度',
+        main: '24.2C',
+        src: require('../../../assets/img/level.png')
+      }, {
+        title: '电压',
+        main: '32.33V',
+        src: require('../../../assets/img/voltage.png')
+      }, {
+        title: '单体电压',
+        main: '0.021V',
+        src: require('../../../assets/img/voltage_total.png')
+      }, {
+        title: '电流',
+        main: '0A',
+        src: require('../../../assets/img/current.png')
+      }, {
+        title: '电量',
+        main: '0%',
+        src: require('../../../assets/img/capacity.png')
+      }]
+    }
   },
   methods: {
-    goBack () {
+    goBack() {
       this.$router.push({ name: 'MonitorDevice' });
     }
   }
@@ -157,13 +156,15 @@ export default {
   }
 
   .data {
-    display: flex;
-    flex-direction: column;
     margin-top: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
 
     div {
       display: flex;
       flex: 1;
+      width: 3rem;
+      margin-bottom: 0.2rem;
 
       div {
         display: flex;
@@ -172,13 +173,13 @@ export default {
 
         h2 {
           text-align: center;
-          font-size: 0.4rem;
+          font-size: 0.35rem;
           padding: 0.3rem 0 0.1rem;
         }
 
         img {
-          width: 1rem;
-          height: 1rem;
+          width: 0.8rem;
+          height: 0.8rem;
           margin: 0 auto;
         }
       }
@@ -201,7 +202,6 @@ export default {
 
   .realFrom {
     width: 100%;
-    margin: -1rem 0 auto;
   }
 }
 
