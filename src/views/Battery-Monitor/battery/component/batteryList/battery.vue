@@ -24,7 +24,7 @@
         <p>删除</p>|
         <p @click="DolookDetail(item)">详情</p>
       </div>
-      <p @click.stop="showBtn(item)" :class="{'down': item.showBtn}" class="rightIcon">
+      <p @click="showHandleBtn(item)" :class="{'down': item.showBtn}" class="rightIcon">
         <span class="iconfont icon-right"></span>
       </p>
     </div>
@@ -34,7 +34,7 @@
 <script>
 
 export default {
-  data() {
+  data () {
     return {
       pullDownRefreshObj: {
         threshold: 500,
@@ -184,29 +184,29 @@ export default {
     };
   },
   computed: {
-    options() {
+    options () {
       return {
         pullDownRefresh: this.pullDownRefreshObj,
         pullUpLoad: this.pullUpLoadObj,
         scrollbar: true,
-        click: false
+        click: true
       }
     }
   },
-  mounted() { },
+  mounted () { },
   methods: {
-    jisuan(a, b, c) {
+    jisuan (a, b, c) {
       console.log(a + b + c)
     },
-    pullingUp() {
+    pullingUp () {
       console.log('pullingUp')
     },
-    DolookDetail(item) {
+    DolookDetail (item) {
       this.$router.push({
         name: 'MonitorBatteryDetail'
       })
     },
-    showBtn(item) {
+    showHandleBtn (item) {
       console.log(item)
       item.showBtn = !item.showBtn
     }
@@ -218,87 +218,57 @@ export default {
 <style lang='stylus' scoped>
 // .subTsxt
 // color $subText-color
-.batteryItem {
-  position: relative;
-  padding: 10px;
-
-  &>.rightIcon {
-    position: absolute;
-    top: 36px;
-    right: 10px;
-    display: inline-block;
-    transition: all 0.25s ease;
-
-    .iconfont {
-      font-size: 22px;
-    }
-
-    &.down {
-      transition: all 0.25s ease;
-      transform: rotate(90deg);
-    }
-  }
-
-  SetBorder(5px, bottom);
-
-  .itemTop {
-    padding-right: 25px;
-
-    .bindStatus {
-      flex: 0 0 80px;
-
-      p {
-        height: 20px;
-        line-height: 20px;
-        color: #ffffff;
-        background: $handle-text-btn-color;
-        border-radius: 10px;
-
-        &.active {
-          background: #0099cc;
-        }
-      }
-    }
-
-    &>div > p {
-      font-weight: bolder;
-      line-height: 30px;
-      font-size: 14px;
-    }
-  }
-
-  .itemMid {
-    padding-right: 25px;
-    margin: 15px 0;
-    justify-content: space-between;
-
-    &>p {
-      margin-right: 5px;
-      font-size: 13px;
-      color: #464646;
-    }
-  }
-
-  .itemHandle {
-    margin: 30px 0 10px;
-    justify-content: space-between;
-
-    p {
-      flex: 1;
-      text-align: center;
-      color: $handle-text-btn-color;
-    }
-  }
-
-  &>div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    &> div {
-      flex: 1;
-      text-align: center;
-    }
-  }
-}
+.batteryItem
+  position relative
+  padding 10px
+  &>.rightIcon
+    position absolute
+    top 36px
+    right 10px
+    display inline-block
+    transition all 0.25s ease
+    .iconfont
+      font-size 22px
+    &.down
+      transition all 0.25s ease
+      transform rotate(90deg)
+  SetBorder(5px, bottom)
+  .itemTop
+    padding-right 25px
+    .bindStatus
+      flex 0 0 80px
+      p
+        height 20px
+        line-height 20px
+        color #ffffff
+        background $handle-text-btn-color
+        border-radius 10px
+        &.active
+          background #0099cc
+    &>div > p
+      font-weight bolder
+      line-height 30px
+      font-size 14px
+  .itemMid
+    padding-right 25px
+    margin 15px 0
+    justify-content space-between
+    &>p
+      margin-right 5px
+      font-size 12px
+      color #464646
+  .itemHandle
+    margin 30px 0 10px
+    justify-content space-between
+    p
+      flex 1
+      text-align center
+      color $handle-text-btn-color
+  &>div
+    display flex
+    justify-content center
+    align-items center
+    &> div
+      flex 1
+      text-align center
 </style>

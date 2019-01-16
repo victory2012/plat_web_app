@@ -31,7 +31,7 @@
           </div>
         </div>
         <div class="rightBtn">
-          <div @click="showPopup" class="location">
+          <div @click="showLocation" class="location">
             <span class="iconfont icon-location"></span>
           </div>
           <div class="detail">
@@ -199,21 +199,18 @@ export default {
         pullDownRefresh: this.pullDownRefreshObj,
         pullUpLoad: this.pullUpLoadObj,
         scrollbar: true,
-        click: false
+        click: true
       }
     }
   },
   mounted () { },
 
   methods: {
-    showPopup () {
+    showLocation () {
       console.log('showMap');
-      this.$emit('showMap', { show: true })
-      // const component = this.$refs.myPopup
-      // component.show()
-      // setTimeout(() => {
-      //   component.hide()
-      // }, 5000)
+      this.$router.push({
+        name: 'MonitorBatteryAlarmMap'
+      })
     },
     pullingUp () {
       console.log('pullingUp')

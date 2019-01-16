@@ -93,7 +93,7 @@ const column1 = [
   { text: 'Text12346', value: 'ddeghjef' }
 ]
 export default {
-  data() {
+  data () {
     return {
       showComponent: 'battery',
       height: 0,
@@ -258,7 +258,7 @@ export default {
     };
   },
   computed: {
-    options() {
+    options () {
       return {
         scrollbar: false, // 是否显示滚动条
         click: false
@@ -271,10 +271,10 @@ export default {
     'battery': () => import('./batteryList/battery'),
     'batteryMap': () => import('./batteryList/batteryMap')
   },
-  created() {
+  created () {
 
   },
-  mounted() {
+  mounted () {
     // this.$refs.batteryList.jisuan(1, 2, 3)
     /*
     * js 计算出 电池列表内容区域的高度
@@ -284,11 +284,11 @@ export default {
   },
 
   methods: {
-    chooseItem(item) {
+    chooseItem (item) {
       console.log(item)
       item.choose = !item.choose
     },
-    swichMapOrList() {
+    swichMapOrList () {
       if (this.showComponent === 'battery') {
         this.showComponent = 'batteryMap';
       } else {
@@ -296,40 +296,40 @@ export default {
       }
       this.companyCancelHandle()
     },
-    goToRegisterBattery() {
+    goToRegisterBattery () {
       this.companyCancelHandle()
       this.$router.push({
         name: 'MonitorBatteryRegister'
       })
     },
-    companyClick() {
+    companyClick () {
       this.showPopup.wrap = true
       this.showPopup.company = true
       this.showPopup.status = false
       this.testCompany = this.companyData
     },
-    companyCancelHandle() {
+    companyCancelHandle () {
       this.showPopup.wrap = false
       this.showPopup.status = false
       this.showPopup.company = false
     },
-    companyStatusClick() {
+    companyStatusClick () {
       this.showPopup.wrap = true
       this.showPopup.status = true
       this.showPopup.company = false
     },
-    statusCancelHandle() {
+    statusCancelHandle () {
       this.showPopup.wrap = false
       this.showPopup.status = false
       this.showPopup.company = false
     },
-    choosStatuItem(info, data) {
+    choosStatuItem (info, data) {
       data.forEach(key => {
         key.choose = false
       });
       info.choose = true
     },
-    showBatteryList() {
+    showBatteryList () {
       this.companyCancelHandle()
       if (!this.picker) {
         this.picker = this.$createPicker({
@@ -341,14 +341,14 @@ export default {
       }
       this.picker.show()
     },
-    selectHandle(selectedVal, selectedIndex, selectedText) {
+    selectHandle (selectedVal, selectedIndex, selectedText) {
       // this.$createDialog({
       //   type: 'warn',
       //   content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
       //   icon: 'cubeic-alert'
       // }).show()
     },
-    cancelHandle() {
+    cancelHandle () {
       // this.$createToast({
       //   type: 'correct',
       //   txt: 'Picker canceled',
@@ -360,243 +360,174 @@ export default {
 }
 </script>
 <style lang='stylus' scoped>
-.backIcon {
-  font-size: 20px;
-}
-
-section {
-  height: 40px;
-  display: flex;
-
-  p {
-    flex: 1;
-    text-align: center;
-    line-height: 40px;
-    border: 1px solid $color-project-blue;
-    color: $color-project-blue;
-
-    &.sure {
-      background: $color-project-blue;
-      color: #ffffff;
-    }
-  }
-}
-
-.batteryRunning {
-  width: 100vw;
-  position: relative;
-  height: calc(100vh - 45px);
-
-  .batteryWrapper {
-    width: 100vw;
-    position: relative;
-
-    .pb {
-      position: absolute;
-      top: 75%;
-      right: 20px;
-      width: 61px;
-      height: 61px;
-      line-height: 61px;
-      color: rgb(255, 255, 255);
-      background-color: rgb(113, 191, 219);
-      font-size: 14px;
-      text-align: center;
-      border-radius: 50%;
-      transition: transform 0.1s ease-in-out;
-      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.175);
-      z-index: 99;
-    }
-  }
-
-  .searchWarper {
-    display: flex;
-    box-sizing: border-box;
-    height: 34px;
-    margin: 3px auto;
-    SetAllBorder(1px);
-    line-height: 34px;
-
-    .searchIcon {
-      flex: 0 0 30px;
-    }
-
-    .inputPart {
-      position: relative;
-      padding: 0 10px;
-
-      input {
-        outline: none;
-        width: 100%;
-        height: 30px;
-      }
-
-      .searchTerm {
-        position: absolute;
-        top: 2px;
-        left: 0;
-        right: 0;
-        bottom: 2px;
-        font-size: 0;
-        text-align: left;
-        overflow: hidden;
-
-        li {
-          vertical-align: top;
-          font-size: 0;
-          display: inline-block;
-          height: 28px;
-          line-height: 28px;
-          padding: 0 5px;
-          margin-right: 3px;
-          background-color: #666;
-          color: #FFF;
-          border-radius: 2px;
-          box-sizing: border-box;
-
+.backIcon
+  font-size 20px
+section
+  height 40px
+  display flex
+  p
+    flex 1
+    text-align center
+    line-height 40px
+    border 1px solid $color-project-blue
+    color $color-project-blue
+    &.sure
+      background $color-project-blue
+      color #ffffff
+.batteryRunning
+  width 100vw
+  position relative
+  height calc(100vh - 45px)
+  .batteryWrapper
+    width 100vw
+    position relative
+    .pb
+      position absolute
+      top 75%
+      right 20px
+      width 61px
+      height 61px
+      line-height 61px
+      color rgb(255, 255, 255)
+      background-color rgb(113, 191, 219)
+      font-size 14px
+      text-align center
+      border-radius 50%
+      transition transform 0.1s ease-in-out
+      box-shadow 0 5px 12px rgba(0, 0, 0, 0.175)
+      z-index 99
+  .searchWarper
+    display flex
+    box-sizing border-box
+    height 34px
+    margin 3px auto
+    SetAllBorder(1px)
+    line-height 34px
+    .searchIcon
+      flex 0 0 30px
+    .inputPart
+      position relative
+      padding 0 10px
+      input
+        outline none
+        width 100%
+        height 30px
+      .searchTerm
+        position absolute
+        top 2px
+        left 0
+        right 0
+        bottom 2px
+        font-size 0
+        text-align left
+        overflow hidden
+        li
+          vertical-align top
+          font-size 0
+          display inline-block
+          height 28px
+          line-height 28px
+          padding 0 5px
+          margin-right 3px
+          background-color #666
+          color #FFF
+          border-radius 2px
+          box-sizing border-box
           // label
-          span {
-            vertical-align: top;
-            display: inline-block;
-            font-size: 13px;
-
-            &.label {
-              max-width: 60px;
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-            }
-          }
-        }
-      }
-    }
-
-    &>div {
-      flex: 1;
-    }
-  }
-
-  .filterPart {
-    padding: 5px 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 5px;
-    SetBorder(1px, bottom);
-
-    &>.iconfont {
-      margin-right: 8px;
-      font-size: 20px;
-      color: $icon-color-gray;
-    }
-
-    .select {
-      flex: 0 0 80px;
-      line-height: 30px;
-      height: 30px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 13px;
-      SetAllBorder(1px);
-      border-radius: 5px;
-      padding-left: 6px;
-      box-sizing: border-box;
-
-      &.selcetBy {
-        color: $color-project-blue;
-        border-color: $color-project-blue;
-      }
-
-      .iconfont {
-        font-size: 28px;
-        color: $icon-color-gray;
-      }
-    }
-  }
-
-  .popupWraper {
-    position: absolute;
-    top: 85px;
-    left: 0;
-    width: 100%;
-    z-index: 11;
-    background-color: #ffffff;
-
-    .company {
-      .production {
-        SetBorder(1px, bottom);
-      }
-
-      &>div {
-        height: 180px;
-
-        .productionList {
-          height: 146px;
-        }
-
-        h2 {
-          line-height: 30px;
-          padding-left: 15px;
-        }
-
-        ul {
-          display: flex;
-          justify-content: space-between;
-          flex-wrap: wrap;
-          padding: 10px;
-
-          li {
-            flex: 0 0 26%;
-            text-align: center;
-            line-height: 26px;
-            border: 1px solid $color-project-blue;
-            background: #ffffff;
-            color: $color-project-blue;
-            margin-bottom: 10px;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-
-            &.choosed {
-              background-color: $color-project-blue;
-              color: #ffffff;
-            }
-          }
-        }
-      }
-    }
-
-    .allStatus {
-      padding: 0 10px 10px;
-
-      .status {
+          span
+            vertical-align top
+            display inline-block
+            font-size 13px
+            &.label
+              max-width 60px
+              white-space nowrap
+              overflow hidden
+              text-overflow ellipsis
+    &>div
+      flex 1
+  .filterPart
+    padding 5px 10px
+    display flex
+    justify-content space-between
+    align-items center
+    margin-top 5px
+    SetBorder(1px, bottom)
+    &>.iconfont
+      margin-right 8px
+      font-size 20px
+      color $icon-color-gray
+    .select
+      flex 0 0 100px
+      line-height 30px
+      height 30px
+      display flex
+      justify-content space-between
+      font-size 13px
+      SetAllBorder(1px)
+      border-radius 5px
+      padding-left 6px
+      box-sizing border-box
+      &.selcetBy
+        color $color-project-blue
+        border-color $color-project-blue
+      .iconfont
+        font-size 28px
+        color $icon-color-gray
+  .popupWraper
+    position absolute
+    top 85px
+    left 0
+    width 100%
+    z-index 11
+    background-color #ffffff
+    .company
+      .production
+        SetBorder(1px, bottom)
+      &>div
+        height 180px
+        .productionList
+          height 146px
+        h2
+          line-height 30px
+          padding-left 15px
+        ul
+          display flex
+          justify-content space-between
+          flex-wrap wrap
+          padding 10px
+          li
+            flex 0 0 26%
+            text-align center
+            line-height 26px
+            border 1px solid $color-project-blue
+            background #ffffff
+            color $color-project-blue
+            margin-bottom 10px
+            overflow hidden
+            white-space nowrap
+            text-overflow ellipsis
+            &.choosed
+              background-color $color-project-blue
+              color #ffffff
+    .allStatus
+      padding 0 10px 10px
+      .status
         // padding 10px
-        h2 {
-          font-size: 15px;
-          line-height: 30px;
-        }
-
-        ul {
-          display: flex;
-          flex-wrap: wrap;
-
-          li {
-            flex: 0 0 70px;
-            line-height: 28px;
-            text-align: center;
-            border: 1px solid $color-project-blue;
-            margin-right: 15px;
-            font-size: 13px;
-            margin-bottom: 15px;
-
-            &.active {
-              background-color: $color-project-blue;
-              color: #ffffff;
-            }
-          }
-        }
-      }
-    }
-  }
-}
+        h2
+          font-size 15px
+          line-height 30px
+        ul
+          display flex
+          flex-wrap wrap
+          li
+            flex 0 0 70px
+            line-height 28px
+            text-align center
+            border 1px solid $color-project-blue
+            margin-right 15px
+            font-size 13px
+            margin-bottom 15px
+            &.active
+              background-color $color-project-blue
+              color #ffffff
 </style>

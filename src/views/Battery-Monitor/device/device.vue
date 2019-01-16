@@ -36,7 +36,7 @@
 import topHeader from '../../../components/header/header.vue';
 import equipmentList from './equipmentList';
 export default {
-  data() {
+  data () {
     return {
       options: [2013, 2014, 2015, 2016, 2017, 2018],
       value: { manufacturing: '生产企业', model: '电池型号', screen: '筛选' },
@@ -48,16 +48,16 @@ export default {
 
   components: { topHeader, equipmentList },
 
-  mounted() { },
+  mounted () { },
 
   methods: {
-    clear() {
+    clear () {
       alert('清除')
     },
-    changes() {
+    changes () {
       this.$router.push()
     },
-    register() {
+    register () {
       this.$router.push({ name: 'register' })
     }
   }

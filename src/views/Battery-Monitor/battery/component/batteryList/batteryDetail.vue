@@ -95,7 +95,7 @@
 <script>
 import topHeader from '@/components/header/header';
 export default {
-  data() {
+  data () {
     return {
       detailForm: {},
       selectComponentOption: {}
@@ -106,10 +106,10 @@ export default {
     topHeader
   },
 
-  mounted() { },
+  mounted () { },
 
   methods: {
-    back() {
+    back () {
       this.$router.push({
         name: 'MonitorBattery'
       })
@@ -120,34 +120,21 @@ export default {
 
 </script>
 <style lang='stylus' scoped>
-.backIcon {
-  font-size: 20px;
-}
-
-.batteryItem {
-  padding-top: $header-height;
-  height: calc(100vh - 40px);
-
-  .batteryList {
-    height: 100%;
-
-    .detailWraper {
-      padding: 10px;
-
-      li {
-        display: flex;
-        padding: 5px 0;
-
-        .tit {
-          flex: 0 0 100px;
-          line-height: 40px;
-        }
-
-        .inputContent {
-          flex: 1;
-        }
-      }
-    }
-  }
-}
+.backIcon
+  font-size 20px
+.batteryItem
+  padding-top $header-height
+  height calc(100vh - 40px)
+  .batteryList
+    height 100%
+    .detailWraper
+      padding 10px
+      li
+        display flex
+        padding 5px 0
+        .tit
+          flex 0 0 100px
+          line-height 40px
+        .inputContent
+          flex 1
 </style>

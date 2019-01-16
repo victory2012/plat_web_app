@@ -2,9 +2,9 @@
   <div class="mapWrapper">
     <top-header>
       <div slot="left" class="backIcon">
-        <i @click="goBack" class="backIcon iconfont icon-back1"></i>
+        <i @click="closeLocaltionMap" class="backIcon iconfont icon-back1"></i>
       </div>
-      <div class="searchWarper" slot="mainTab">
+      <div slot="mainTab">
         告警位置
       </div>
     </top-header>
@@ -17,7 +17,7 @@ import topHeader from '@/components/header/header';
 export default {
   name: '',
   props: [''],
-  data() {
+  data () {
     return {
 
     };
@@ -27,12 +27,12 @@ export default {
     topHeader
   },
 
-  mounted() {
+  mounted () {
     this.mapInit()
   },
 
   methods: {
-    mapInit() {
+    mapInit () {
       const lang = sessionStorage.getItem('locale') === 'en' ? 'en' : 'zh_cn';
       // eslint-disable-next-line
       this.map = new AMap.Map('mapContent', {
@@ -41,8 +41,10 @@ export default {
         lang
       });
     },
-    goBack() {
-
+    closeLocaltionMap () {
+      this.$router.push({
+        name: 'MonitorBatteryAlarm'
+      })
     }
   }
 
@@ -50,13 +52,10 @@ export default {
 
 </script>
 <style lang='stylus' scoped>
-.mapWrapper {
-  height: 100%;
-  width: 100%;
-
-  .mapContent {
-    width: 100%;
-    height: 100%;
-  }
-}
+.mapWrapper
+  width 100%
+  height calc(100vh - 45px)
+  .mapContent
+    width 100%
+    height calc(100vh - 45px)
 </style>
