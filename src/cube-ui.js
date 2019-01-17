@@ -24,8 +24,8 @@ import {
   // Switch,
   // Rate,
   Validator,
-  // Upload,
-  // Form,
+  Upload,
+  Form,
   // popup
   Popup,
   Toast,
@@ -65,8 +65,8 @@ Vue.use(Select);
 // Vue.use(Switch)
 // Vue.use(Rate)
 Vue.use(Validator);
-// Vue.use(Upload)
-// Vue.use(Form)
+Vue.use(Upload);
+Vue.use(Form);
 Vue.use(Popup);
 Vue.use(Toast);
 Vue.use(Picker);

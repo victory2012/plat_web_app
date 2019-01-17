@@ -4,10 +4,6 @@ const MonitorHome = () =>
   import(/* webpackChunkName: "MonitorHome" */ '@/views/Battery-Monitor/home/home.vue');
 const MonitorDevice = () =>
   import(/* webpackChunkName: "MonitorDevice" */ '@/views/Battery-Monitor/device/device.vue');
-const personalData = () =>
-  import(/* webpackChunkName: "personalData" */ '@/views/userInfo/personalData.vue');
-const changePassword = () =>
-  import(/* webpackChunkName: "changePassword" */ '@/views/userInfo/changePassword.vue');
 
 const route = [
   {
@@ -23,7 +19,7 @@ const route = [
         path: '/monitor/device',
         name: 'MonitorDevice',
         component: MonitorDevice
-      },
+      }
       // {
       //   path: '/monitor/warn',
       //   component: BatteryMonitor,
@@ -40,16 +36,16 @@ const route = [
       //     }
       //   ]
       // },
-      {
-        path: '/home/HomeMe/personalData',
-        name: 'personalData',
-        component: personalData
-      },
-      {
-        path: '/home/HomeMe/changePassword',
-        name: 'changePassword',
-        component: changePassword
-      }
+      // {
+      //   path: '/home/HomeMe/personalData',
+      //   name: 'personalData',
+      //   component: personalData
+      // },
+      // {
+      //   path: '/home/HomeMe/changePassword',
+      //   name: 'changePassword',
+      //   component: changePassword
+      // }
     ]
   }
 ];

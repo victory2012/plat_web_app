@@ -1,11 +1,14 @@
 export default {
-  setMainTabBar (state, data) {
+  setMainTabBar(state, data) {
     state.mainTabBar = data;
   },
-  setMinitorBatteryIndex (state, data) {
+  setMinitorBatteryIndex(state, data) {
     state.MoniterinitIndex = data;
   },
-  setMinitorBatteryTabDefaultValue (state, data) {
+  setMinitorBatteryTabDefaultValue(state, data) {
     state.MoniterTabDefaultValue = data;
+  },
+  setUserLoginData(state, data) {
+    state.LoginData = data;
   }
 };

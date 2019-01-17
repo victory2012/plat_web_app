@@ -26,7 +26,7 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     return {
       defaultlabel: this.defaultValue
     };
@@ -45,12 +45,12 @@ export default {
     //   }
     // }
   },
-  mounted () {
+  mounted() {
     // const routeName = this.$route.name;
     // this.getTabIndex(routeName)
   },
   methods: {
-    getTabIndex (name) {
+    getTabIndex(name) {
       let Index = this.tabs.findIndex((item) => {
         return item.link === name
       })
@@ -59,7 +59,7 @@ export default {
       }
       return Index
     },
-    cubeTabClick (item) {
+    cubeTabClick(item) {
       if (!this.isSubTab) {
         this.$router.push({ name: item })
       }

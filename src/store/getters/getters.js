@@ -13,5 +13,8 @@ export default {
   },
   getMonitorOperateFooter(state) {
     return state.MoniterOperateTab;
+  },
+  getLoginData(state) {
+    return state.LoginData;
   }
 };

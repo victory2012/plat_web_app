@@ -9,11 +9,10 @@ const News = () =>
   import(/* webpackChunkName: "News" */ '@/views/home/news.vue');
 const User = () =>
   import(/* webpackChunkName: "User" */ '@/views/home/user.vue');
-import(/* webpackChunkName: "User" */ '@/views/home/user.vue');
-// const UserManager = () =>
-//   import(/* webpackChunkName: "UserManager" */ '@/views/home/userComponent/user-manager.vue');
-// const CompanyManager = () =>
-//   import(/* webpackChunkName: "CompanyManager" */ '@/views/home/userComponent/company-manager.vue');
+const personalData = () =>
+  import(/* webpackChunkName: "personalData" */ '@/views/home/userInfo/personalData.vue');
+const changePassword = () =>
+  import(/* webpackChunkName: "changePassword" */ '@/views/home/userInfo/changePassword.vue');
 
 const MonitorBattery = () =>
   import(/* webpackChunkName: "MonitorBattery" */ '@/views/Battery-Monitor/battery/battery.vue');
@@ -87,7 +86,18 @@ const route = [
       {
         path: '/home/me',
         name: 'HomeMe',
-        component: Me
+        component: Me,
+        children: []
+      },
+      {
+        path: '/personalData',
+        name: 'personalData',
+        component: personalData
+      },
+      {
+        path: '/changePassword',
+        name: 'changePassword',
+        component: changePassword
       }
     ]
   },

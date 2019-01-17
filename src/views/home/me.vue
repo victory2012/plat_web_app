@@ -6,8 +6,6 @@
       </div>
     </top-header>
     <div class="userAvats">
-      <cube-scroll ref="scroll" :data="items">
-      </cube-scroll>
       <div class="userInfo">
         <div>
           <img src="../../assets/img/user.png">
@@ -17,15 +15,26 @@
         </div>
       </div>
       <div class="operate">
-        <div>
-          <cube-button icon="cubeic-smile" @click="personalData" outline><span>个人资料</span><i class="cubeic-arrow"></i></cube-button>
+        <div class="item" @click="personalData">
+          <p>
+            <span class="iconfont icon-iconfontzhizuobiaozhun0252"></span>
+            <span>个人资料</span>
+          </p>
+          <span class="iconfont icon-right"></span>
         </div>
-        <div>
-          <cube-button icon="cubeic-vip" @click="changePassword" outline><span>修改密码</span><i class="cubeic-arrow"></i></cube-button>
+        <div @click="changePassword" class="item">
+          <p>
+            <span class="iconfont icon-xiugaimima"></span>
+            <span>修改密码</span>
+          </p>
+          <span class="iconfont icon-right"></span>
         </div>
-        <div>
+        <!-- <div>
           <cube-button icon="cubeic-close" @click="logout" outline>退出登录</cube-button>
-        </div>
+        </div> -->
+      </div>
+      <div class="logout">
+        <p @click="logout"><span class="iconfont icon-close"></span>退出登录</p>
       </div>
     </div>
   </div>
@@ -38,8 +47,6 @@ export default {
   components: {
     topHeader
   },
-  name: '',
-  props: [''],
   data() {
     return {
       items: [],
@@ -95,55 +102,56 @@ export default {
 };
 </script>
 <style lang='stylus' scoped>
-@import '../../theme.styl';
+@import '../../theme.styl'
 
-.userContent {
-  box-sizing: border-box;
-  padding-top: $header-height;
-  padding-bottom: $footer-height;
-  height: 100vh;
-
+.userContent
+  box-sizing border-box
+  padding-top $header-height
+  padding-bottom $footer-height
+  height 100vh
   // overflow hidden
-  .userAvats {
-    overflow: auto;
-
-    .userInfo {
-      width: 100%;
-      height: 4.5rem;
-      background: #f2f2f2;
-      position: relative;
-
-      div:nth-child(2) {
-        line-height: 2.7rem;
-      }
-
-      div {
-        float: left;
-        margin-left: 0.8rem;
-        margin-top: 1rem;
-
-        img {
-          width: 100px;
-          height: 100px;
-        }
-      }
-    }
-
-    .item {
-      height: 50px;
-    }
-
-    .operate {
-      div {
-        .cube-btn {
-          text-align: left;
-        }
-
-        .cubeic-arrow {
-          margin-left: 6rem;
-        }
-      }
-    }
-  }
-}
+  .userAvats
+    overflow auto
+    .userInfo
+      width 100%
+      height 4.5rem
+      background #f2f2f2
+      position relative
+      div:nth-child(2)
+        line-height 2.7rem
+      div
+        float left
+        margin-left 0.8rem
+        margin-top 1rem
+        img
+          width 100px
+          height 100px
+    .operate
+      padding 20px 15px
+      margin-bottom 60px
+      .item
+        line-height 40px
+        padding 0 10px
+        SetBorder(1px, bottom)
+        display flex
+        justify-content space-between
+        &:nth-child(1)
+          SetBorder(1px, top)
+        p
+          .iconfont
+            color $color-project-blue
+            margin-right 10px
+          span
+            vertical-align middle
+    .logout
+      padding 0 60px
+      p
+        line-height 40px
+        height 40px
+        background #ff5050
+        color #ffffff
+        text-align center
+        border-radius 5px
+        .iconfont
+          margin-right 10px
 </style>
