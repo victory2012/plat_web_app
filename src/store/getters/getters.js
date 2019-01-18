@@ -2,6 +2,9 @@ export default {
   getMainTabBar(state) {
     return state.mainTabBar;
   },
+  getMonitorMainTabBar(state) {
+    return state.MoniterMainTabBar;
+  },
   getMonitorBatteryIndex(state) {
     return state.MoniterinitIndex;
   },
@@ -16,5 +19,8 @@ export default {
   },
   getLoginData(state) {
     return state.LoginData;
+  },
+  getRouterIndex(state) {
+    return state.routerIndex;
   }
 };

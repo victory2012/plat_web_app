@@ -11,7 +11,7 @@
           <img src="../../assets/img/user.png">
         </div>
         <div>
-          <p>{{nickname}}</p>
+          <p>{{userInfomation.nickName}}</p>
         </div>
       </div>
       <div class="operate">
@@ -41,8 +41,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import topHeader from '@/components/header/header';
-
 export default {
   components: {
     topHeader
@@ -54,17 +54,22 @@ export default {
       title: '个人资料'
     };
   },
-
-  mounted() { },
+  computed: {
+    ...mapGetters({
+      userInfomation: 'getLoginData'
+    })
+  },
+  mounted() {
+    // this.getUserInfo()
+  },
 
   methods: {
-    handleBack(e) {
-      console.log('handleBack');
-      e.stopPropagation();
-    },
-    right(e) {
-      console.log('right');
-      e.stopPropagation();
+    getUserInfo() {
+      this.$api.getUserMsg().then(({ data }) => {
+        if (data.code === 0) {
+          this.$store.commit('setUserLoginData', data.data)
+        }
+      })
     },
     personalData() {
       this.$router.push({ name: 'personalData' });
@@ -76,8 +81,9 @@ export default {
       this.$createDialog({
         type: 'confirm',
         icon: 'cubeic-alert',
+        title: '确定退出此账号码？',
         confirmBtn: {
-          text: '确定退出',
+          text: '确定',
           active: true,
           disabled: false,
           href: 'javascript:;'
@@ -90,11 +96,13 @@ export default {
         },
         onConfirm: () => {
           console.log('11');
-          this.$createToast({
-            type: 'warn',
-            time: 1000,
-            txt: '退出成功'
-          }).show();
+          this.$api.logOut().then(({ data }) => {
+            if (data.code === 0) {
+              this.$router.push('/')
+              localStorage.removeItem('accPwd')
+              sessionStorage.clear()
+            }
+          })
         }
       }).show();
     }

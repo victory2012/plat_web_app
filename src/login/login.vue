@@ -1,16 +1,6 @@
 <template>
   <div class="loginPage">
     <transition name='slide-fade'>
-      <div class="card ad" v-show="showAD">
-        <!-- 摩融电池检测管理平台 -->
-        <img :src="LogoSrc" alt="">
-        电池智能监控
-        <!-- <div class="adinfo">
-         摩融电池检测管理平台
-        </div> -->
-      </div>
-    </transition>
-    <transition name='slide-fade'>
       <div class="card loginCenter" v-show="!showAD">
         <div @click="showActive" class="languageWarp">
           <p class="languageCenter">{{localLanguge}}<i class="iconfont icon-downarrow"></i></p>
@@ -64,26 +54,16 @@ export default {
     }
   },
   mounted() {
-    this.loginLoading = ToastWithLoading('登录中...')
-    setTimeout(() => {
-      const storageAccPwd = localStorage.getItem('accPwd');
-      if (storageAccPwd) {
-        const local = JSON.parse(storageAccPwd);
-        this.logObj.account = local.account
-        this.logObj.password = local.password
-        this.doAccountLogin()
-      } else {
-        this.showAD = false
-      }
-    }, 3000)
+    this.loginLoading = ToastWithLoading()
   },
   methods: {
     signIn() {
-      if (this.accountLogin) {
-        this.doAccountLogin()
-      } else {
-        this.phoneLogon()
-      }
+      this.$router.push({ name: 'Home' })
+      // if (this.accountLogin) {
+      //   this.doAccountLogin()
+      // } else {
+      //   this.phoneLogon()
+      // }
     },
     doAccountLogin() {
       if (!this.logObj.account) {
@@ -98,13 +78,14 @@ export default {
         account: this.logObj.account,
         password: this.logObj.password
       };
-      this.loginLoading.show()
+      this.loginLoading.show('登录中...')
       this.$api.login(person).then(res => {
         this.loginLoading.hide()
         const data = res.data;
         if (data.code === 0) {
           localStorage.setItem('accPwd', JSON.stringify(person))
           sessionStorage.setItem('token', res.headers.token);
+          sessionStorage.setItem('loginData', JSON.stringify(data.data));
           this.$store.commit('setUserLoginData', data.data)
           const result = data.data;
           const { companyId, id } = result;
@@ -180,13 +161,14 @@ export default {
         phone: this.logObj.phone,
         code: this.logObj.smscode
       };
-      this.loginLoading.show('登录成功')
+      this.loginLoading.show('登录中...')
       this.$api.SMSVertify(phoneObj).then((res) => {
         console.log(res);
         this.loginLoading.hide()
         const data = res.data;
         if (data.code === 0) {
           sessionStorage.setItem('token', res.headers.token);
+          sessionStorage.setItem('loginData', JSON.stringify(data.data));
           this.$store.commit('setUserLoginData', data.data)
           const result = data.data;
           const { companyId, id } = result;

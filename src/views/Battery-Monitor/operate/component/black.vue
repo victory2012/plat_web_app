@@ -5,10 +5,10 @@
 </template>
 
 <script>
-
+import mixins from '@/mixins/monitor-mixin'
 export default {
   name: '',
-  props: [''],
+  mixins: [mixins],
   data() {
     return {
 

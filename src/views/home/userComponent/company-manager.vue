@@ -76,13 +76,13 @@ export default {
       })
     },
     pullingDown() {
-      console.log('pullDownRefreshObj')
+      // console.log('pullDownRefreshObj')
     },
     pullingUp() {
-      console.log('pullUpLoadObj')
+      // console.log('pullUpLoadObj')
     },
     addCompany() {
-      console.log('addCompany')
+      // console.log('addCompany')
     }
   }
 
@@ -90,83 +90,61 @@ export default {
 
 </script>
 <style lang='stylus' scoped>
-.animation {
-  -webkit-animation: mint-zoom 0.5s ease-in-out;
-  animation: mint-zoom 0.5s ease-in-out;
-}
-
-.pb {
-  position: fixed;
-  top: 75%;
-  right: 20px;
-  width: 61px;
-  height: 61px;
-  line-height: 61px;
-  color: rgb(255, 255, 255);
-  background-color: rgb(113, 191, 219);
-  font-size: 14px;
-  text-align: center;
-  border-radius: 50%;
-  transition: transform 0.1s ease-in-out;
+.animation
+  -webkit-animation mint-zoom 0.5s ease-in-out
+  animation mint-zoom 0.5s ease-in-out
+.pb
+  position fixed
+  top 75%
+  right 20px
+  width 61px
+  height 61px
+  line-height 61px
+  color rgb(255, 255, 255)
+  background-color rgb(113, 191, 219)
+  font-size 14px
+  text-align center
+  border-radius 50%
+  transition transform 0.1s ease-in-out
   // background:
-  -webkit-box-shadow: 0 5px 12px rgba(0, 0, 0, 0.175);
-  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.175);
-}
-
-.companyList {
+  -webkit-box-shadow 0 5px 12px rgba(0, 0, 0, 0.175)
+  box-shadow 0 5px 12px rgba(0, 0, 0, 0.175)
+.companyList
   // background-color $boder-coloGray
   // min-height bodyMinHeight(100vh, $header-height, $footer-height)
-  .companyItem {
-    padding: 5px 15px;
-    box-sizing: border-box;
-    background-color: #ffffff;
-    margin-bottom: 10px;
-    border-bottom: 8px solid $boder-coloGray;
-
-    .company {
-      display: flex;
-      margin-bottom: 10px;
-
-      img {
-        flex: 0 0 70px;
-        height: 60px;
-      }
-
-      .companyInfo {
-        padding: 0 8px;
-        flex: 1;
-
-        .companyName {
-          line-height: 40px;
-          font-size: 16px;
-        }
-
-        .address {
-          color: $subText-color;
-        }
-      }
-    }
-
-    .companyPhone {
-      display: flex;
-      justify-content: space-between;
-      height: 30px;
-      line-height: 30px;
-
-      .phone {
-        font-size: 14px;
-        flex: 1;
-      }
-
-      .detailBtn {
-        width: 90px;
-        text-align: center;
-        font-size: 16px;
-        color: #ffffff;
-        background-color: $color-project-blue;
-        border-radius: 5px;
-      }
-    }
-  }
-}
+  .companyItem
+    padding 5px 15px
+    box-sizing border-box
+    background-color #ffffff
+    margin-bottom 10px
+    border-bottom 8px solid $boder-coloGray
+    .company
+      display flex
+      margin-bottom 10px
+      img
+        flex 0 0 70px
+        height 60px
+      .companyInfo
+        padding 0 8px
+        flex 1
+        .companyName
+          line-height 40px
+          font-size 16px
+        .address
+          color $subText-color
+    .companyPhone
+      display flex
+      justify-content space-between
+      height 30px
+      line-height 30px
+      .phone
+        font-size 14px
+        flex 1
+      .detailBtn
+        width 90px
+        text-align center
+        font-size 16px
+        color #ffffff
+        background-color $color-project-blue
+        border-radius 5px
 </style>

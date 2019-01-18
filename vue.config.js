@@ -1,7 +1,7 @@
 const path = require('path');
 
-const proxyURL = 'http://192.168.1.143:8000';
-// const proxyURL = 'http://47.96.8.239:8000';
+// const proxyURL = 'http://192.168.1.143:8000';
+const proxyURL = 'http://47.96.8.239:8000';
 function resolve(dir) {
   return path.join(__dirname, dir);
 }

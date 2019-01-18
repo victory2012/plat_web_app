@@ -5,17 +5,18 @@ import { mainFooterBar, monitorFooterBar } from '@/config/footerTab';
 
 export default {
   name: 'mixins',
-  data () {
+  data() {
     return {
-      routerIndex: 0
+      defaultLable: ''
     };
   },
   computed: {
     ...mapGetters({
-      footerBar: 'getMainTabBar'
+      footerBar: 'getMainTabBar',
+      routerIndex: 'getRouterIndex'
     })
   },
-  created () {
+  mounted() {
     const current = this.$route.fullPath.split('/')[1];
     console.log('current =>>', current)
     if (current === 'home') {
@@ -24,22 +25,30 @@ export default {
     if (current === 'monitor') {
       this.$store.commit('setMainTabBar', monitorFooterBar())
     }
-    this.defaultLable = this.footerBar[0].link;
-    this.getTabIndex(this.$route.name);
+    // let routerIndex = sessionStorage.getItem('routerIndex');
+    console.log('routerIndex......', this.routerIndex);
+    this.defaultLable = this.footerBar[this.routerIndex].link;
+    // this.getTabIndex(this.$route);
   },
   methods: {
     // '接收 footer emit 的当前激活tab的索引'
-    tabIndex (index) {
-      this.routerIndex = index
+    tabIndex(index) {
+      console.log('tabIndex', index);
+      // this.routerIndex = index
+      // sessionStorage.setItem('routerIndex', index)
+      this.$store.commit('setRouterIndex', index)
     },
-    getTabIndex (name) {
+    getTabIndex(route) {
       let Index = this.footerBar.findIndex((item) => {
-        return item.link === name
+        return item.link === route.name
       })
+      console.log('Index', Index);
+      console.log('route', route);
       if (Index < 0) {
         Index = 0
       }
-      this.routerIndex = Index
+      this.$store.commit('setRouterIndex', Index)
+      // this.routerIndex = Index
       this.defaultLable = this.footerBar[Index].link
     },
     /**
@@ -47,7 +56,7 @@ export default {
      * @desc 当前手指按在屏幕时 获取当前点在屏幕中的位置
      * @param {e} event对象 从中获取当前点击的页面位置 并保存
      */
-    touchstart (e) {
+    touchstart(e) {
       this.touchPointerX = e.touches[0].pageX;
       this.touchPointerY = e.touches[0].pageY;
     },
@@ -57,7 +66,7 @@ export default {
      * @desc 根据touchstart 获取的点 跟 手指离开的点做比较，来判断是左滑还是右滑
      * @param {e} event对象 从中获取当前手指离开的页面位置 并保存
      */
-    touchend (e) {
+    touchend(e) {
       this.touchendPointerX = e.changedTouches[0].pageX
       this.touchendPointerY = e.changedTouches[0].pageY
       const moveY = Math.abs(this.touchendPointerY - this.touchPointerY)
@@ -80,7 +89,7 @@ export default {
       this.$router.push({ name: link })
       this.defaultLable = link
     },
-    goBackToHome () {
+    goBackToHome() {
       this.$router.push('/home')
       this.$store.commit('setMainTabBar', mainFooterBar())
     }

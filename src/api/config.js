@@ -3,8 +3,9 @@ import axios from 'axios';
 import t from '@/utils/translate';
 import router from '@/router';
 import { ToastOnlyText } from '@/utils/Toast';
-// const baseURL = process.env.API_HOST;
-const baseURL = '/api'; // 'http://47.96.8.239:8000';
+const baseURL =
+  process.env.NODE_ENV === 'production' ? 'http://47.96.8.239:8000' : '/api';
+// const baseURL = '/api'; // 'http://47.96.8.239:8000';
 const timeout = 30000; // 超时时间
 axios.interceptors.request.use(
   config => {

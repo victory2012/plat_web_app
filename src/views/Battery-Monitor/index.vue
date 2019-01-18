@@ -7,51 +7,57 @@
       </transition>
     </div>
     <div class="footerBar">
-      <footer-bar @tabIndex="tabIndex" :defaultValue='defaultLable' :tabs='footerBar'></footer-bar>
+      <footer-bar @tabIndex="tabIndex" :defaultValue='defaultLable' :tabs='footerBarTabs'></footer-bar>
     </div>
   </div>
 </template>
 <script>
 import footerBar from '@/components/footer/footer';
-import mixins from '@/mixins/mixins'
+import { mapGetters } from 'vuex';
+import mixins from '@/mixins/monitor-mixin'
 
 export default {
   components: {
     footerBar
   },
   mixins: [mixins],
+  computed: {
+    ...mapGetters({
+      footerBarTabs: 'getMonitorMainTabBar',
+      routerIndex: 'getRouterIndex'
+    })
+  },
   data() {
     return {
     }
   },
   mounted() {
+    this.defaultLable = this.footerBarTabs[this.routerIndex].link;
   },
   methods: {
+    tabIndex(index) {
+      this.$store.commit('setRouterIndex', index)
+    }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-.monitorProject {
-  height: 100%;
-
-  .homeBody {
+.monitorProject
+  height 100%
+  .homeBody
     // padding-top $header-height
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-  }
-
-  .footerBar {
-    box-shadow: $footer-shadow;
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: $footer-height;
-    font-size: 12px;
-    z-index: 100;
-    background-color: $btn-primary-color;
-  }
-}
+    width 100%
+    height 100%
+    box-sizing border-box
+  .footerBar
+    box-shadow $footer-shadow
+    position fixed
+    left 0
+    right 0
+    bottom 0
+    height $footer-height
+    font-size 12px
+    z-index 100
+    background-color $btn-primary-color
 </style>

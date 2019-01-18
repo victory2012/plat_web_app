@@ -1,14 +1,15 @@
 <template>
   <div class="content">
-    <top-header title="个人资料" fixed>
+    <top-header fixed>
       <div @click="handleBack" slot="left">
         <i class="cubeic-back"></i>
       </div>
       <div slot="mainTab">
         <p>{{title}}</p>
       </div>
-      <div @click="redactMessage()" slot="right">
-        <span>{{redact}}</span>
+      <div slot="right">
+        <span @click="editUserInfo" v-show="!editInfo">编辑</span>
+        <span @click="saveEdit" v-show="editInfo">保存</span>
       </div>
     </top-header>
     <div class="message">
@@ -16,9 +17,29 @@
         <p>头像</p>
         <cube-upload ref="upload" :action="action" :simultaneous-uploads="1" :process-file="processFile" @file-submitted="fileSubmitted" class="upload" />
       </div>
-      <div v-for="values in list" :key="values.id" class="personalData_title">
-        <p>{{values.title}}</p>
-        <input class="input" v-model="values.value" type="text">
+      <div class="personalData_title">
+        <p>昵称</p>
+        <input class="input" :disabled="!editInfo" v-model="userArr.nickName" type="text">
+      </div>
+      <div class="personalData_title">
+        <p>账户身份</p>
+        <input class="input" :disabled="true" v-model="userArr.accountType" type="text">
+      </div>
+      <div class="personalData_title">
+        <p>企业身份</p>
+        <input class="input" :disabled="true" v-model="userArr.layerName" type="text">
+      </div>
+      <div class="personalData_title">
+        <p>企业名称</p>
+        <input class="input" :disabled="true" v-model="userArr.companyName" type="text">
+      </div>
+      <div class="personalData_title">
+        <p>手机号码</p>
+        <input class="input" :disabled="!editInfo" v-model="userArr.phone" type="text">
+      </div>
+      <div class="personalData_title">
+        <p>邮箱</p>
+        <input class="input" :disabled="!editInfo" v-model="userArr.email" type="text">
       </div>
       <!-- <cube-form :model="model" @validate="validateHandler" @submit="submitHandler">
         <cube-form-group>
@@ -34,14 +55,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import topHeader from '@/components/header/header';
-
+// import utils from '@/utils/utils'
+import { ToastOnlyText } from '@/utils/Toast'
+import { phoneNumCheck, emailCheck } from '@/utils/check'
 export default {
   components: {
     topHeader
   },
   data() {
     return {
+      editInfo: false,
+      userArr: {},
       model: {},
       // fields: [
       //   {
@@ -111,64 +137,70 @@ export default {
       //     }
       //   }
       // ],
-      list: [{
-        id: Math.random(),
-        title: '昵称',
-        test: 'true',
-        value: '测试111',
-        edit: false
-      }, {
-        id: Math.random(),
-        title: '账户身份',
-        test: 'true',
-        value: '测试2222222222222',
-        edit: true
-      }, {
-        id: Math.random(),
-        title: '企业身份',
-        test: 'true',
-        value: '测试22266',
-        edit: true
-      }, {
-        id: Math.random(),
-        title: '企业名称',
-        test: 'true',
-        value: '测试2224',
-        edit: true
-      }, {
-        id: Math.random(),
-        title: '手机号码',
-        test: 'true',
-        value: '测试22233',
-        edit: false
-      }, {
-        id: Math.random(),
-        title: '邮箱',
-        test: 'true',
-        value: '测试33',
-        edit: false
-      }],
       value: '123',
       action: {
         target: '//jsonplaceholder.typicode.com/photos/',
         prop: 'base64Value'
       },
-      saveChecked: true,
       redact: '编辑',
       title: '个人信息'
     }
+  },
+  computed: {
+    ...mapGetters({
+      saveObj: 'getLoginData'
+    })
+  },
+  mounted() {
+    // this.userArr = Object.assign({}, this.saveObj)
+    // this.userArr.accountType = utils.accountType(this.userArr.type);
   },
   methods: {
     handleBack() {
       this.$router.push({ name: 'HomeMe' })
     },
-    redactMessage() {
-      if (this.redact === '编辑') {
-        this.redact = '保存';
-      } else if (this.redact === '保存') {
-        this.redact = '编辑';
+    saveEdit() {
+      let { nickName, phone, email } = this.userArr
+      let userNickname = this.saveObj.nickName;
+      let userPhone = this.saveObj.phone;
+      let userEmail = this.saveObj.email;
+      if (!nickName) {
+        return
       }
-      this.saveChecked = !this.saveChecked;
+      if (!email || emailCheck(email)) {
+        return
+      }
+      if (!phone || !phoneNumCheck(phone)) {
+        return
+      }
+      const editMsg = {};
+      if (nickName !== userNickname) {
+        editMsg.nickName = nickName
+      }
+      if (phone !== userPhone) {
+        editMsg.phone = phone
+      }
+      if (email !== userEmail) {
+        editMsg.email = email
+      }
+      if (JSON.stringify(editMsg) !== '{}') {
+        this.changeUserFun(editMsg)
+      } else {
+        this.editInfo = false
+      }
+      // this.changeUserFun()
+      console.log('this.list', editMsg)
+    },
+    changeUserFun(userObj) {
+      this.$api.changeUserMsg(userObj).then(({ data }) => {
+        if (data.code === 0) {
+          this.editInfo = false
+          ToastOnlyText('修改成功')
+        }
+      });
+    },
+    editUserInfo() {
+      this.editInfo = true
     },
     validateHandler(data) {
       console.log('validateHandler', data)
@@ -204,13 +236,13 @@ export default {
     padding 0 15px
     .personalData_title
       display flex
-      // border-bottom 1px solid #f2f2f2
+      border-bottom 1px solid #f2f2f2
       line-height 40px
+      justify-content space-between
       margin-bottom 15px
       p
         flex 0 0 130px
         height 34px
-        border-bottom 1px solid #f2f2f2
       .input
         flex 1
         height 34px

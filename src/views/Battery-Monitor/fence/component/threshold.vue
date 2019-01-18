@@ -36,7 +36,7 @@
 
 <script>
 import topHeader from '@/components/header/header';
-
+import mixins from '@/mixins/monitor-mixin'
 const column1 = [
   { text: 'Text12346', value: '123456' },
   { text: 'Text12346', value: 'aad' },
@@ -46,9 +46,8 @@ const column1 = [
   { text: 'Text12346', value: 'ddeghjef' }
 ]
 export default {
-  name: '',
-  props: [''],
-  data () {
+  mixins: [mixins],
+  data() {
     return {
       activeByModel: true,
       regForm: {},
@@ -122,7 +121,7 @@ export default {
     };
   },
   computed: {
-    options () {
+    options() {
       return {
         scrollbar: false,
         click: true
@@ -133,20 +132,17 @@ export default {
     topHeader
   },
 
-  mounted () { },
+  mounted() { },
 
   methods: {
-    goBack () {
-      this.$router.push({ name: 'Monitor' })
-    },
-    selectByModel () {
+
+    selectByModel() {
       this.activeByModel = true
     },
-    selectByCompany () {
+    selectByCompany() {
       this.activeByModel = false
     },
-    goBackToHome () { },
-    selectBatteryCode () {
+    selectBatteryCode() {
       if (!this.picker) {
         this.picker = this.$createPicker({
           title: '电池型号',

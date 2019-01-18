@@ -2,7 +2,7 @@
   <div class="deployment">
     <top-header class="headerContent" fixed>
       <div slot="left" class="backIcon">
-        <i class="iconfont icon-back1"></i>
+        <i @click="goBack" class="iconfont icon-back1"></i>
       </div>
       <div slot="mainTab" class="searchWarper">
         <div @click="doDeployment" :class="{'active': deployment}">分配</div>
@@ -17,18 +17,19 @@
             <i class="boreder"></i>
           </div>
           <div class="btn">
-            <p>全选</p>
-            <p>取消选择</p>
+            <p @click="selectAll">全选</p>
+            <p @click="cancelSelect">取消选择</p>
           </div>
         </div>
         <div class="listWraper">
           <cube-scroll class="batteryList">
             <ul class="wrapper">
-              <li class="item">
-                <p>编号：123455</p>
-                <p>型号：model</p>
-                <p>设备：acd115</p>
-                <p>规格：25544</p>
+              <li @click="chooseItem(key)" v-for="key in list" :key="key.id" class="item">
+                <p>编号：{{key.batteryCode}}</p>
+                <p>型号：{{key.model}}</p>
+                <p>设备：{{key.device}}</p>
+                <p>规格：{{key.sipf}}</p>
+                <i v-show="key.choose" class="iconfont icon-tubiaozhizuomoban"></i>
               </li>
             </ul>
           </cube-scroll>
@@ -43,10 +44,18 @@
           <div class="btn">
           </div>
         </div>
-        <div class="listWraper"></div>
+        <div class="listWraper">
+          <cube-scroll class="batteryList">
+            <ul class="wrapper">
+              <li v-for="key in company" :key="key.id" class="item company">
+                {{key.name}}
+              </li>
+            </ul>
+          </cube-scroll>
+        </div>
       </div>
       <div class="handleBtn">
-        <p>取消</p>
+        <p class="cancel">取消</p>
         <p>确定</p>
       </div>
     </div>
@@ -55,12 +64,211 @@
 
 <script>
 import topHeader from '@/components/header/header';
+import mixins from '@/mixins/monitor-mixin'
 export default {
   name: '',
-  props: [''],
+  mixins: [mixins],
   data() {
     return {
-      deployment: true
+      deployment: true,
+      test2: [
+        {
+          id: Math.random(),
+          name: '生产企业1'
+        }, {
+          id: Math.random(),
+          name: '生产企业1'
+        }, {
+          id: Math.random(),
+          name: '生产企业1'
+        }, {
+          id: Math.random(),
+          name: '生产企业1'
+        }, {
+          id: Math.random(),
+          name: '生产企业1'
+        }, {
+          id: Math.random(),
+          name: '生产企业1'
+        }, {
+          id: Math.random(),
+          name: '生产企业1'
+        }, {
+          id: Math.random(),
+          name: '生产企业1'
+        }, {
+          id: Math.random(),
+          name: '生产企业1'
+        }, {
+          id: Math.random(),
+          name: '生产企业1'
+        }, {
+          id: Math.random(),
+          name: '生产企业1'
+        }, {
+          id: Math.random(),
+          name: '生产企业1'
+        }, {
+          id: Math.random(),
+          name: '生产企业1'
+        }, {
+          id: Math.random(),
+          name: '生产企业1'
+        }, {
+          id: Math.random(),
+          name: '生产企业1'
+        }, {
+          id: Math.random(),
+          name: '生产企业1'
+        }, {
+          id: Math.random(),
+          name: '生产企业1'
+        }, {
+          id: Math.random(),
+          name: '生产企业1'
+        }, {
+          id: Math.random(),
+          name: '生产企业1'
+        }
+      ],
+      test: [
+        {
+          batteryCode: '1245',
+          model: 'model1',
+          device: '45789',
+          sipf: '规格1',
+          id: Math.random(),
+          choose: false
+        }, {
+          batteryCode: '1245',
+          model: 'model1',
+          device: '45789',
+          sipf: '规格1',
+          id: Math.random(),
+          choose: false
+        }, {
+          batteryCode: '1245',
+          model: 'model1',
+          device: '45789',
+          sipf: '规格1',
+          id: Math.random(),
+          choose: false
+        }, {
+          batteryCode: '1245',
+          model: 'model1',
+          device: '45789',
+          sipf: '规格1',
+          id: Math.random(),
+          choose: false
+        }, {
+          batteryCode: '1245',
+          model: 'model1',
+          device: '45789',
+          sipf: '规格1',
+          id: Math.random(),
+          choose: false
+        }, {
+          batteryCode: '1245',
+          model: 'model1',
+          device: '45789',
+          sipf: '规格1',
+          id: Math.random(),
+          choose: false
+        }, {
+          batteryCode: '1245',
+          model: 'model1',
+          device: '45789',
+          sipf: '规格1',
+          id: Math.random(),
+          choose: false
+        }, {
+          batteryCode: '1245',
+          model: 'model1',
+          device: '45789',
+          sipf: '规格1',
+          id: Math.random(),
+          choose: false
+        }, {
+          batteryCode: '1245',
+          model: 'model1',
+          device: '45789',
+          sipf: '规格1',
+          id: Math.random(),
+          choose: false
+        }, {
+          batteryCode: '1245',
+          model: 'model1',
+          device: '45789',
+          sipf: '规格1',
+          id: Math.random(),
+          choose: false
+        }, {
+          batteryCode: '1245',
+          model: 'model1',
+          device: '45789',
+          sipf: '规格1',
+          id: Math.random(),
+          choose: false
+        }, {
+          batteryCode: '1245',
+          model: 'model1',
+          device: '45789',
+          sipf: '规格1',
+          id: Math.random(),
+          choose: false
+        }, {
+          batteryCode: '1245',
+          model: 'model1',
+          device: '45789',
+          sipf: '规格1',
+          id: Math.random(),
+          choose: false
+        }, {
+          batteryCode: '1245',
+          model: 'model1',
+          device: '45789',
+          sipf: '规格1',
+          id: Math.random(),
+          choose: false
+        }, {
+          batteryCode: '1245',
+          model: 'model1',
+          device: '45789',
+          sipf: '规格1',
+          id: Math.random(),
+          choose: false
+        }, {
+          batteryCode: '1245',
+          model: 'model1',
+          device: '45789',
+          sipf: '规格1',
+          id: Math.random(),
+          choose: false
+        }, {
+          batteryCode: '1245',
+          model: 'model1',
+          device: '45789',
+          sipf: '规格1',
+          id: Math.random(),
+          choose: false
+        }, {
+          batteryCode: '1245',
+          model: 'model1',
+          device: '45789',
+          sipf: '规格1',
+          id: Math.random(),
+          choose: false
+        }, {
+          batteryCode: '1245',
+          model: 'model1',
+          device: '45789',
+          sipf: '规格1',
+          id: Math.random(),
+          choose: false
+        }
+      ],
+      list: [],
+      company: []
     };
   },
 
@@ -68,14 +276,30 @@ export default {
     topHeader
   },
 
-  mounted() { },
+  mounted() {
+    this.list = this.test;
+    this.company = this.test2
+  },
 
   methods: {
+    selectAll() {
+      this.list.forEach(key => {
+        key.choose = true
+      })
+    },
+    cancelSelect() {
+      this.list.forEach(key => {
+        key.choose = false
+      })
+    },
     doDeployment() {
       this.deployment = true
     },
     doRecovery() {
       this.deployment = false
+    },
+    chooseItem(key) {
+      key.choose = !key.choose
     }
   }
 
@@ -139,7 +363,7 @@ export default {
       color #797979
       border 1px solid $color-project-blue
 .listWraper
-  height calc(100% - 40px)
+  height 100%
   SetBorder(1px, bottom)
   SetBorder(1px, top)
   .batteryList
@@ -147,11 +371,29 @@ export default {
     .wrapper
       display flex
       justify-content space-between
+      flex-wrap wrap
       .item
+        position relative
         flex 0 0 30%
         padding 3px
-        border-radius 3px
+        border-radius 5px
         border 1px solid $color-project-blue
+        margin-bottom 6px
+        i
+          position absolute
+          right 0px
+          bottom 0px
+          color $color-project-blue
+        p
+          font-size 12px
+        &.company
+          box-sizing border-box
+          height 30px
+          background #ffffff
+          text-align center
+          line-height 24px
+          border-radius 0
+          margin-bottom 10px
 .deployment
   box-sizing border-box
   height calc(100vh - 45px)
@@ -164,8 +406,24 @@ export default {
     .top
       flex 1
       margin-bottom 2px
+      height calc(50% - 30px)
+      overflow hidden
     .bottom
       flex 1
+      height calc(50% - 30px)
+      overflow hidden
     .handleBtn
       height 60px
+      text-align right
+      p
+        margin-top 10px
+        display inline-block
+        padding 10px 20px
+        background $color-project-blue
+        color #ffffff
+        text-align center
+        margin-right 10px
+        border-radius 5px
+        &.cancel
+          background $icon-color-gray
 </style>

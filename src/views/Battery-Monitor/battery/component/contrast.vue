@@ -1,7 +1,7 @@
 <template>
   <div class="contrastCenter">
     <top-header class="headerContent" fixed>
-      <div slot="left" class="backIcon">
+      <div @click="goBack" slot="left" class="backIcon">
         <i class="iconfont icon-back1"></i>
       </div>
       <div slot="mainTab" class="searchWarper">
@@ -44,9 +44,10 @@
 <script>
 import topHeader from '@/components/header/header';
 import chartsComponent from './contrast/echarts'
+import Mixins from '@/mixins/monitor-mixin'
 export default {
   name: '',
-  props: [''],
+  mixins: [Mixins],
   data() {
     return {
       sameBattery: true,

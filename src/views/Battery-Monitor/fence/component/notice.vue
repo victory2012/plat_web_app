@@ -45,9 +45,10 @@
 
 <script>
 import topHeader from '@/components/header/header';
-
+import mixins from '@/mixins/monitor-mixin'
 export default {
-  data () {
+  mixins: [mixins],
+  data() {
     return {
       pullDownRefreshObj: {
         threshold: 500,
@@ -167,7 +168,7 @@ export default {
     };
   },
   computed: {
-    options () {
+    options() {
       return {
         pullDownRefresh: this.pullDownRefreshObj,
         pullUpLoad: this.pullUpLoadObj,
@@ -179,14 +180,10 @@ export default {
   components: {
     topHeader
   },
-  mounted () { },
+  mounted() { },
   methods: {
-    pullingUp () {
+    pullingUp() {
       console.log('pullingUp')
-    },
-    goBackToHome () { },
-    goBack () {
-      this.$router.push({ name: 'Monitor' })
     }
   }
 

@@ -23,10 +23,10 @@
 
 <script>
 import topHeader from '@/components/header/header';
+import Mixins from '@/mixins/monitor-mixin'
 export default {
-  name: '',
-  props: [''],
-  data () {
+  mixins: [Mixins],
+  data() {
     return {
 
     };
@@ -36,12 +36,12 @@ export default {
     topHeader
   },
 
-  mounted () {
+  mounted() {
     this.mapInit()
   },
 
   methods: {
-    mapInit () {
+    mapInit() {
       const lang = sessionStorage.getItem('locale') === 'en' ? 'en' : 'zh_cn';
       // eslint-disable-next-line
       this.map = new AMap.Map('mapContentFence', {
@@ -49,11 +49,7 @@ export default {
         zoom: 15,
         lang
       });
-    },
-    goBack () {
-      this.$router.push({ name: 'Monitor' })
-    },
-    goBackToHome () { }
+    }
   }
 
 }

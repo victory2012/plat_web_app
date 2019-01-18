@@ -217,7 +217,8 @@ export default {
 
   /* 修改个人信息 */
   changeUserMsg: data => http.put('user/info', data),
-
+  /* 修改个人信息 */
+  changeUserPwd: data => http.post('/user/info/pw', data),
   /* 获取个人信息 */
   getUserMsg: () => http.get(`/user/current?t=${Math.random()}`),
 

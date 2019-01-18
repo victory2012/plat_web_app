@@ -24,18 +24,10 @@ export default {
   },
   data() {
     return {
-      routerIndex: 0,
       tabs: [],
       defaultLable: ''
     }
   },
-  // watch: {
-  //   '$route.name': {
-  //     handler: function (val) {
-  //       this.getTabIndex(this.$route.name);
-  //     }
-  //   }
-  // },
   methods: {
 
   }

@@ -1,6 +1,8 @@
 // import TrackRoute from './track-route'
 import MonitorRoute from './monitor-route';
 const Login = () => import(/* webpackChunkName: "Login" */ '@/login/login.vue');
+const loading = () =>
+  import(/* webpackChunkName: "loading" */ '@/login/loading.vue');
 const Index = () => import(/* webpackChunkName: "Index" */ '@/views/index.vue');
 const Me = () => import(/* webpackChunkName: "Me" */ '@/views/home/me.vue');
 const Home = () =>
@@ -10,9 +12,9 @@ const News = () =>
 const User = () =>
   import(/* webpackChunkName: "User" */ '@/views/home/user.vue');
 const personalData = () =>
-  import(/* webpackChunkName: "personalData" */ '@/views/home/userInfo/personalData.vue');
+  import(/* webpackChunkName: "personalData" */ '@/views/home/MeInfo/personalData.vue');
 const changePassword = () =>
-  import(/* webpackChunkName: "changePassword" */ '@/views/home/userInfo/changePassword.vue');
+  import(/* webpackChunkName: "changePassword" */ '@/views/home/MeInfo/changePassword.vue');
 
 const MonitorBattery = () =>
   import(/* webpackChunkName: "MonitorBattery" */ '@/views/Battery-Monitor/battery/battery.vue');
@@ -57,7 +59,12 @@ const MonitorOperateBlack = () =>
 const route = [
   {
     path: '/',
-    redirect: 'login'
+    redirect: 'loading'
+  },
+  {
+    path: '/loading',
+    name: 'loading',
+    component: loading
   },
   {
     path: '/login',
