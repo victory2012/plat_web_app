@@ -4,7 +4,7 @@
       <div slot="left" @click="back" class="backIcon">
         <i class="backIcon iconfont icon-back1"></i>
       </div>
-      <div class="searchWarper" slot="mainTab">创建管理员</div>
+      <div class="searchWarper" slot="mainTab">创建用户</div>
     </top-header>
     <div class="creteWraper">
       <cube-scroll>
@@ -65,7 +65,9 @@ export default {
   mounted() { },
 
   methods: {
-    back() { },
+    back() {
+      this.$router.push({ name: 'HomeUser' })
+    },
     processFile(file, next) {
       // compress(file, {
       //   compress: {

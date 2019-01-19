@@ -65,7 +65,9 @@ export default {
   mounted() { },
 
   methods: {
-    back() { },
+    back() {
+      this.$router.push({ name: 'HomeUser' })
+    },
     processFile(file, next) {
       // compress(file, {
       //   compress: {

@@ -13,7 +13,8 @@
         </cube-select>
         <cube-select class="select" v-model="value.screen" :options="options" :placeholder="value.screen">
         </cube-select>
-        <div class="select Handover" @click="changes">
+        <div class="select" @click="changes">
+          <span class="iconfont icon-map"></span>
         </div>
       </div>
       <cube-scroll>

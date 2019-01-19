@@ -1,7 +1,7 @@
 <template>
   <div class="loginPage">
     <transition name='slide-fade'>
-      <div class="card loginCenter" v-show="!showAD">
+      <div class="card loginCenter">
         <div @click="showActive" class="languageWarp">
           <p class="languageCenter">{{localLanguge}}<i class="iconfont icon-downarrow"></i></p>
         </div>
@@ -49,8 +49,7 @@ export default {
       accountLogin: true,
       smsCode: t('loginMsg.getSmsCode'),
       logObj: {},
-      hasGetSms: false, // 是否已经获取了短信验证码
-      showAD: false
+      hasGetSms: false // 是否已经获取了短信验证码
     }
   },
   mounted() {

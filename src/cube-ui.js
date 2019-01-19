@@ -9,7 +9,7 @@ import {
   // basic
   Button,
   Loading,
-  Tip,
+  // Tip,
   Toolbar,
   TabBar,
   // TabPanels,
@@ -23,9 +23,9 @@ import {
   Select,
   // Switch,
   // Rate,
-  Validator,
+  // Validator,
   Upload,
-  Form,
+  // Form,
   // popup
   Popup,
   Toast,
@@ -41,18 +41,18 @@ import {
   // scroll
   Scroll,
   Slide,
-  IndexList,
-  Swipe,
+  // IndexList,
+  Swipe
   // Sticky,
-  RecycleList,
-  ScrollNav,
-  ScrollNavBar
+  // RecycleList,
+  // ScrollNav,
+  // ScrollNavBar
 } from 'cube-ui';
 
 Vue.use(Button);
 Vue.use(Loading);
-Vue.use(Tip);
-Vue.use(Toolbar);
+// Vue.use(Tip);
+// Vue.use(Toolbar);
 Vue.use(TabBar);
 // Vue.use(TabPanels);
 // Vue.use(Checkbox)
@@ -64,9 +64,9 @@ Vue.use(Input);
 Vue.use(Select);
 // Vue.use(Switch)
 // Vue.use(Rate)
-Vue.use(Validator);
+// Vue.use(Validator);
 Vue.use(Upload);
-Vue.use(Form);
+// Vue.use(Form);
 Vue.use(Popup);
 Vue.use(Toast);
 Vue.use(Picker);
@@ -80,9 +80,9 @@ Vue.use(ActionSheet);
 // Vue.use(ImagePreview)
 Vue.use(Scroll);
 Vue.use(Slide);
-Vue.use(IndexList);
+// Vue.use(IndexList);
 Vue.use(Swipe);
 // Vue.use(Sticky);
-Vue.use(RecycleList);
-Vue.use(ScrollNav);
-Vue.use(ScrollNavBar);
+// Vue.use(RecycleList);
+// Vue.use(ScrollNav);
+// Vue.use(ScrollNavBar);

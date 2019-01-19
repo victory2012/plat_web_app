@@ -11,6 +11,11 @@ const News = () =>
   import(/* webpackChunkName: "News" */ '@/views/home/news.vue');
 const User = () =>
   import(/* webpackChunkName: "User" */ '@/views/home/user.vue');
+const UserList = () =>
+  import(/* webpackChunkName: "UserList" */ '@/views/home/userComponent/user-manager.vue');
+const createAdmin = () => import(/* webpackChunkName: "createAdmin" */ '@/views/home/userComponent/createAdmin.vue')
+const createUser = () => import(/* webpackChunkName: "createUser" */ '@/views/home/userComponent/createUser.vue')
+
 const personalData = () =>
   import(/* webpackChunkName: "personalData" */ '@/views/home/MeInfo/personalData.vue');
 const changePassword = () =>
@@ -87,8 +92,24 @@ const route = [
       },
       {
         path: '/home/user',
-        name: 'HomeUser',
-        component: User
+        component: User,
+        children: [
+          {
+            path: '/',
+            name: 'HomeUser',
+            component: UserList
+          },
+          {
+            path: '/home/create-admin',
+            name: 'CreateAdmin',
+            component: createAdmin
+          },
+          {
+            path: '/home/create-user',
+            name: 'CreateUser',
+            component: createUser
+          }
+        ]
       },
       {
         path: '/home/me',
