@@ -15,6 +15,7 @@ const UserList = () =>
   import(/* webpackChunkName: "UserList" */ '@/views/home/userComponent/user-manager.vue');
 const createAdmin = () => import(/* webpackChunkName: "createAdmin" */ '@/views/home/userComponent/createAdmin.vue')
 const createUser = () => import(/* webpackChunkName: "createUser" */ '@/views/home/userComponent/createUser.vue')
+const Permissions = () => import(/* webpackChunkName: "Permissions" */ '@/views/home/userComponent/permission.vue')
 
 const personalData = () =>
   import(/* webpackChunkName: "personalData" */ '@/views/home/MeInfo/personalData.vue');
@@ -108,6 +109,11 @@ const route = [
             path: '/home/create-user',
             name: 'CreateUser',
             component: createUser
+          },
+          {
+            path: '/home/user-permission',
+            name: 'Permission',
+            component: Permissions
           }
         ]
       },

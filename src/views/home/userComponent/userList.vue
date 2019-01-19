@@ -23,7 +23,7 @@
       </div>
       <div class="handle">
         <p>删除</p>|
-        <p>修改权限</p>
+        <p @click="changePermission">修改权限</p>
       </div>
     </div>
   </cube-scroll>
@@ -522,6 +522,9 @@ export default {
           }
         }
       });
+    },
+    changePermission() {
+      this.$router.push({ name: 'Permission' })
     }
   }
 

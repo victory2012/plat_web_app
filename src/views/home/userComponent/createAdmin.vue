@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="add">
     <top-header fixed>
       <div slot="left" @click="back" class="backIcon">
         <i class="backIcon iconfont icon-back1"></i>
@@ -85,5 +85,24 @@ export default {
 }
 
 </script>
-<style lang='' scoped>
+<style lang='stylus' scoped>
+.add
+  height 100%
+  box-sizing border-box
+  padding $header-height +5px 15px $footer-height
+  .creteWraper
+    padding-top 10px
+    .personalData_title
+      display flex
+      justify-content space-between
+      height 30px
+      line-height 30px
+      padding 15px 0 10px
+      border-bottom: 1px solid #f2f2f2;
+      input
+        outline none
+      &.photo
+        height 80px
+        line-height 80px
+        padding-bottom 10px
 </style>

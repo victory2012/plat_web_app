@@ -10,11 +10,11 @@ import {
   Button,
   Loading,
   // Tip,
-  Toolbar,
+  // Toolbar,
   TabBar,
   // TabPanels,
   // form
-  // Checkbox,
+  Checkbox,
   // CheckboxGroup,
   // Radio,
   // RadioGroup,
@@ -55,7 +55,7 @@ Vue.use(Loading);
 // Vue.use(Toolbar);
 Vue.use(TabBar);
 // Vue.use(TabPanels);
-// Vue.use(Checkbox)
+Vue.use(Checkbox)
 // Vue.use(CheckboxGroup)
 // Vue.use(Radio)
 // Vue.use(RadioGroup)
