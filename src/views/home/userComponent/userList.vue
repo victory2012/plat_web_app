@@ -17,12 +17,12 @@
       </div>
       <div class="nikeName">
         <span class="tit">昵称</span>
-        <span>{{item.nickName}}</span>
+        <span class="infos">{{item.nickName}}</span>
         <span class="tit">邮箱</span>
-        <span>{{item.email}}</span>
+        <span class="infos">{{item.email}}</span>
       </div>
       <div class="handle">
-        <p>删除</p>|
+        <p @click="doleteUser(item)">删除</p>|
         <p @click="changePermission">修改权限</p>
       </div>
     </div>
@@ -31,7 +31,9 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import t from '@/utils/translate';
 import utils from '@/utils/utils';
+import { ToastWithLoading } from '@/utils/Toast'
 export default {
   name: '',
   props: [''],
@@ -45,389 +47,6 @@ export default {
           noMore: '没有更多数据'
         }
       },
-      data: [
-        {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '15866559988',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        },
-        {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '158665118',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        }, {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '15866559988',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        },
-        {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '158665118',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        }, {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '15866559988',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        },
-        {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '158665118',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        }, {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '15866559988',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        },
-        {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '158665118',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        }, {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '15866559988',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        },
-        {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '158665118',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        }, {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '15866559988',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        },
-        {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '158665118',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        }, {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '15866559988',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        },
-        {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '158665118',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        }, {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '15866559988',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        },
-        {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '158665118',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        }, {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '15866559988',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        },
-        {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '158665118',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        }, {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '15866559988',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        },
-        {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '158665118',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        }, {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '15866559988',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        },
-        {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '158665118',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        }, {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '15866559988',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        },
-        {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '158665118',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        }, {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '15866559988',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        },
-        {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '158665118',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        }, {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '15866559988',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        },
-        {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '158665118',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        }, {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '15866559988',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        },
-        {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '158665118',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        }, {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '15866559988',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        },
-        {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '158665118',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        }, {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '15866559988',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        },
-        {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '158665118',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        }, {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '15866559988',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        },
-        {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '158665118',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        }, {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '15866559988',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        },
-        {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '158665118',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        }, {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '15866559988',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        },
-        {
-          id: Math.random(),
-          companyName: '摩融科技',
-          userRole: '管理员',
-          userName: '某某人',
-          companyRole: '生产企业',
-          phone: '158665118',
-          nikeName: '张王李赵',
-          Email: 'aaacc@126.com'
-        }
-      ],
       tableData: [],
       currentPage: 1
     };
@@ -439,19 +58,17 @@ export default {
     options() {
       return {
         pullUpLoad: this.pullUpLoadObj,
-        scrollbar: true
+        scrollbar: false
       }
     }
   },
   mounted() {
-    this.tableData = this.data
-    // this.loading = ToastWithLoading()
-    // this.getUserList()
+    this.getUserList()
   },
 
   methods: {
+    /* 上拉加载更多 */
     pullingUp() {
-      // console.log('pullUpLoadObj')
       this.currentPage++
       if (this.currentPage > this.totalPage) {
         this.$refs.scroll.forceUpdate();
@@ -459,18 +76,18 @@ export default {
         this.getUserList()
       }
     },
+    /* 获取用户列表 */
     getUserList() {
       let pageObj = {
         pageSize: '15',
         pageNum: this.currentPage
       };
-      this.loading.show()
+      ToastWithLoading().show()
       this.$api.getUserList(pageObj).then(res => {
-        this.loading.hide()
+        ToastWithLoading().hide()
         if (res.data && res.data.code === 0) {
           let result = res.data;
           // this.tableData = [];
-          // this.total = result.data.total;
           this.totalPage = result.data.totalPage;
           if (result.data.pageData.length > 0) {
             // console.log(this.AdminRoles);
@@ -523,8 +140,32 @@ export default {
         }
       });
     },
+    /* 查看权限 */
     changePermission() {
       this.$router.push({ name: 'Permission' })
+    },
+    /* 删除用户 */
+    doleteUser(item) {
+      this.$createDialog({
+        type: 'confirm',
+        icon: 'cubeic-alert',
+        title: t('useMsg.delUserWarn'),
+        confirmBtn: {
+          text: t('timeBtn.sure')
+        },
+        cancelBtn: {
+          text: t('timeBtn.cancle')
+        },
+        onConfirm: () => {
+          this.$api.deleteUser(item.id).then(({ data }) => {
+            console.log(data);
+            if (data.code === 0) {
+              this.$Toast(t('successTips.delSuccess'))
+              this.getUserList();
+            }
+          });
+        }
+      }).show();
     }
   }
 
@@ -539,7 +180,7 @@ export default {
     box-sizing border-box
     background-color #ffffff
     // margin-bottom 5px
-    border-bottom 8px solid $boder-coloGray
+    border-bottom 5px solid $boder-coloGray
     .handle
       padding 15px 0
       p
@@ -558,4 +199,6 @@ export default {
           flex 0 0 65px
         &.userRole
           border-bottom 1px solid #cacaca
+        &.infos
+          text-align left
 </style>

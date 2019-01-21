@@ -14,6 +14,7 @@
         <div>{{alarm.deviceId}}</div>
       </div>
     </cube-scroll>
+    <p class="lookMore">查看更多</p>
   </div>
 </template>
 
@@ -174,42 +175,33 @@ export default {
 
 </script>
 <style lang='stylus' scoped>
-.view-wrapper {
-  .alarmTit {
-    display: flex;
-    SetBorder(1px, bottom);
-    padding: 10px;
-
-    li {
-      flex: 1;
-      text-align: center;
-      color: $subText-color;
-
-      &.time {
-        text-align: left;
-        flex: 0 0 35%;
-      }
-    }
-  }
-
-  .alarmList {
-    // height 200px
-    .alarmItem {
-      display: flex;
-      padding: 15px 10px;
-      SetBorder(1px, bottom);
-
-      .time {
-        text-align: left;
-        flex: 0 0 35%;
-        font-size: 13px;
-      }
-
-      & > div {
-        flex: 1;
-        text-align: center;
-      }
-    }
-  }
-}
+.view-wrapper
+  .alarmTit
+    display flex
+    SetBorder(1px, bottom)
+    padding 10px
+    li
+      flex 1
+      text-align center
+      color $subText-color
+      &.time
+        text-align left
+        flex 0 0 35%
+  .alarmList
+    height 200px
+    .alarmItem
+      display flex
+      padding 15px 10px
+      SetBorder(1px, bottom)
+      .time
+        text-align left
+        flex 0 0 35%
+        font-size 13px
+      & > div
+        flex 1
+        text-align center
+  .lookMore
+    height 30px
+    line-height 30px
+    text-align right
 </style>

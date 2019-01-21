@@ -37,7 +37,8 @@
   </div>
 </template>
 <script>
-import { ToastOnlyText, ToastWithLoading } from '@/utils/Toast';
+import Toast from '@/components/Toast/toast';
+import { ToastWithLoading } from '@/utils/Toast';
 import { phoneNumCheck } from '../utils/check.js';
 import t from '@/utils/translate';
 export default {
@@ -53,33 +54,32 @@ export default {
     }
   },
   mounted() {
-    this.loginLoading = ToastWithLoading()
   },
   methods: {
     signIn() {
-      this.$router.push({ name: 'Home' })
-      // if (this.accountLogin) {
-      //   this.doAccountLogin()
-      // } else {
-      //   this.phoneLogon()
-      // }
+      // this.$router.push({ name: 'Home' })
+      if (this.accountLogin) {
+        this.doAccountLogin()
+      } else {
+        this.phoneLogon()
+      }
     },
     doAccountLogin() {
       if (!this.logObj.account) {
-        ToastOnlyText(t('loginMsg.errorMsg.account'))
+        Toast(t('loginMsg.errorMsg.account'))
         return
       }
       if (!this.logObj.password) {
-        ToastOnlyText(t('loginMsg.errorMsg.password'))
+        Toast(t('loginMsg.errorMsg.password'))
         return
       }
       const person = {
         account: this.logObj.account,
         password: this.logObj.password
       };
-      this.loginLoading.show('登录中...')
+      ToastWithLoading().show('登录中...')
       this.$api.login(person).then(res => {
-        this.loginLoading.hide()
+        ToastWithLoading().hide()
         const data = res.data;
         if (data.code === 0) {
           localStorage.setItem('accPwd', JSON.stringify(person))
@@ -118,11 +118,11 @@ export default {
         return
       }
       if (!this.logObj.phone) {
-        ToastOnlyText(t('loginMsg.errorMsg.phoneNub'))
+        Toast(t('loginMsg.errorMsg.phoneNub'))
         return
       }
       if (!phoneNumCheck(this.logObj.phone)) {
-        ToastOnlyText(t('loginMsg.errorMsg.checkPhone'))
+        Toast(t('loginMsg.errorMsg.checkPhone'))
         return
       }
       let conut = 60;
@@ -139,31 +139,31 @@ export default {
               clearInterval(Timer);
             }
           }, 1000);
-          ToastOnlyText(t('loginMsg.smsSuccess'))
+          Toast(t('loginMsg.smsSuccess'))
         }
       });
     },
     phoneLogon() {
       if (!this.logObj.phone) {
-        ToastOnlyText(t('loginMsg.errorMsg.phoneNub'))
+        Toast(t('loginMsg.errorMsg.phoneNub'))
         return
       }
       if (!phoneNumCheck(this.logObj.phone)) {
-        ToastOnlyText(t('loginMsg.errorMsg.checkPhone'))
+        Toast(t('loginMsg.errorMsg.checkPhone'))
         return
       }
       if (!this.logObj.smscode) {
-        ToastOnlyText(t('loginMsg.errorMsg.smsCodeErr'))
+        Toast(t('loginMsg.errorMsg.smsCodeErr'))
         return
       }
       const phoneObj = {
         phone: this.logObj.phone,
         code: this.logObj.smscode
       };
-      this.loginLoading.show('登录中...')
+      ToastWithLoading().show('登录中...')
       this.$api.SMSVertify(phoneObj).then((res) => {
         console.log(res);
-        this.loginLoading.hide()
+        ToastWithLoading().hide()
         const data = res.data;
         if (data.code === 0) {
           sessionStorage.setItem('token', res.headers.token);

@@ -155,7 +155,7 @@ const data = {
     {
       type: 'gauge',
       center: ['25%', '65%'], // 默认全局居中
-      radius: '89%', // 仪表大小
+      radius: '86%', // 仪表大小
       // startAngle: 200, // 开始角度
       endAngle: 45, // 结束角度
       data: [
@@ -189,14 +189,6 @@ const data = {
       pointer: {
         width: 5
       },
-      // title: {
-      //   offsetCenter: [0, '-30%'], // x, y，单位px
-      //   show: true,
-      //   // offsetCenter: [0, '-40%'],
-      //   textStyle: {
-      //     fontWeight: 'bolder'
-      //   }
-      // },
       detail: {
         formatter: '{value}%',
         textStyle: {
@@ -210,7 +202,12 @@ const data = {
       center: ['69%', '58%'], // 仪表位置
       radius: '110%', // 仪表大小
       z: 3,
-      data: [],
+      data: [
+        {
+          value: 1.5,
+          name: '1000 r/min'
+        }
+      ],
       fontsize: 12,
       splitNumber: 10,
       axisLine: {

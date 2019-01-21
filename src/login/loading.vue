@@ -14,7 +14,6 @@
 </template>
 
 <script>
-
 export default {
   name: '',
   props: [''],
@@ -28,14 +27,13 @@ export default {
 
   mounted() {
     setTimeout(() => {
-      // const storageAccPwd = localStorage.getItem('accPwd');
-      // if (storageAccPwd) {
-      //   const local = JSON.parse(storageAccPwd);
-      //   this.doAccountLogin(local)
-      // } else {
-      //   this.$router.push({ name: 'login' })
-      this.$router.push({ name: 'login' })
-      // }
+      const storageAccPwd = localStorage.getItem('accPwd');
+      if (storageAccPwd) {
+        const local = JSON.parse(storageAccPwd);
+        this.doAccountLogin(local)
+      } else {
+        this.$router.push({ name: 'login' })
+      }
     }, 3000)
   },
 
@@ -85,9 +83,9 @@ export default {
 .card
   height 100%
   &.ad
-    background-color $color-project-blue
+    // background-color $color-project-blue
     text-align center
-    color #ffffff
+    // color #ffffff
     font-size 18px
     box-sizing border-box
     padding-top 100px

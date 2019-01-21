@@ -8,10 +8,6 @@
     </top-header>
     <div class="creteWraper">
       <cube-scroll>
-        <div class="personalData_title photo">
-          <p>企业Logo</p>
-          <cube-upload ref="upload" :action="action" :simultaneous-uploads="1" :process-file="processFile" @file-submitted="fileSubmitted" class="upload" />
-        </div>
         <div class="personalData_title">
           <p>昵称</p>
           <input class="input" v-model="userArr.companyName" type="text">
@@ -21,24 +17,19 @@
           <input class="input" v-model="userArr.companyName" type="text">
         </div>
         <div class="personalData_title">
-          <p>企业名称</p>
-          <input class="input" v-model="userArr.nickName" type="text">
+          <p>密码</p>
+          <input class="input" v-model="userArr.password" type="password">
         </div>
         <div class="personalData_title">
           <p>手机号码</p>
           <input class="input" v-model="userArr.phone" type="text">
         </div>
         <div class="personalData_title">
-          <p>企业地址</p>
-          <input class="input" v-model="userArr.accountType" type="text">
-        </div>
-        <div class="personalData_title">
-          <p>企业区域</p>
-          <input class="input" v-model="userArr.layerName" type="text">
-        </div>
-        <div class="personalData_title">
           <p>邮箱</p>
           <input class="input" v-model="userArr.email" type="text">
+        </div>
+        <div class="submitBtn">
+          <p>确定</p>
         </div>
       </cube-scroll>
     </div>
@@ -89,20 +80,28 @@ export default {
 .add
   height 100%
   box-sizing border-box
-  padding $header-height +5px 15px $footer-height
+  padding $header-height + 5px 15px $footer-height
   .creteWraper
     padding-top 10px
+    height 100%
+    box-sizing border-box
     .personalData_title
       display flex
       justify-content space-between
       height 30px
       line-height 30px
       padding 15px 0 10px
-      border-bottom: 1px solid #f2f2f2;
+      border-bottom 1px solid #f2f2f2
       input
         outline none
-      &.photo
-        height 80px
-        line-height 80px
-        padding-bottom 10px
+    .submitBtn
+      padding 0 60px
+      margin-top 30px
+      p
+        line-height 40px
+        height 40px
+        background $color-project-blue
+        color #ffffff
+        text-align center
+        border-radius 5px
 </style>

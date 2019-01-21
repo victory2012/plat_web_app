@@ -13,9 +13,14 @@ const User = () =>
   import(/* webpackChunkName: "User" */ '@/views/home/user.vue');
 const UserList = () =>
   import(/* webpackChunkName: "UserList" */ '@/views/home/userComponent/user-manager.vue');
-const createAdmin = () => import(/* webpackChunkName: "createAdmin" */ '@/views/home/userComponent/createAdmin.vue')
-const createUser = () => import(/* webpackChunkName: "createUser" */ '@/views/home/userComponent/createUser.vue')
-const Permissions = () => import(/* webpackChunkName: "Permissions" */ '@/views/home/userComponent/permission.vue')
+const createAdmin = () =>
+  import(/* webpackChunkName: "createAdmin" */ '@/views/home/userComponent/createAdmin.vue');
+const createUser = () =>
+  import(/* webpackChunkName: "createUser" */ '@/views/home/userComponent/createUser.vue');
+const Permissions = () =>
+  import(/* webpackChunkName: "Permissions" */ '@/views/home/userComponent/permission.vue');
+const CompanyDetail = () =>
+  import(/* webpackChunkName: "CompanyDetail" */ '@/views/home/userComponent/companyDetail.vue');
 
 const personalData = () =>
   import(/* webpackChunkName: "personalData" */ '@/views/home/MeInfo/personalData.vue');
@@ -114,6 +119,11 @@ const route = [
             path: '/home/user-permission',
             name: 'Permission',
             component: Permissions
+          },
+          {
+            path: '/home/company-detail',
+            name: 'CompanyDetail',
+            component: CompanyDetail
           }
         ]
       },

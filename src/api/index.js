@@ -152,7 +152,7 @@ export default {
   /* 创建管理员 */
   createCompany: data => http.post('/company/manufacturer', data),
 
-  /* 创建管理员 */
+  /* 创建采购企业管理员 */
   createPurchaser: data => http.post('/company/purchaser', data),
 
   /* 批量添加设备 */
@@ -227,6 +227,9 @@ export default {
 
   /* 删除公司 */
   deleteCompany: id => http.delete(`/company/${id}`),
+
+  /* 获取公司列表 */
+  getCompanyList: () => http.get(`/company`),
 
   /* 修改用户权限 */
   ChangePermissions: data => http.put('/user/permissions', data),

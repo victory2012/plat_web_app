@@ -98,7 +98,7 @@ export default {
           console.log('11');
           this.$api.logOut().then(({ data }) => {
             if (data.code === 0) {
-              this.$router.push('/')
+              this.$router.push('/login')
               localStorage.removeItem('accPwd')
               sessionStorage.clear()
             }

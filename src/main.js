@@ -7,9 +7,11 @@ import 'amfe-flexible';
 import './assets/icon/iconfont.css';
 import api from './api/index';
 import i18n from './i18n';
+import Toast from '@/components/Toast/toast';
 
 Vue.config.productionTip = false;
 Vue.prototype.$api = api;
+Vue.prototype.$Toast = Toast;
 new Vue({
   router,
   store,

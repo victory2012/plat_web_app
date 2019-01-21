@@ -45,4 +45,12 @@ input:disabled, textarea:disabled
   opacity 0
 .amap-copyright, .amap-logo
   display none !important
+::-webkit-input-placeholder /* WebKit browsers */
+  color #ccc
+:-moz-placeholder /* Mozilla Firefox 4 to 18 */
+  color #ccc
+::-moz-placeholder /* Mozilla Firefox 19+ */
+  color #ccc
+:-ms-input-placeholder /* Internet Explorer 10+ */
+  color #ccc
 </style>

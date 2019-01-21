@@ -1,8 +1,9 @@
-/* eslint-disable */
 import axios from 'axios';
+import store from '@/store/store';
 import t from '@/utils/translate';
 import router from '@/router';
-import { ToastOnlyText } from '@/utils/Toast';
+import Toast from '@/components/Toast/toast';
+
 const baseURL =
   process.env.NODE_ENV === 'production' ? 'http://47.96.8.239:8000' : '/api';
 // const baseURL = '/api'; // 'http://47.96.8.239:8000';
@@ -42,7 +43,7 @@ function checkStatus(response) {
     return response;
   } else {
     // 异常状态下，把错误信息返回去
-    ToastOnlyText(`${t('internetErr')}`);
+    Toast(`${t('internetErr')}`);
     return {
       status: 500,
       msg: `${t('internetErr')}`
@@ -66,96 +67,92 @@ function switchCode(status) {
       setTimeout(() => {
         router.push('/login');
         sessionStorage.clear();
+        store.commit('setRouterIndex', 0);
       }, 1000);
-      return ToastOnlyText(`${t('responseCode.sessionOut')}`);
+      return Toast(`${t('responseCode.sessionOut')}`);
     }
     case 10: {
-      return ToastOnlyText(`${t('responseCode.parameterErr')}`);
+      return Toast(`${t('responseCode.parameterErr')}`);
     }
     case 20: {
-      return ToastOnlyText(`${t('responseCode.permissions')}`);
+      return Toast(`${t('responseCode.permissions')}`);
     }
     case 30: {
-      return ToastOnlyText(`${t('responseCode.dataExists')}`);
+      return Toast(`${t('responseCode.dataExists')}`);
     }
     case 40:
-      return ToastOnlyText(`${t('responseCode.sendCode')}`);
+      return Toast(`${t('responseCode.sendCode')}`);
 
     case 41:
-      return ToastOnlyText(`${t('responseCode.smscodeErr')}`);
+      return Toast(`${t('responseCode.smscodeErr')}`);
 
     case 101001:
-      return ToastOnlyText(`${t('responseCode.accountExists')}`);
+      return Toast(`${t('responseCode.accountExists')}`);
 
     case 101002:
-      return ToastOnlyText(`${t('responseCode.phoneExists')}`);
+      return Toast(`${t('responseCode.phoneExists')}`);
 
     case 101003:
-      return ToastOnlyText(`${t('responseCode.emailExists')}`);
+      return Toast(`${t('responseCode.emailExists')}`);
 
     case 104001:
-      return ToastOnlyText(`${t('responseCode.accountOrPwdErr')}`);
+      console.log('status', status);
+      return Toast(`${t('responseCode.accountOrPwdErr')}`);
 
     case 104002: {
-      return ToastOnlyText(`${t('responseCode.userNotExist')}`);
+      return Toast(`${t('responseCode.userNotExist')}`);
     }
     case 201001: {
-      return ToastOnlyText(`${t('responseCode.companyExists')}`);
+      return Toast(`${t('responseCode.companyExists')}`);
     }
     case 202002: {
-      return ToastOnlyText(`${t('responseCode.hasInvalidHost')}`);
+      return Toast(`${t('responseCode.hasInvalidHost')}`);
     }
     case 204001:
-      return ToastOnlyText(
-        `${status.data}-${t('responseCode.notFindCompany')}`
-      );
+      return Toast(`${status.data}-${t('responseCode.notFindCompany')}`);
     case 301001:
-      return ToastOnlyText(`${t('responseCode.deviceExists')}`);
+      return Toast(`${t('responseCode.deviceExists')}`);
     case 301002: {
-      return ToastOnlyText(`${status.data}-${t('responseCode.notFindDevice')}`);
+      return Toast(`${status.data}-${t('responseCode.notFindDevice')}`);
     }
     case 301101:
-      return ToastOnlyText(
-        `${status.data}-${t('responseCode.gpsDeviceExists')}`
-      );
+      return Toast(`${status.data}-${t('responseCode.gpsDeviceExists')}`);
     case 301201:
-      return ToastOnlyText(
-        `${status.data}-${t('responseCode.MonitorDeviceExists')}`
-      );
+      return Toast(`${status.data}-${t('responseCode.MonitorDeviceExists')}`);
     case 302001:
-      return ToastOnlyText(`${t('responseCode.deviceRunning')}`);
+      return Toast(`${t('responseCode.deviceRunning')}`);
     case 303001:
-      return ToastOnlyText(`${status.data}-${t('responseCode.deviceBind')}`);
+      return Toast(`${status.data}-${t('responseCode.deviceBind')}`);
     case 401001:
-      return ToastOnlyText(`${t('responseCode.hasHost')}`);
+      return Toast(`${t('responseCode.hasHost')}`);
     case 403002:
-      return ToastOnlyText(`${t('responseCode.hostBind')}`);
+      return Toast(`${t('responseCode.hostBind')}`);
     case 401201:
-      return ToastOnlyText(`${t('responseCode.batteryGroupExists')}`);
+      return Toast(`${t('responseCode.batteryGroupExists')}`);
     case 401211:
-      return ToastOnlyText(`${t('responseCode.batteryModelExists')}`);
+      return Toast(`${t('responseCode.batteryModelExists')}`);
     case 401212:
-      return ToastOnlyText(`${t('responseCode.batteryModelNotFind')}`);
+      return Toast(`${t('responseCode.batteryModelNotFind')}`);
     case 401213:
-      return ToastOnlyText(`${t('responseCode.batterySpecExists')}`);
+      return Toast(`${t('responseCode.batterySpecExists')}`);
     case 401214:
-      return ToastOnlyText(`${t('responseCode.batterySpecNotFind')}`);
+      return Toast(`${t('responseCode.batterySpecNotFind')}`);
     case 401215:
-      return ToastOnlyText(`${t('responseCode.batterySingleModelExists')}`);
+      return Toast(`${t('responseCode.batterySingleModelExists')}`);
     case 401216:
-      return ToastOnlyText(`${t('responseCode.batterySingleModelNotFind')}`);
+      return Toast(`${t('responseCode.batterySingleModelNotFind')}`);
     case 501211:
-      return ToastOnlyText(`${t('responseCode.innerNoticeExists')}`);
+      return Toast(`${t('responseCode.innerNoticeExists')}`);
     case 501221:
-      return ToastOnlyText(`${t('responseCode.InnerNoticeUserExists')}`);
+      return Toast(`${t('responseCode.InnerNoticeUserExists')}`);
     case 501222:
-      return ToastOnlyText(`${t('responseCode.InnerNoticeOverrun')}`);
+      return Toast(`${t('responseCode.InnerNoticeOverrun')}`);
     case 501231:
-      return ToastOnlyText(`${t('responseCode.outerNoticeUserExists')}`);
+      return Toast(`${t('responseCode.outerNoticeUserExists')}`);
     case 501232:
-      return ToastOnlyText(`${t('responseCode.outerNoticeOverrun')}`);
+      return Toast(`${t('responseCode.outerNoticeOverrun')}`);
     case -1:
-      return ToastOnlyText(`${t('connectErr')}`);
+      return Toast(`${t('connectErr')}`);
     default:
       break;
   }

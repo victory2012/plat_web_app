@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="banner">
-      <cube-slide :data="items" :options='sildOptions' />
+      <cube-slide :data="items" :options='sildOptions'>
+        <template slot="dots" slot-scope="props">
+          <span class="dot" :class="{active: props.current === index}" v-for="(item, index) in props.dots" :key="index">{{index + 1}}</span>
+        </template>
+      </cube-slide>
     </div>
     <div class="body">
       <div class="projects">
@@ -64,6 +68,12 @@ export default {
 <style lang='stylus' scoped>
 @import '../../theme.styl'
 
+.banner
+  .dot
+    width 8px
+    height 8px
+    border-radius 50%
+    border 1px solid #eaeaea
 .body
   .projects
     // display flex

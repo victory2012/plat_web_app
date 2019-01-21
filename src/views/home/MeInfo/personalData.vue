@@ -57,8 +57,8 @@
 <script>
 import { mapGetters } from 'vuex';
 import topHeader from '@/components/header/header';
-// import utils from '@/utils/utils'
-import { ToastOnlyText } from '@/utils/Toast'
+import utils from '@/utils/utils'
+import Toast from '@/components/Toast/toast';
 import { phoneNumCheck, emailCheck } from '@/utils/check'
 export default {
   components: {
@@ -152,8 +152,8 @@ export default {
     })
   },
   mounted() {
-    // this.userArr = Object.assign({}, this.saveObj)
-    // this.userArr.accountType = utils.accountType(this.userArr.type);
+    this.userArr = Object.assign({}, this.saveObj)
+    this.userArr.accountType = utils.accountType(this.userArr.type);
   },
   methods: {
     handleBack() {
@@ -195,7 +195,7 @@ export default {
       this.$api.changeUserMsg(userObj).then(({ data }) => {
         if (data.code === 0) {
           this.editInfo = false
-          ToastOnlyText('修改成功')
+          Toast('修改成功')
         }
       });
     },
