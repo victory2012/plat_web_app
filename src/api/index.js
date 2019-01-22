@@ -9,8 +9,8 @@ export default {
   logOut: () => http.post('/login/logout'),
 
   /* 获取权限 */
-  permissions: data =>
-    http.get(`/user/permissions/${data}?t=${new Date().getTime()}`),
+  permissions: userId =>
+    http.get(`/user/permissions/${userId}?t=${new Date().getTime()}`),
 
   /* 获取短信验证码 */
   SMScode: data => http.post('/login/sms/send', data),

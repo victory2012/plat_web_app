@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import topHeader from '@/components/header/header'
 import moreOptions from '@/components/moreOptions/moreOptions'
 
@@ -71,8 +72,21 @@ export default {
     'User': () => import('./userList.vue'),
     'Company': () => import('./companyList.vue')
   },
-
+  computed: {
+    ...mapGetters({
+      userData: 'getLoginData'
+    })
+  },
   mounted() {
+    if (this.userData.layerName === '平台') {
+      this.moreOptions.splice(1, 2)
+    }
+    if (this.userData.type === 2 && this.userData.layerName === '生产企业') {
+      this.moreOptions.splice(0, 1)
+    }
+    if (this.userData.type === 2 && this.userData.layerName === '采购企业') {
+      this.moreOptions.splice(2, 1)
+    }
   },
   methods: {
     showAddOptions() {

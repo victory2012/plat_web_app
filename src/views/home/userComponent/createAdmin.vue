@@ -8,10 +8,7 @@
     </top-header>
     <div class="creteWraper">
       <cube-scroll>
-        <div class="personalData_title photo">
-          <p>企业Logo</p>
-          <cube-upload ref="upload" :action="action" :simultaneous-uploads="1" :process-file="processFile" @file-submitted="fileSubmitted" class="upload" />
-        </div>
+        <upload-img @urlCallback="getCompanyAvtar" class="userAvtar" label="公司logo"></upload-img>
         <div class="personalData_title">
           <p>昵称</p>
           <input class="input" placeholder='请填写昵称' v-model="companyArr.nickName" type="text">
@@ -56,51 +53,49 @@
 </template>
 
 <script>
+import uploadImg from '@/components/upload/upload'
+import { mapGetters } from 'vuex';
 import topHeader from '@/components/header/header';
 import t from '@/utils/translate';
-import { phoneNumCheck, emailCheck } from '../../../utils/check.js'
+import { phoneNumCheck, emailCheck, passwordCheck, accountCheck, spaceCheck } from '@/utils/check.js'
+
 export default {
   name: '',
   props: [''],
   data() {
     return {
       companyArr: {},
+      companyAvtar: '', // 公司头像
       options: [
         {
-          value: 0,
+          value: 1,
           text: '国内'
         },
         {
-          value: 1,
+          value: 2,
           text: '国际'
         }
-      ],
-      action: {
-        target: '//jsonplaceholder.typicode.com/photos/',
-        prop: 'base64Value'
-      }
+      ]
     };
   },
   components: {
-    topHeader
+    topHeader,
+    uploadImg
   },
-  mounted() { },
-
+  computed: {
+    ...mapGetters({
+      userData: 'getLoginData'
+    })
+  },
+  mounted() {
+  },
   methods: {
     back() {
       this.$router.push({ name: 'HomeUser' })
     },
-    processFile(file, next) {
-      // compress(file, {
-      //   compress: {
-      //     width: 1600,
-      //     height: 1600,
-      //     quality: 0.5
-      //   }
-      // }, next)
-    },
-    fileSubmitted(file) {
-      file.base64Value = file.file.base64
+    getCompanyAvtar(url) {
+      console.log('getCompanyAvtar', url);
+      this.companyAvtar = url
     },
     doCreateAdmin() {
       const { account, password, phone, email, companyName, mapType, nickName, address } = this.companyArr
@@ -114,8 +109,20 @@ export default {
         this.$Toast('请填写完整');
         return
       }
+      if (!spaceCheck(password)) {
+        this.$Toast('密码中含有空格');
+        return
+      }
       if (!phoneNumCheck(phone)) {
         this.$Toast('手机号有误');
+        return
+      }
+      if (!accountCheck(account)) {
+        this.$Toast('账号格式有误，由4-20位数字、字母组成');
+        return
+      }
+      if (!passwordCheck(phone)) {
+        this.$Toast('密码格式有误，由6-20位数字、字母、特殊符号组成');
         return
       }
       if (email && !emailCheck(email)) {
@@ -126,17 +133,44 @@ export default {
         account,
         password,
         phone,
-        email,
         companyName,
-        isCreator: 1,
-        permissions: '{}',
         mapType,
-        nickName,
-        address
+        address,
+        isCreator: 1,
+        permissions: '{}'
       }
+      if (nickName) {
+        params.nickName = nickName
+      }
+      if (email) {
+        params.email = email
+      }
+      if (this.companyAvtar) {
+        params.photo = this.companyAvtar
+      }
+      console.log(params)
+      if (this.userData.layerName === '平台') {
+        this.createManufacturerFun(params)
+      }
+      if (this.userData.type === 2 && this.userData.layerName === '生产企业') {
+        this.createPurchaserFun(params)
+      }
+    },
+    /* 添加生产企业管理员 方法 */
+    createManufacturerFun(params) {
+      this.$api.createCompany(params).then(({ data }) => {
+        console.log(data);
+        if (data.code === 0) {
+          this.$Toast({
+            message: t('successTips.addSuccess') // "创建成功"
+          });
+        }
+      });
+    },
+    /* 添加采购企业管理员 方法 */
+    createPurchaserFun(params) {
       this.$api.createPurchaser(params).then(({ data }) => {
         console.log(data);
-        this.addadmin = false;
         if (data.code === 0) {
           this.$Toast({
             message: t('successTips.addSuccess') // "创建成功"
@@ -158,6 +192,9 @@ export default {
     // padding-top 10px
     height 100%
     box-sizing border-box
+    .userAvtar
+      border-bottom 1px solid #f2f2f2
+      padding-bottom 10px
     .personalData_title
       display flex
       justify-content space-between
@@ -187,6 +224,7 @@ export default {
     .submitBtn
       padding 0 60px
       margin-top 30px
+      height 120px
       p
         line-height 40px
         height 40px

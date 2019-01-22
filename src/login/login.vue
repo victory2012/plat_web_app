@@ -107,7 +107,7 @@ export default {
       this.$api.permissions(userId).then(({ data }) => {
         console.log('UserPermissions', data)
         if (data.code === 0) {
-          sessionStorage.setItem('UserPermissions', data.data)
+          sessionStorage.setItem('UserPermissions', JSON.stringify(data.data))
           this.$router.push({ name: 'Home' })
         }
       })

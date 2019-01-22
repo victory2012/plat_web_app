@@ -13,10 +13,7 @@
       </div>
     </top-header>
     <div class="message">
-      <div class="personalData_title photo">
-        <p>头像</p>
-        <cube-upload ref="upload" :action="action" :simultaneous-uploads="1" :process-file="processFile" @file-submitted="fileSubmitted" class="upload" />
-      </div>
+      <upload-img @urlCallback="getUserAvtar" :status="editInfo" class="userAvtar" label="用户头像"></upload-img>
       <div class="personalData_title">
         <p>昵称</p>
         <input class="input" :disabled="!editInfo" v-model="userArr.nickName" type="text">
@@ -41,15 +38,6 @@
         <p>邮箱</p>
         <input class="input" :disabled="!editInfo" v-model="userArr.email" type="text">
       </div>
-      <!-- <cube-form :model="model" @validate="validateHandler" @submit="submitHandler">
-        <cube-form-group>
-          <cube-form-item v-for="item in fields" :key="item.modelKey" :field="item"></cube-form-item>
-          <cube-form-item :field="fields[1]"></cube-form-item>
-        </cube-form-group>
-        <cube-form-group>
-          <cube-button type="submit">Submit</cube-button>
-        </cube-form-group>
-      </cube-form> -->
     </div>
   </div>
 </template>
@@ -57,91 +45,18 @@
 <script>
 import { mapGetters } from 'vuex';
 import topHeader from '@/components/header/header';
+import uploadImg from '@/components/upload/upload'
 import utils from '@/utils/utils'
-import Toast from '@/components/Toast/toast';
 import { phoneNumCheck, emailCheck } from '@/utils/check'
 export default {
   components: {
-    topHeader
+    topHeader,
+    uploadImg
   },
   data() {
     return {
       editInfo: false,
       userArr: {},
-      model: {},
-      // fields: [
-      //   {
-      //     type: 'input',
-      //     modelKey: 'nickName',
-      //     label: '昵称',
-      //     props: {
-      //       placeholder: '请输入昵称'
-      //     },
-      //     rules: {
-      //       required: true
-      //     }
-      //   },
-      //   {
-      //     type: 'input',
-      //     modelKey: 'accountIden',
-      //     label: '账户身份',
-      //     props: {
-      //       placeholder: '请输入账户身份'
-      //     },
-      //     rules: {
-      //       required: true
-      //     }
-      //   },
-      //   {
-      //     type: 'input',
-      //     modelKey: 'companyIden',
-      //     label: '企业身份',
-      //     props: {
-      //       placeholder: '请输入企业身份'
-      //     },
-      //     rules: {
-      //       required: true
-      //     }
-      //   },
-      //   {
-      //     type: 'input',
-      //     modelKey: 'companyName',
-      //     label: '企业名称',
-      //     props: {
-      //       placeholder: '请输入企业名称'
-      //     },
-      //     rules: {
-      //       required: true
-      //     }
-      //   },
-      //   {
-      //     type: 'input',
-      //     modelKey: 'phone',
-      //     label: '手机号码',
-      //     props: {
-      //       placeholder: '请输入手机号码'
-      //     },
-      //     rules: {
-      //       required: true
-      //     }
-      //   },
-      //   {
-      //     type: 'input',
-      //     modelKey: 'email',
-      //     label: '邮箱',
-      //     props: {
-      //       placeholder: '请输入邮箱'
-      //     },
-      //     rules: {
-      //       required: true
-      //     }
-      //   }
-      // ],
-      value: '123',
-      action: {
-        target: '//jsonplaceholder.typicode.com/photos/',
-        prop: 'base64Value'
-      },
       redact: '编辑',
       title: '个人信息'
     }
@@ -159,18 +74,25 @@ export default {
     handleBack() {
       this.$router.push({ name: 'HomeMe' })
     },
+    getUserAvtar(url) {
+      this.userAvtar = url
+      console.log(url)
+    },
     saveEdit() {
       let { nickName, phone, email } = this.userArr
       let userNickname = this.saveObj.nickName;
       let userPhone = this.saveObj.phone;
       let userEmail = this.saveObj.email;
       if (!nickName) {
+        this.$Toast('nickName')
         return
       }
-      if (!email || emailCheck(email)) {
+      if (email && !emailCheck(email)) {
+        this.$Toast('email')
         return
       }
       if (!phone || !phoneNumCheck(phone)) {
+        this.$Toast('phone')
         return
       }
       const editMsg = {};
@@ -183,19 +105,21 @@ export default {
       if (email !== userEmail) {
         editMsg.email = email
       }
+      if (this.userAvtar) {
+        editMsg.photo = this.userAvtar
+      }
       if (JSON.stringify(editMsg) !== '{}') {
         this.changeUserFun(editMsg)
       } else {
         this.editInfo = false
       }
-      // this.changeUserFun()
+      this.changeUserFun(editMsg)
       console.log('this.list', editMsg)
     },
     changeUserFun(userObj) {
       this.$api.changeUserMsg(userObj).then(({ data }) => {
         if (data.code === 0) {
-          this.editInfo = false
-          Toast('修改成功')
+          this.$Toast('修改成功')
         }
       });
     },
@@ -207,18 +131,6 @@ export default {
     },
     submitHandler(data) {
       console.log('submitHandler', data)
-    },
-    processFile(file, next) {
-      // compress(file, {
-      //   compress: {
-      //     width: 1600,
-      //     height: 1600,
-      //     quality: 0.5
-      //   }
-      // }, next)
-    },
-    fileSubmitted(file) {
-      file.base64Value = file.file.base64
     }
   }
 }
@@ -234,6 +146,9 @@ export default {
   .message
     margin 15px auto 0
     padding 0 15px
+    .userAvtar
+      border-bottom 1px solid #f2f2f2
+      margin-bottom 15px
     .personalData_title
       display flex
       border-bottom 1px solid #f2f2f2

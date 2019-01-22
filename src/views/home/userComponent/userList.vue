@@ -23,7 +23,7 @@
       </div>
       <div class="handle">
         <p @click="doleteUser(item)">删除</p>|
-        <p @click="changePermission">修改权限</p>
+        <p @click="changePermission(item)">修改权限</p>
       </div>
     </div>
   </cube-scroll>
@@ -85,6 +85,7 @@ export default {
       ToastWithLoading().show()
       this.$api.getUserList(pageObj).then(res => {
         ToastWithLoading().hide()
+        console.log(res)
         if (res.data && res.data.code === 0) {
           let result = res.data;
           // this.tableData = [];
@@ -141,8 +142,15 @@ export default {
       });
     },
     /* 查看权限 */
-    changePermission() {
-      this.$router.push({ name: 'Permission' })
+    changePermission(item) {
+      this.$router.push({
+        path: '/home/user-permission',
+        query: {
+          type: item.type,
+          layerName: item.layerName,
+          id: item.id
+        }
+      })
     },
     /* 删除用户 */
     doleteUser(item) {
