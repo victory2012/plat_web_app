@@ -13,7 +13,7 @@
       </div>
     </top-header>
     <div class="message">
-      <upload-img @urlCallback="getUserAvtar" :status="!editInfo" class="userAvtar" label="用户头像"></upload-img>
+      <upload-img @urlCallback="getUserAvtar" :status="!editInfo" :imgSrc="userArr.photoUrl" class="userAvtar" label="用户头像"></upload-img>
       <div class="personalData_title">
         <p>昵称</p>
         <input class="input" :disabled="!editInfo" v-model="userArr.nickName" type="text">
@@ -57,13 +57,12 @@ export default {
     return {
       editInfo: false,
       userArr: {},
-      redact: '编辑',
-      title: '个人信息'
+      title: '用户详情'
     }
   },
   computed: {
     ...mapGetters({
-      saveObj: 'getLoginData'
+      saveObj: 'getUserDetail'
     })
   },
   mounted() {
@@ -72,7 +71,7 @@ export default {
   },
   methods: {
     handleBack() {
-      this.$router.push({ name: 'HomeMe' })
+      this.$router.push({ name: 'HomeUser' })
     },
     getUserAvtar(url) {
       this.userAvtar = url
@@ -113,34 +112,16 @@ export default {
       } else {
         this.editInfo = false
       }
-      console.log('this.list', editMsg)
     },
-    changeUserFun(userObj) {
-      this.$api.changeUserMsg(userObj).then(({ data }) => {
+    changeUserFun(editMsg) {
+      this.$api.modifyUserPwd(this.saveObj.id, editMsg).then(({ data }) => {
         if (data.code === 0) {
-          this.editInfo = false
           this.$Toast('修改成功')
-          this.getUserInfo()
         }
       });
     },
-    getUserInfo() {
-      this.$api.getUserMsg().then(({ data }) => {
-        console.log(data);
-        if (data.code === 0) {
-          sessionStorage.setItem('loginData', JSON.stringify(data.data));
-          this.$store.commit('setUserLoginData', data.data)
-        }
-      })
-    },
     editUserInfo() {
       this.editInfo = true
-    },
-    validateHandler(data) {
-      console.log('validateHandler', data)
-    },
-    submitHandler(data) {
-      console.log('submitHandler', data)
     }
   }
 }

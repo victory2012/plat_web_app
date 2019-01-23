@@ -2,7 +2,7 @@
   <div class="popupWraper">
     <!-- <div class="mask"></div> -->
     <div class="content">
-      <slot name='content'></slot>
+      <slot name='content'>asdasdasdadasdasdasdasdas</slot>
     </div>
   </div>
 </template>

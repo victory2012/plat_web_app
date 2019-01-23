@@ -33,7 +33,7 @@ axios.interceptors.response.use(
 
 function checkStatus(response) {
   // 如果http状态码正常，则直接返回数据
-  // console.log(response);
+  console.log(response.status);
   if (
     response &&
     (response.status === 200 ||
@@ -44,10 +44,7 @@ function checkStatus(response) {
   } else {
     // 异常状态下，把错误信息返回去
     Toast(`${t('internetErr')}`);
-    return {
-      status: 500,
-      msg: `${t('internetErr')}`
-    };
+    return { status: response.status, data: {}, msg: `${t('internetErr')}` };
   }
 }
 
@@ -94,7 +91,8 @@ function switchCode(status) {
 
     case 101003:
       return Toast(`${t('responseCode.emailExists')}`);
-
+    case 101008:
+      return Toast(`${t('responseCode.oldPassword')}`);
     case 104001:
       console.log('status', status);
       return Toast(`${t('responseCode.accountOrPwdErr')}`);

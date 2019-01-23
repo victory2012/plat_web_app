@@ -16,5 +16,8 @@ export default {
   MoniterMainTabBar: monitorFooterBar(),
   MoniterFenceTab: fenceTab,
   MoniterOperateTab: operateTab,
+  CompanyDetail: {},
+  UserDetail: {},
+  OverviewAccount: '',
   LoginData: logindata ? JSON.parse(logindata) : ''
 };

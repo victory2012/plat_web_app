@@ -18,6 +18,7 @@ export default {
     accountExists: 'Account already exists.', // 101001
     phoneExists: 'Mobile phone number already exists.', // 101002
     emailExists: 'Mailbox already exists.', // 101003
+    oldPassword: 'The old password is incorrect', // 101008
     accountOrPwdErr: 'Invalid account or password.', // 104001
     userNotExist: 'The user does not exist.', // `104002`: 用户不存在
     companyExists: 'The company already exists.', // 201001

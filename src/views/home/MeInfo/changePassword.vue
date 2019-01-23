@@ -12,23 +12,23 @@
       <div class="account flex">
         <p>旧密码</p>
         <!-- <input type="password" placeholder="请输入旧密码" class="input"> -->
-        <cube-input class="input" type='password' placeholder="请输入旧密码" v-model="submit.oldPass"></cube-input>
+        <cube-input class="input" type='password' placeholder="请输入旧密码" v-model="submit.oldPassword"></cube-input>
       </div>
       <div class="password flex">
         <p>新密码</p>
-        <cube-input class="input" type='password' placeholder="请输入新密码" v-model="submit.newPass"></cube-input>
+        <cube-input class="input" type='password' placeholder="请输入新密码" v-model="submit.newPassword"></cube-input>
         <!-- <input type="password" placeholder="请输入新密码" class="input"> -->
       </div>
     </div>
     <div class="submitBtn">
-      <cube-button type="submit" class="SubmitBtn" @click="submitFrom()">Submit Button</cube-button>
+      <cube-button type="submit" class="SubmitBtn" @click="submitFrom()">修改密码</cube-button>
     </div>
   </div>
 </template>
 
 <script>
 import topHeader from '@/components/header/header'
-
+import { passwordCheck, spaceCheck } from '@/utils/check'
 export default {
   data() {
     return {
@@ -44,20 +44,42 @@ export default {
       this.$router.push({ name: 'HomeMe' });
     },
     submitFrom() {
-      this.$createDialog({
-        type: 'alert',
-        title: '修改成功',
-        icon: 'color-green font44 iconfont icon-Success'
-      }).show()
-      // this.$api.changeUserPwd().then(({ data }) => {
-      //   if (data.code === 0) {
-      //     this.$createDialog({
-      //       type: 'alert',
-      //       title: '修改成功',
-      //       icon: 'color-green font44 iconfont icon-Success'
-      //     }).show()
-      //   }
-      // })
+      const { oldPassword, newPassword } = this.submit
+      console.log(this.submit)
+      if (!oldPassword) {
+        this.$Toast('旧密码不能为空')
+        return
+      }
+      if (!newPassword) {
+        this.$Toast('新密码不能为空')
+        return
+      }
+      if (!spaceCheck(oldPassword)) {
+        this.$Toast('旧密码不能有空格')
+        return
+      }
+      if (!spaceCheck(newPassword)) {
+        this.$Toast('新密码不能有空格')
+        return
+      }
+      if (!passwordCheck(oldPassword)) {
+        this.$Toast('密码格式有误，由6-20位数字、字母、特殊符号组成');
+        return
+      }
+      if (!passwordCheck(newPassword)) {
+        this.$Toast('密码格式有误，由6-20位数字、字母、特殊符号组成');
+        return
+      }
+      this.$api.changeUserPwd({ oldPassword, newPassword }).then(({ data }) => {
+        if (data.code === 0) {
+          this.submit = {}
+          this.$createDialog({
+            type: 'alert',
+            title: '修改成功',
+            icon: 'color-green font44 iconfont icon-Success'
+          }).show()
+        }
+      })
     }
   }
 }

@@ -2,35 +2,19 @@
   <div class="chat" id="gaugeChart"></div>
 </template>
 <script>
-/* eslint-disable */
-// import { mapGetters } from 'vuex';
+
+import { mapGetters } from 'vuex';
 import gaugeConfig from '@/echartConfig/gauge.config'
 export default {
-  // props: {
-  //   cardData: {
-  //     type: Object,
-  //     default: () => { }
-  //   }
-  // },
   data() {
     return {
-      pieChart1: "",
-      pieChart2: "",
     };
   },
-  // watch: {
-  //   carData: {
-  //     handler: function (val) {
-  //       this.dataChange(val);
-  //     },
-  //     deep: true
-  //   }
-  // },
-  // computed: {
-  //   ...mapGetters({
-  //     carData: 'monitor/GETCARDDATA'
-  //   })
-  // },
+  computed: {
+    ...mapGetters({
+      carData: 'getCardData'
+    })
+  },
   mounted() {
     this.init();
     // this._resizeHanlder = debounce(() => {
@@ -39,23 +23,54 @@ export default {
     // }, 100);
     // window.addEventListener("resize", this._resizeHanlder);
   },
+  watch: {
+    carData: {
+      handler: function (val) {
+        this.dataChange(val);
+      },
+      deep: true
+    }
+  },
   methods: {
     init() {
-      let $gaugeChart = document.getElementById("gaugeChart");
-      // let $pieChart2 = document.getElementById("pieChart2");
+      let $gaugeChart = document.getElementById('gaugeChart');
+      // eslint-disable-next-line
       this.$gaugeChart = echarts.init($gaugeChart);
-      this.dataChange();
+      this.dataChange(this.carData);
     },
     dataChange(data) {
-      gaugeConfig.tooltip.formatter = p => {
-        let item = `全部：${200}<br />有效：${0}<br />${0}%`;
+      const { total, currentMonthTotal, alarmedTotal, activeTotal } = data;
+      console.log(this.carData)
+      console.log(currentMonthTotal);
+      console.log(alarmedTotal)
+      let effective = Number(activeTotal) / Number(total); // 有效数
+      let jiankongshu = (effective * 100).toFixed(2);
+      gaugeConfig.tooltip[0].formatter = p => {
+        // let item = `全部：${total}<br />有效：${0}<br />${jiankongshu}%`;
+        let item = `${this.$t('overview.total')}：${total}<br />${this.$t(
+          'overview.effectiveRate'
+        )}：${p.data.per || 0}<br />${p.data.value}%`;
+        return item;
+      };
+      gaugeConfig.tooltip[1].formatter = p => {
+        // let item = `全部：${total}<br />有效：${0}<br />${jiankongshu}%`;
+        let item = `${this.$t('overview.total')}：${total}<br />${this.$t(
+          'overview.effectiveRate'
+        )}：${p.data.per || 0}<br />${p.data.value}%`;
         return item;
       };
       // voltageOptions.title.text = t("overview.valid");
       gaugeConfig.series[0].data = [
         {
-          per: 200,
-          value: 0
+          per: activeTotal,
+          value: jiankongshu || 0
+          // name: "有效监控"
+        }
+      ];
+      gaugeConfig.series[1].data = [
+        {
+          per: activeTotal,
+          value: jiankongshu || 0
           // name: "有效监控"
         }
       ];
@@ -65,8 +80,7 @@ export default {
 };
 </script>
 <style lang="stylus" scoped>
-.chat {
-  width: 100vw;
-  height: 200px;
-}
+.chat
+  width 100vw
+  height 200px
 </style>

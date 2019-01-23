@@ -8,7 +8,7 @@
     <div class="userAvats">
       <div class="userInfo">
         <div>
-          <img src="../../assets/img/user.png">
+          <img :src="userInfomation.photo || defaultAvata">
         </div>
         <div>
           <p>{{userInfomation.nickName}}</p>
@@ -43,12 +43,14 @@
 <script>
 import { mapGetters } from 'vuex';
 import topHeader from '@/components/header/header';
+import photoSagema from '@/api/photoSagma'
 export default {
   components: {
     topHeader
   },
   data() {
     return {
+      defaultAvata: require('@/assets/img/user.png'),
       items: [],
       nickname: '昵称',
       title: '个人资料'
@@ -60,7 +62,9 @@ export default {
     })
   },
   mounted() {
-    // this.getUserInfo()
+    if (this.userInfomation.photo) {
+      this.userInfomation.photo = `${photoSagema}/${this.userInfomation.photo}`
+    }
   },
 
   methods: {
@@ -100,6 +104,7 @@ export default {
             if (data.code === 0) {
               this.$router.push('/login')
               localStorage.removeItem('accPwd')
+              this.$store.commit('setRouterIndex', 0)
               sessionStorage.clear()
             }
           })

@@ -1,29 +1,34 @@
 <template>
-  <!-- <div class="view-wrapper">
-  </div> -->
   <cube-scroll class="userList" ref="scroll" :options="options" @pulling-up="pullingUp">
     <div class="userItem" v-for="item in tableData" :key="item.id+Math.random()">
-      <div class="companyName">
-        <span class="tit">企业名称</span>
-        <span>{{item.companyName}}</span>
-        <span class="userRole">{{item.role}}</span>
-        <span>{{item.userName}}</span>
+      <div class="userPhoto">
+        <div class="photo">
+          <img :src="item.photoUrl" />
+        </div>
+        <div class="infoMsg">
+          <div class="name">
+            <p>{{item.account}}</p>
+            <p>用户名</p>
+          </div>
+          <div class="role">
+            <p class="userRole">{{item.role}}</p>
+            <p>{{item.phone}}</p>
+          </div>
+          <div class="companyName">
+            <p>{{item.companyName}}</p>
+            <p>企业名称</p>
+          </div>
+        </div>
       </div>
-      <div class="companyRole">
-        <span class="tit">企业身份</span>
-        <span>{{item.companyRole}}</span>
-        <span>{{item.phone}}</span>
-        <span>用户名</span>
-      </div>
-      <div class="nikeName">
-        <span class="tit">昵称</span>
-        <span class="infos">{{item.nickName}}</span>
-        <span class="tit">邮箱</span>
-        <span class="infos">{{item.email}}</span>
+      <div class="companyInfo">
+        <p>企业身份: {{item.layerName}}</p>
+        <p>昵称: {{item.nickName}}</p>
+        <p>邮箱: {{item.email}}</p>
       </div>
       <div class="handle">
         <p @click="doleteUser(item)">删除</p>|
-        <p @click="changePermission(item)">修改权限</p>
+        <p @click="changePermission(item)">权限</p>|
+        <p @click="lookDetails(item)">详情</p>
       </div>
     </div>
   </cube-scroll>
@@ -33,13 +38,13 @@
 import { mapGetters } from 'vuex';
 import t from '@/utils/translate';
 import utils from '@/utils/utils';
+import photoSagema from '@/api/photoSagma'
 import { ToastWithLoading } from '@/utils/Toast'
 export default {
   name: '',
   props: [''],
   data() {
     return {
-      threshold: 20,
       pullUpLoadObj: {
         threshold: 50,
         txt: {
@@ -91,11 +96,10 @@ export default {
           // this.tableData = [];
           this.totalPage = result.data.totalPage;
           if (result.data.pageData.length > 0) {
-            // console.log(this.AdminRoles);
             result.data.pageData.forEach(key => {
               key.role = utils.accountType(key.type);
-              // key.userType = this.AdminRoles.deleteAdmin;
               key.email = key.email || '-';
+              key.photoUrl = key.photo ? `${photoSagema}/${key.photo}` : require('@/assets/img/default_avatar.png');
               if (this.storge.companyId === key.companyId && this.storge.type === key.type) {
                 key.canNotDelete = false;
                 key.changePermison = false;
@@ -152,6 +156,13 @@ export default {
         }
       })
     },
+    /* 查看详情 */
+    lookDetails(item) {
+      this.$store.commit('setUserDetail', item)
+      this.$router.push({
+        name: 'UserDetail'
+      })
+    },
     /* 删除用户 */
     doleteUser(item) {
       this.$createDialog({
@@ -184,29 +195,55 @@ export default {
 .userList
   // background-color $boder-coloGray
   .userItem
-    padding 5px 15px
+    padding 5px 10px
     box-sizing border-box
     background-color #ffffff
     // margin-bottom 5px
-    border-bottom 5px solid $boder-coloGray
+    border-bottom 3px solid $boder-coloGray
+    .userPhoto
+      display flex
+      margin-bottom 12px
+      .photo
+        width 60px
+        height 60px
+        img
+          width 60px
+          height 60px
+          border-radius 50%
+          box-shadow $footer-shadow
+      .infoMsg
+        flex 1
+        display flex
+        padding-left 8px
+        &>div
+          flex 1
+          text-align center
+          overflow hidden
+          text-overflow ellipsis
+          white-space nowrap
+          p
+            color #676767
+            font-weight 700
+            line-height 30px
+            overflow hidden
+            text-overflow ellipsis
+            white-space nowrap
+            &.userRole
+              border-bottom 1px solid #e5e5e5
+    .companyInfo
+      display flex
+      p
+        overflow hidden
+        text-overflow ellipsis
+        white-space nowrap
+        flex 1
+        font-size 12px
+        margin 0 3px
     .handle
       padding 15px 0
+      display flex
       p
         flex 1
         text-align center
         color #FF0000
-    &>div
-      display flex
-      span
-        padding 10px 0
-        flex 1
-        text-align center
-        &.tit
-          text-align left
-          color $subText-color
-          flex 0 0 65px
-        &.userRole
-          border-bottom 1px solid #cacaca
-        &.infos
-          text-align left
 </style>

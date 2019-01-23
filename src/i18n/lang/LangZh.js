@@ -18,6 +18,7 @@ export default {
     accountExists: '账号已存在', // 101001
     phoneExists: '手机号已存在', // 101002
     emailExists: '邮箱已存在', // 101003
+    oldPassword: '旧密码不正确', // 101008
     accountOrPwdErr: '账号名密码错误', // 104001
     userNotExist: '用户不存在', // `104002`: 用户不存在
     companyExists: '公司已存在', // 201001

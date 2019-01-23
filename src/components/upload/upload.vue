@@ -5,7 +5,7 @@
       <div class="upload-btn-def">
         <i></i>
       </div>
-      <img v-if="srcUrl" class="imgView" :src="srcUrl" alt="">
+      <img v-if="imgUrl" class="imgView" :src="imgUrl" alt="">
       <input :disabled='status' class="inputFile" type="file" @change="upload">
     </div>
   </div>
@@ -20,13 +20,23 @@ export default {
     },
     status: {
       type: Boolean
+    },
+    imgSrc: {
+      type: String,
+      default: () => require('@/assets/img/default_avatar.png')
     }
   },
   data() {
     return {
-      srcUrl: ''
+      imgUrl: this.imgSrc
     };
   },
+  // computed: {
+  //   imgurlSrc: function () {
+  //     const url = this.imgSrc ? this.imgSrc : this.imgUrl
+  //     return url
+  //   }
+  // },
   mounted() {
     this.client = new OSS({
       region: 'oss-cn-hangzhou',
@@ -46,7 +56,7 @@ export default {
       let name = `${obj}${suffix}` // 'upload-file/'+"/"+obj+suffix; //命名空间
       this.client.put(name, file)
         .then(res => {
-          this.srcUrl = res.url
+          this.imgUrl = res.url
           if (res.res.status === 200) {
             this.$emit('urlCallback', res.name)
           }

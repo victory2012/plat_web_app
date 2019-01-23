@@ -3,7 +3,7 @@
     <top-header>
       <div slot="mainTab">
         <div class="userTab">
-          <cube-tab-bar v-model="selectedLabelDefault" @click="clickHandler">
+          <cube-tab-bar v-model="showComponent" @click="clickHandler">
             <cube-tab class="userSetClass" v-for="item in tabs" :label="item.label" :key="item.label">
               <!-- 默认插槽 -->
               {{item.name}}
@@ -37,7 +37,7 @@ export default {
   data() {
     return {
       selectedLabelDefault: 'User',
-      showComponent: 'User',
+      showComponent: '',
       showMore: false,
       tabs: [{
         label: 'User',
@@ -78,6 +78,7 @@ export default {
     })
   },
   mounted() {
+    this.showComponent = this.$route.query.show === 'company' ? 'Company' : 'User';
     if (this.userData.layerName === '平台') {
       this.moreOptions.splice(1, 2)
     }

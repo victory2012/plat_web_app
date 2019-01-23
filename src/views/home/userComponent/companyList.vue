@@ -1,117 +1,43 @@
 <template>
-  <cube-scroll class="companyList" ref="scroll" :options="options" @pulling-down="pullingDown" @pulling-up="pullingUp">
-    <div v-for="key in testArr" :key="key.id" class="companyItem">
-      <img class="companyLogo" src="../../../assets/img/default_avatar.png" alt="" srcset="">
+  <cube-scroll class="companyList" ref="scroll" :options="options" @pulling-up="pullingUp">
+    <div v-for="key in companyArr" :key="key.id" class="companyItem">
+      <img class="companyLogo" :src="key.logos" alt="" srcset="">
       <div class="companyInfo">
         <p class="companyName">{{key.name}}</p>
         <p class="address">地址：{{key.address}}</p>
-        <p class="detail">详情</p>
+        <p @click="lookDetail(key)" class="detail">详情</p>
       </div>
     </div>
   </cube-scroll>
 </template>
 
 <script>
-// import Popup from '@/components/Popup'
+import photoSagema from '@/api/photoSagma'
 
 export default {
   data() {
     return {
-      activeBtn: false,
-      threshold: 20,
-      pullUpLoad: true,
-      testObj: {},
       pullDownRefreshObj: {
         threshold: 50,
         stop: 20
       },
       pullUpLoadObj: {
-        threshold: 50
-      },
-      listArr: [
-        {
-          name: '上海摩融信息科技',
-          address: '上海市世纪大道1777号',
-          id: Math.random()
-        }, {
-          name: '上海摩融信息科技',
-          address: '上海市世纪大道1777号',
-          id: Math.random()
-        }, {
-          name: '上海摩融信息科技',
-          address: '上海市世纪大道1777号',
-          id: Math.random()
-        }, {
-          name: '上海摩融信息科技',
-          address: '上海市世纪大道1777号',
-          id: Math.random()
-        }, {
-          name: '上海摩融信息科技',
-          address: '上海市世纪大道1777号',
-          id: Math.random()
-        }, {
-          name: '上海摩融信息科技',
-          address: '上海市世纪大道1777号',
-          id: Math.random()
-        }, {
-          name: '上海摩融信息科技',
-          address: '上海市世纪大道1777号',
-          id: Math.random()
-        }, {
-          name: '上海摩融信息科技',
-          address: '上海市世纪大道1777号',
-          id: Math.random()
-        }, {
-          name: '上海摩融信息科技',
-          address: '上海市世纪大道1777号',
-          id: Math.random()
-        }, {
-          name: '上海摩融信息科技',
-          address: '上海市世纪大道1777号',
-          id: Math.random()
-        }, {
-          name: '上海摩融信息科技',
-          address: '上海市世纪大道1777号',
-          id: Math.random()
-        }, {
-          name: '上海摩融信息科技',
-          address: '上海市世纪大道1777号',
-          id: Math.random()
-        }, {
-          name: '上海摩融信息科技',
-          address: '上海市世纪大道1777号',
-          id: Math.random()
-        }, {
-          name: '上海摩融信息科技',
-          address: '上海市世纪大道1777号',
-          id: Math.random()
-        }, {
-          name: '上海摩融信息科技',
-          address: '上海市世纪大道1777号',
-          id: Math.random()
-        }, {
-          name: '上海摩融信息科技',
-          address: '上海市世纪大道1777号',
-          id: Math.random()
-        }, {
-          name: '上海摩融信息科技',
-          address: '上海市世纪大道1777号',
-          id: Math.random()
-        }, {
-          name: '上海摩融信息科技',
-          address: '上海市世纪大道1777号',
-          id: Math.random()
+        threshold: 50,
+        txt: {
+          more: '上拉加载更多',
+          noMore: '没有更多数据'
         }
-      ],
-      testArr: []
+      },
+      currentPage: 1,
+      companyArr: []
     };
   },
   computed: {
     options() {
       return {
-        pullDownRefresh: this.pullDownRefreshObj,
+        // pullDownRefresh: this.pullDownRefreshObj,
         pullUpLoad: this.pullUpLoadObj,
-        scrollbar: true
+        scrollbar: false
       }
     }
   },
@@ -120,20 +46,37 @@ export default {
   },
 
   mounted() {
-    this.testArr = this.listArr
     this.getCompanyListFun()
   },
 
   methods: {
-    pullingDown() {
-      // console.log('pullDownRefreshObj')
+    lookDetail(item) {
+      this.$router.push('/home/company-detail')
+      this.$store.commit('setCompanyDetail', item)
     },
     pullingUp() {
-      // console.log('pullUpLoadObj')
+      this.currentPage++
+      if (this.currentPage > this.totalPage) {
+        this.$refs.scroll.forceUpdate();
+      } else {
+        this.getCompanyListFun()
+      }
     },
     getCompanyListFun() {
-      this.$api.getCompanyList().then(({ data }) => {
+      let pageObj = {
+        pageSize: '15',
+        pageNum: this.currentPage
+      };
+      this.$api.getCompanyList(pageObj).then(({ data }) => {
         console.log('company list', data)
+        if (data.code === 0) {
+          this.totalPage = data.data.totalPage;
+          const result = data.data.pageData;
+          result.forEach(key => {
+            key.logos = key.logo ? `${photoSagema}/${key.logo}` : require('@/assets/img/default_avatar.png')
+          });
+          this.companyArr = result
+        }
       })
     }
   }

@@ -218,7 +218,7 @@ export default {
   /* 修改个人信息 */
   changeUserMsg: data => http.put('user/info', data),
   /* 修改个人信息 */
-  changeUserPwd: data => http.post('/user/info/pw', data),
+  changeUserPwd: data => http.put('user/info/pw', data),
   /* 获取个人信息 */
   getUserMsg: () => http.get(`/user/current?t=${Math.random()}`),
 
@@ -229,7 +229,7 @@ export default {
   deleteCompany: id => http.delete(`/company/${id}`),
 
   /* 获取公司列表 */
-  getCompanyList: () => http.get(`/company`),
+  getCompanyList: pageObj => http.get(`/company?t=${Math.random()}`, pageObj),
 
   /* 修改用户权限 */
   ChangePermissions: data => http.put('/user/permissions', data),
@@ -257,8 +257,8 @@ export default {
 
   /* websoket */
   Socket: () => new WebSocket(socketUrl),
-  /* websoket */
-  qiniuToken: () => http.get('/qiniu/up_token'),
+  /* 修改指定用户信息 */
+  modifyUserPwd: (userId, params) => http.put(`user/${userId}/info`, params),
 
   /* 修改公司名称 */
   companyName: params => http.put('company', params)
