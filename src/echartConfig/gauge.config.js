@@ -9,29 +9,18 @@ const data = {
       color: '#484848'
     }
   },
-  tooltip: [
-    {
-      trigger: 'item',
-      formatter: '{b}: {d}%'
-    },
-    {
-      trigger: 'item',
-      formatter: '{b}: {d}%'
-    }
-  ],
+  tooltip: {
+    formatter: '{b}: {d}%'
+  },
   series: [
     {
+      name: '正常运行',
       type: 'gauge',
       center: ['25%', '65%'], // 默认全局居中
       radius: '86%', // 仪表大小
       // startAngle: 200, // 开始角度
       endAngle: 45, // 结束角度
-      data: [
-        {
-          value: 1.5,
-          name: 'x1000 r/min'
-        }
-      ],
+      data: [],
       splitNumber: 10,
       fontsize: 12,
       axisLine: {
@@ -66,16 +55,12 @@ const data = {
       }
     },
     {
+      name: '有效监控',
       type: 'gauge',
       center: ['69%', '58%'], // 仪表位置
       radius: '110%', // 仪表大小
       z: 3,
-      data: [
-        {
-          value: 1.5,
-          name: '1000 r/min'
-        }
-      ],
+      data: [],
       fontsize: 12,
       splitNumber: 10,
       axisLine: {

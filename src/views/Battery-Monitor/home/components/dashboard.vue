@@ -5,6 +5,7 @@
 
 import { mapGetters } from 'vuex';
 import gaugeConfig from '@/echartConfig/gauge.config'
+import t from '@/utils/translate.js'
 export default {
   data() {
     return {
@@ -17,11 +18,6 @@ export default {
   },
   mounted() {
     this.init();
-    // this._resizeHanlder = debounce(() => {
-    //   this.$gaugeChart.resize();
-    //   this.pieChart2.resize();
-    // }, 100);
-    // window.addEventListener("resize", this._resizeHanlder);
   },
   watch: {
     carData: {
@@ -39,39 +35,28 @@ export default {
       this.dataChange(this.carData);
     },
     dataChange(data) {
-      const { total, currentMonthTotal, alarmedTotal, activeTotal } = data;
-      console.log(this.carData)
-      console.log(currentMonthTotal);
-      console.log(alarmedTotal)
-      let effective = Number(activeTotal) / Number(total); // 有效数
-      let jiankongshu = (effective * 100).toFixed(2);
-      gaugeConfig.tooltip[0].formatter = p => {
-        // let item = `全部：${total}<br />有效：${0}<br />${jiankongshu}%`;
-        let item = `${this.$t('overview.total')}：${total}<br />${this.$t(
-          'overview.effectiveRate'
-        )}：${p.data.per || 0}<br />${p.data.value}%`;
+      const { total, alarmedTotal, activeTotal } = data;
+      let defrence = Number(activeTotal) - Number(alarmedTotal); // 运行正常数
+      let runNomal = defrence < 0 ? 0 : defrence; // 运行正常数 激活总数 减去 告警数
+      let effective = Number(activeTotal) / Number(total); // 有效数 比例
+      let jiankongshu = effective ? (effective * 100).toFixed(2) : 0; // 有效数 比例
+      let namals = defrence > 0 ? ((defrence / Number(data.total)) * 100).toFixed(2) : 0
+      gaugeConfig.tooltip.formatter = p => {
+        console.log(p)
+        let info = p.seriesName
+        let item = `${t('overview.total')}：${total}<br />${info}：${p.data.per || 0}<br />${p.data.value}%`;
         return item;
       };
-      gaugeConfig.tooltip[1].formatter = p => {
-        // let item = `全部：${total}<br />有效：${0}<br />${jiankongshu}%`;
-        let item = `${this.$t('overview.total')}：${total}<br />${this.$t(
-          'overview.effectiveRate'
-        )}：${p.data.per || 0}<br />${p.data.value}%`;
-        return item;
-      };
-      // voltageOptions.title.text = t("overview.valid");
       gaugeConfig.series[0].data = [
         {
-          per: activeTotal,
-          value: jiankongshu || 0
-          // name: "有效监控"
+          per: namals,
+          value: runNomal || 0
         }
       ];
       gaugeConfig.series[1].data = [
         {
           per: activeTotal,
           value: jiankongshu || 0
-          // name: "有效监控"
         }
       ];
       this.$gaugeChart.setOption(gaugeConfig);

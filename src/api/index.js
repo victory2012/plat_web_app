@@ -60,39 +60,31 @@ export default {
   batteryAddGroup: data => http.post('/battery_group', data),
 
   /* 电池型号列表 */
-  batteryModelList: () =>
-    http.get(`/dic?type=Model&categoryId=2&t=${new Date().getTime()}`),
+  batteryModelList: () => http.get(`/dic?type=Model&categoryId=2`),
 
   /* 获取电池组客户企业表 */
-  purchaseNames: () =>
-    http.get(`/company/purchase_names?t=${new Date().getTime()}`),
-
+  purchaseNames: () => http.get(`/company/purchase_names`),
+  /* 获取电池组客户企业表 */
+  purchaseNameByManufacturerId: manufacturerId =>
+    http.get(`/company/${manufacturerId}/purchase_names`),
   /* 获取电池组客户企业表 -- 无待定企业 */
-  purchaseNames2: () =>
-    http.get(`/company/purchase_names2?t=${new Date().getTime()}`),
+  purchaseNames2: () => http.get(`/company/purchase_names2`),
   /* 获取未绑定设备 */
-  DeviceList: () =>
-    http.get(`/device/code?status=0&bindingStatus=0&t=${new Date().getTime()}`),
+  DeviceList: () => http.get(`/device/code?status=0&bindingStatus=0`),
 
   /* 获取生产企业列表 */
-  manufacturerNames: () =>
-    http.get(`company/manufacturer_names?t=${new Date().getTime()}`),
+  manufacturerNames: () => http.get(`company/manufacturer_names`),
   /* ----------------------------------- 电池列表结束 ---------------------------------------- */
-  overviewCount: () =>
-    http.get(`/battery_group/count?t=${new Date().getTime()}`),
+  overviewCount: () => http.get(`/battery_group/count`),
 
-  overviewCompany: () =>
-    http.get(`/battery_group/sub_companies/count?t=${new Date().getTime()}`),
+  overviewCompany: () => http.get(`/battery_group/sub_companies/count`),
 
-  overviewModel: () =>
-    http.get(`/battery_group/model/count?t=${new Date().getTime()}`),
+  overviewModel: () => http.get(`/battery_group/model/count`),
 
-  overviewProvence: () =>
-    http.get(`/battery_group/province/count?t=${new Date().getTime()}`),
+  overviewProvence: () => http.get(`/battery_group/province/count`),
   /* ----------------------------------- 概览结束 ---------------------------------------- */
   /* 获取所有设备的告警数据 */
-  alarmData: data =>
-    http.get(`/battery_group_event?t=${new Date().getTime()}`, data),
+  alarmData: data => http.get(`/battery_group_event`, data),
 
   /* 获取设备的告警 详情 */
   allAlarmData: data =>

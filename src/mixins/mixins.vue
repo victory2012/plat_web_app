@@ -33,7 +33,6 @@ export default {
   methods: {
     // '接收 footer emit 的当前激活tab的索引'
     tabIndex(index) {
-      console.log('tabIndex', index);
       // this.routerIndex = index
       // sessionStorage.setItem('routerIndex', index)
       this.$store.commit('setRouterIndex', index)

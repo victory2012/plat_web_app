@@ -1,5 +1,5 @@
 <template>
-  <cube-scroll class="batteryList" ref="scroll" :options="options" @pulling-up="pullingUp">
+  <cube-scroll :data="randerData" class="batteryList" ref="scroll" :options="options" @pulling-up="pullingUp">
     <div class="batteryItem" v-for="item in randerData" :key="item.id">
       <div class="itemTop">
         <div class="batteryCode">
@@ -16,7 +16,7 @@
       </div>
       <div class="itemMid">
         <p><span class="subTsxt">电池型号：</span><span>{{item.model}}</span></p>
-        <p><span class="subTsxt">电池规格：</span><span>{{item.specifications}}</span></p>
+        <p><span class="subTsxt">电池规格：</span><span>{{item.norm}}</span></p>
         <p><span class="subTsxt">额定电压：</span><span>{{item.voltage}}</span></p>
       </div>
       <div v-show="item.showBtn" class="itemHandle">
@@ -32,181 +32,78 @@
 </template>
 
 <script>
-
+import t from '@/utils/translate.js'
 export default {
-  data () {
+  data() {
     return {
-      pullDownRefreshObj: {
-        threshold: 500,
-        stop: 20
-      },
       pullUpLoadObj: {
         threshold: 50
       },
-      randerData: [
-        {
-          id: Math.random(),
-          batteryCode: 'B00225',
-          deviceCode: 'abc123456789',
-          bindStatus: true,
-          model: '型号123456',
-          specifications: '规格12',
-          voltage: '220v',
-          showBtn: false
-        }, {
-          id: Math.random(),
-          batteryCode: 'B00225',
-          deviceCode: 'abc123456789',
-          bindStatus: true,
-          model: '型号123456',
-          specifications: '规格12',
-          voltage: '220v',
-          showBtn: false
-        }, {
-          id: Math.random(),
-          batteryCode: 'B00225',
-          deviceCode: 'abc123456789',
-          bindStatus: true,
-          model: '型号123456',
-          specifications: '规格12',
-          voltage: '220v',
-          showBtn: false
-        }, {
-          id: Math.random(),
-          batteryCode: 'B00225',
-          deviceCode: 'abc123456789',
-          bindStatus: true,
-          model: '型号123456',
-          specifications: '规格12',
-          voltage: '220v',
-          showBtn: false
-        }, {
-          id: Math.random(),
-          batteryCode: 'B00225',
-          deviceCode: 'abc123456789',
-          bindStatus: true,
-          model: '型号123456',
-          specifications: '规格12',
-          voltage: '220v',
-          showBtn: false
-        }, {
-          id: Math.random(),
-          batteryCode: 'B00225',
-          deviceCode: 'abc123456789',
-          bindStatus: true,
-          model: '型号123456',
-          specifications: '规格12',
-          voltage: '220v',
-          showBtn: false
-        }, {
-          id: Math.random(),
-          batteryCode: 'B00225',
-          deviceCode: 'abc123456789',
-          bindStatus: true,
-          model: '型号123456',
-          specifications: '规格12',
-          voltage: '220v',
-          showBtn: false
-        }, {
-          id: Math.random(),
-          batteryCode: 'B00225',
-          deviceCode: 'abc123456789',
-          bindStatus: true,
-          model: '型号123456',
-          specifications: '规格12',
-          voltage: '220v',
-          showBtn: false
-        }, {
-          id: Math.random(),
-          batteryCode: 'B00225',
-          deviceCode: 'abc123456789',
-          bindStatus: true,
-          model: '型号123456',
-          specifications: '规格12',
-          voltage: '220v',
-          showBtn: false
-        }, {
-          id: Math.random(),
-          batteryCode: 'B00225',
-          deviceCode: 'abc123456789',
-          bindStatus: true,
-          model: '型号123456',
-          specifications: '规格12',
-          voltage: '220v',
-          showBtn: false
-        }, {
-          id: Math.random(),
-          batteryCode: 'B00225',
-          deviceCode: 'abc123456789',
-          bindStatus: true,
-          model: '型号123456',
-          specifications: '规格12',
-          voltage: '220v',
-          showBtn: false
-        }, {
-          id: Math.random(),
-          batteryCode: 'B00225',
-          deviceCode: 'abc123456789',
-          bindStatus: true,
-          model: '型号123456',
-          specifications: '规格12',
-          voltage: '220v',
-          showBtn: false
-        }, {
-          id: Math.random(),
-          batteryCode: 'B00225',
-          deviceCode: 'abc123456789',
-          bindStatus: true,
-          model: '型号123456',
-          specifications: '规格12',
-          voltage: '220v',
-          showBtn: false
-        }, {
-          id: Math.random(),
-          batteryCode: 'B00225',
-          deviceCode: 'abc123456789',
-          bindStatus: true,
-          model: '型号123456',
-          specifications: '规格12',
-          voltage: '220v',
-          showBtn: false
-        }, {
-          id: Math.random(),
-          batteryCode: 'B00225',
-          deviceCode: 'abc123456789',
-          bindStatus: true,
-          model: '型号123456',
-          specifications: '规格12',
-          voltage: '220v',
-          showBtn: false
-        }
-      ]
+      pageNum: 1,
+      randerData: []
     };
   },
   computed: {
-    options () {
+    options() {
       return {
-        pullDownRefresh: this.pullDownRefreshObj,
         pullUpLoad: this.pullUpLoadObj,
         scrollbar: true,
         click: true
       }
     }
   },
-  mounted () { },
+  mounted() {
+  },
   methods: {
-    jisuan (a, b, c) {
+    jisuan(a, b, c) {
       console.log(a + b + c)
     },
-    pullingUp () {
+    pullingUp() {
       console.log('pullingUp')
+      this.pageNum++
+      if (this.pageNum > this.totalPage) {
+        this.pageNum = this.totalPage
+        this.$refs.scroll.forceUpdate();
+      } else {
+        this.doGetBatteryList(this.cacheParams)
+      }
     },
-    DolookDetail (item) {
+    DolookDetail(item) {
       this.$router.push({
         name: 'MonitorBatteryDetail'
       })
     },
-    showHandleBtn (item) {
+    doGetBatteryList(data) {
+      const { model, purchase, prod, status } = data
+      this.cacheParams = data;
+      let params = {
+        pageNum: this.pageNum,
+        pageSize: 15,
+        // batteryGroupOrDeviceCode: '',
+        modelId: model.id || '',
+        companyName: purchase.name || '',
+        parentCompanyId: prod.id || '',
+        bindingStatus: status.id || '',
+        status: 0
+      }
+      this.$api.batteryList(params).then(res => {
+        console.log('batteryList', res);
+        if (res.data && res.data.code === 0) {
+          const result = res.data.data;
+          this.totalPage = result.totalPage
+          if (result.pageData === 0) {
+            return
+          }
+          result.pageData.forEach(key => {
+            key.batteryCode = key.code;
+            key.showBtn = false
+            key.bindStatus = key.deviceId ? t('batteryList.hasBind') : t('batteryList.noBind');
+            this.randerData.push(key)
+          });
+        }
+      })
+    },
+    showHandleBtn(item) {
       console.log(item)
       item.showBtn = !item.showBtn
     }
@@ -216,8 +113,6 @@ export default {
 
 </script>
 <style lang='stylus' scoped>
-// .subTsxt
-// color $subText-color
 .batteryItem
   position relative
   padding 10px

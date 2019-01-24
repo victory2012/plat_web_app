@@ -7,146 +7,27 @@
       <li class="device">设备编号</li>
     </ul>
     <cube-scroll class="alarmList" :style="{height: height + 'px' }" ref="scroll">
-      <div class="alarmItem" v-for="alarm in alarmData" :key="alarm.id">
+      <div class="alarmItem" v-for="alarm in tableData" :key="alarm.id">
         <div class="time">{{alarm.time}}</div>
         <div>{{alarm.item}}</div>
         <div>{{alarm.batteryId}}</div>
         <div>{{alarm.deviceId}}</div>
       </div>
+      <p v-show="tableData.length>0" class="lookMore">查看更多<span class="iconfont icon-right"></span></p>
+      <p v-show="tableData.length === 0" class="noData">暂无数据</p>
     </cube-scroll>
-    <p class="lookMore">查看更多</p>
   </div>
 </template>
 
 <script>
-
+import utils from '@/utils/utils'
 export default {
   name: '',
   props: ['height'],
   data() {
     return {
       wraperHeight: 0,
-      alarmData: [
-        {
-          id: Math.random(),
-          time: '2018-12-12 12:12:12',
-          item: '电压',
-          batteryId: 'B0001',
-          deviceId: 'abc123456'
-        },
-        {
-          id: Math.random(),
-          time: '2018-12-12 12:12:12',
-          item: '电压',
-          batteryId: 'B0001',
-          deviceId: 'abc123456'
-        },
-        {
-          id: Math.random(),
-          time: '2018-12-12 12:12:12',
-          item: '电压',
-          batteryId: 'B0001',
-          deviceId: 'abc123456'
-        },
-        {
-          id: Math.random(),
-          time: '2018-12-12 12:12:12',
-          item: '电压',
-          batteryId: 'B0001',
-          deviceId: 'abc123456'
-        },
-        {
-          id: Math.random(),
-          time: '2018-12-12 12:12:12',
-          item: '电压',
-          batteryId: 'B0001',
-          deviceId: 'abc123456'
-        },
-        {
-          id: Math.random(),
-          time: '2018-12-12 12:12:12',
-          item: '电压',
-          batteryId: 'B0001',
-          deviceId: 'abc123456'
-        },
-        {
-          id: Math.random(),
-          time: '2018-12-12 12:12:12',
-          item: '电压',
-          batteryId: 'B0001',
-          deviceId: 'abc123456'
-        },
-        {
-          id: Math.random(),
-          time: '2018-12-12 12:12:12',
-          item: '电压',
-          batteryId: 'B0001',
-          deviceId: 'abc123456'
-        },
-        {
-          id: Math.random(),
-          time: '2018-12-12 12:12:12',
-          item: '电压',
-          batteryId: 'B0001',
-          deviceId: 'abc123456'
-        },
-        {
-          id: Math.random(),
-          time: '2018-12-12 12:12:12',
-          item: '电压',
-          batteryId: 'B0001',
-          deviceId: 'abc123456'
-        },
-        {
-          id: Math.random(),
-          time: '2018-12-12 12:12:12',
-          item: '电压',
-          batteryId: 'B0001',
-          deviceId: 'abc123456'
-        },
-        {
-          id: Math.random(),
-          time: '2018-12-12 12:12:12',
-          item: '电压',
-          batteryId: 'B0001',
-          deviceId: 'abc123456'
-        },
-        {
-          id: Math.random(),
-          time: '2018-12-12 12:12:12',
-          item: '电压',
-          batteryId: 'B0001',
-          deviceId: 'abc123456'
-        },
-        {
-          id: Math.random(),
-          time: '2018-12-12 12:12:12',
-          item: '电压',
-          batteryId: 'B0001',
-          deviceId: 'abc123456'
-        },
-        {
-          id: Math.random(),
-          time: '2018-12-12 12:12:12',
-          item: '电压',
-          batteryId: 'B0001',
-          deviceId: 'abc123456'
-        },
-        {
-          id: Math.random(),
-          time: '2018-12-12 12:12:12',
-          item: '电压',
-          batteryId: 'B0001',
-          deviceId: 'abc123456'
-        },
-        {
-          id: Math.random(),
-          time: '2018-12-12 12:12:12',
-          item: '电压',
-          batteryId: 'B0001',
-          deviceId: 'abc123456'
-        }
-      ]
+      tableData: []
     };
   },
   computed: {
@@ -159,7 +40,8 @@ export default {
     }
   },
   mounted() {
-    this.wraperHeight = this.height - this.$refs.alarmTit.offsetHeight
+    this.wraperHeight = this.height - this.$refs.alarmTit.offsetHeight;
+    this.getAlarmList()
   },
 
   methods: {
@@ -168,6 +50,27 @@ export default {
     },
     pullingUp() {
       console.log('pullUpLoadObj')
+    },
+    getAlarmList() {
+      const pageObj = {
+        pageSize: 10,
+        pageNum: 1
+      };
+      this.$api.alarmData(pageObj).then((res) => {
+        if (res.data && res.data.code === 0) {
+          const result = res.data.data;
+          this.tableData = [];
+          if (result.pageData.length > 0) {
+            this.isNoAlarmData = false;
+            result.pageData.forEach((key) => {
+              key.items = utils.item(key.item);
+              this.tableData.push(key);
+            });
+          } else {
+            this.isNoAlarmData = true;
+          }
+        }
+      });
     }
   }
 
@@ -204,4 +107,12 @@ export default {
     height 30px
     line-height 30px
     text-align right
+    padding-right 20px
+    background $color-project-blue
+    color #ffffff
+  .noData
+    height 30px
+    line-height 30px
+    text-align center
+    color $icon-color-gray
 </style>

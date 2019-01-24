@@ -109,6 +109,7 @@ export default {
         if (data.code === 0) {
           sessionStorage.setItem('UserPermissions', JSON.stringify(data.data))
           this.$router.push({ name: 'Home' })
+          this.$store.commit('setRouterIndex', 0);
         }
       })
     },

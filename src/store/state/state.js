@@ -19,5 +19,6 @@ export default {
   CompanyDetail: {},
   UserDetail: {},
   OverviewAccount: '',
-  LoginData: logindata ? JSON.parse(logindata) : ''
+  LoginData: logindata ? JSON.parse(logindata) : '',
+  MoniterBatterySearch: {}
 };

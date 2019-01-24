@@ -64,6 +64,7 @@ function switchCode(status) {
       setTimeout(() => {
         router.push('/login');
         sessionStorage.clear();
+        sessionStorage.setItem('routerIndex', 0);
         store.commit('setRouterIndex', 0);
       }, 1000);
       return Toast(`${t('responseCode.sessionOut')}`);
