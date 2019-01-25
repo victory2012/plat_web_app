@@ -9,8 +9,8 @@
     <cube-scroll class="alarmList" :style="{height: height + 'px' }" ref="scroll">
       <div class="alarmItem" v-for="alarm in tableData" :key="alarm.id">
         <div class="time">{{alarm.time}}</div>
-        <div>{{alarm.item}}</div>
-        <div>{{alarm.batteryId}}</div>
+        <div>{{alarm.items}}</div>
+        <div>{{alarm.hostCode}}</div>
         <div>{{alarm.deviceId}}</div>
       </div>
       <p v-show="tableData.length>0" class="lookMore">查看更多<span class="iconfont icon-right"></span></p>

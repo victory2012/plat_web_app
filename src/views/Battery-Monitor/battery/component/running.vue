@@ -8,8 +8,8 @@
         <div class="searchIcon"><i class="iconfont icon-Search"></i></div>
         <div class="inputPart">
           <input type="text" placeholder="请输入搜索内容" />
-          <ul v-show="searchArr.length > 0" class="searchTerm">
-            <li v-for="(item, index) in searchArr" :key="item.id"><span class="label">{{item.name}}</span><span @click="CloseTag(index)" class="iconfont icon-close2"></span></li>
+          <ul v-show="searchNull" class="searchTerm">
+            <li v-for="(value, key) in searchObj" :key="value.id"><span class="label">{{value.name}}</span><span @click="CloseTag(key)" class="iconfont icon-close2"></span></li>
           </ul>
         </div>
       </div>
@@ -50,6 +50,10 @@ export default {
         scrollbar: false, // 是否显示滚动条
         click: false
       }
+    },
+    searchNull: function () {
+      const keys = Object.keys(this.searchObj)
+      return keys.length > 0
     }
   },
   mixins: [Mixins],
@@ -60,46 +64,41 @@ export default {
     'batteryMap': () => import('./batteryList/batteryMap')
   },
   created() {
-
   },
   mounted() {
+    // this.getBatteryList()
   },
 
   methods: {
     getCompany(data) {
       if (data.prod) {
-        this.searchObj.prod = data.prod
+        this.$set(this.searchObj, 'prod', data.prod)
       }
       if (data.purchase) {
-        this.searchObj.purchase = data.purchase
+        this.$set(this.searchObj, 'purchase', data.purchase)
       }
-      this.exchange()
+      this.getBatteryList(this.searchObj)
     },
     getModel(data) {
       if (data.model) {
-        this.searchObj.model = data.model
+        this.$set(this.searchObj, 'model', data.model)
       }
-      this.exchange()
+      this.getBatteryList(this.searchObj)
     },
     getStatus(data) {
       if (data.status) {
-        this.searchObj.status = data.status
+        this.$set(this.searchObj, 'status', data.status)
       }
-      this.exchange()
+      this.getBatteryList(this.searchObj)
     },
-    /* 重组 搜索数组 */
-    exchange() {
-      this.searchArr = []
-      /* 利用 对象key的唯一性 来解决替换相同项目的问题，然后 在push到数组中 显示在头部 */
-      for (let key in this.searchObj) {
-        this.searchArr.push(this.searchObj[key])
-      }
+    CloseTag(key) {
+      this.$delete(this.searchObj, key)
+      this.getBatteryList(this.searchObj)
+    },
+    getBatteryList(data) {
       if (this.showComponent === 'battery') {
-        this.$refs.battery.doGetBatteryList(this.searchObj)
+        this.$refs.battery.parentCall(data)
       }
-    },
-    CloseTag(index) {
-      this.searchArr.splice(index, 1)
     },
     swichMapOrList() {
       if (this.showComponent === 'battery') {
@@ -168,6 +167,7 @@ export default {
         font-size 0
         text-align left
         overflow hidden
+        background #fff
         li
           vertical-align top
           font-size 0
@@ -184,7 +184,7 @@ export default {
           span
             vertical-align top
             display inline-block
-            font-size 13px
+            font-size 12px
             &.label
               max-width 60px
               white-space nowrap

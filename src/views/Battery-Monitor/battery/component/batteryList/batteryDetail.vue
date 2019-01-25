@@ -6,7 +6,8 @@
       </div>
       <div class="searchWarper" slot="mainTab">电池详情</div>
       <div slot="right" class="CloseIcon">
-        <span>编辑</span>
+        <span @click="doEditDetail" v-show="!edit">编辑</span>
+        <span @click="doSaveEdit" v-show="edit">保存</span>
       </div>
     </top-header>
     <div class="batteryItem">
@@ -15,75 +16,83 @@
           <li>
             <div class="tit">电池编号</div>
             <div class="inputContent">
-              <cube-input placeholder="请输入电池编号" v-model="detailForm.batteryCode"></cube-input>
+              <cube-input class="BatteryDetailInput" :disabled="!edit" placeholder="电池编号" v-model="detailForm.hostId"></cube-input>
             </div>
           </li>
           <li>
             <div class="tit">额定电压</div>
             <div class="inputContent">
-              <cube-input placeholder="请输入额定电压" v-model="detailForm.voltage"></cube-input>
+              <cube-input class="BatteryDetailInput" :disabled="!edit" placeholder="额定电压" v-model="detailForm.voltage"></cube-input>
             </div>
           </li>
           <li>
             <div class="tit">额定容量</div>
             <div class="inputContent">
-              <cube-input placeholder="请输入额定容量" v-model="detailForm.capacity"></cube-input>
+              <cube-input class="BatteryDetailInput" :disabled="!edit" placeholder="额定容量" v-model="detailForm.capacity"></cube-input>
             </div>
           </li>
           <li>
             <div class="tit">生产企业</div>
             <div class="inputContent">
-              <cube-select title='请选择生产企业' v-model="detailForm.production" :options="selectComponentOption.production">
-              </cube-select>
+              <!-- <cube-select title='请选择生产企业' v-model="detailForm.companyName" :options="selectComponentOption.production">
+              </cube-select> -->
+              <cube-input class="BatteryDetailInput" :disabled="!edit" placeholder="生产企业" v-model="detailForm.companyName"></cube-input>
             </div>
           </li>
           <li>
             <div class="tit">客户企业</div>
             <div class="inputContent">
-              <cube-select title='请选择客户企业' v-model="detailForm.customer" :options="selectComponentOption.customer">
-              </cube-select>
+              <!-- <cube-select title='请选择客户企业' v-model="detailForm.customer" :options="selectComponentOption.customer">
+              </cube-select> -->
+              <cube-input class="BatteryDetailInput" :disabled="!edit" placeholder="客户企业" v-model="detailForm.customer"></cube-input>
             </div>
           </li>
           <li>
             <div class="tit">电池型号</div>
             <div class="inputContent">
-              <cube-select title='请选择电池型号' v-model="detailForm.model" :options="selectComponentOption.model">
-              </cube-select>
+              <!-- <cube-select title='请选择电池型号' v-model="detailForm.model" :options="selectComponentOption.model">
+              </cube-select> -->
+              <cube-input class="BatteryDetailInput" :disabled="!edit" placeholder="电池型号" v-model="detailForm.model"></cube-input>
             </div>
           </li>
           <li>
             <div class="tit">电池规格</div>
             <div class="inputContent">
-              <cube-select title='请选择电池规格' v-model="detailForm.specifications" :options="selectComponentOption.specifications">
-              </cube-select>
+              <!-- <cube-select title='请选择电池规格' v-model="detailForm.norm" :options="selectComponentOption.specifications">
+              </cube-select> -->
+              <cube-input class="BatteryDetailInput" :disabled="!edit" placeholder="电池规格" v-model="detailForm.norm"></cube-input>
             </div>
           </li>
           <li>
             <div class="tit">单体型号</div>
             <div class="inputContent">
-              <cube-select title='请选择单体型号' v-model="detailForm.singleModel" :options="selectComponentOption.singleModel">
-              </cube-select>
+              <!-- <cube-select title='请选择单体型号' v-model="detailForm.singleModel" :options="selectComponentOption.singleModel">
+              </cube-select> -->
+              <cube-input class="BatteryDetailInput" :disabled="!edit" placeholder="单体型号" v-model="detailForm.singleModel"></cube-input>
             </div>
           </li>
           <li>
             <div class="tit">生产日期</div>
             <div class="inputContent">
-              <cube-select title='请选择生产日期' v-model="detailForm.productionDate" :options="selectComponentOption.productionDate">
-              </cube-select>
+              <!-- <cube-select title='请选择生产日期' v-model="detailForm.productionDate" :options="selectComponentOption.productionDate">
+              </cube-select> -->
+              <cube-input class="BatteryDetailInput" :disabled="!edit" placeholder="生产日期" v-model="detailForm.productionDate"></cube-input>
             </div>
           </li>
           <li>
             <div class="tit">出厂日期</div>
             <div class="inputContent">
-              <cube-select title='请选择出厂日期' v-model="detailForm.factoryDate" :options="selectComponentOption.factoryDate">
-              </cube-select>
+              <!-- <cube-select title='请选择出厂日期' v-model="detailForm.manufacturerDate" :options="selectComponentOption.factoryDate">
+              </cube-select> -->
+              <cube-input class="BatteryDetailInput" :disabled="!edit" placeholder="出厂日期" v-model="detailForm.manufacturerDate"></cube-input>
             </div>
           </li>
           <li>
             <div class="tit">质保期</div>
             <div class="inputContent">
-              <cube-select title='请选择质保期' v-model="detailForm.warranty" :options="selectComponentOption.warranty">
-              </cube-select>
+              <!-- <cube-select title='请选择质保期' v-model="detailForm.qualityGuaranteeDate" :options="selectComponentOption.warranty">
+              </cube-select> -->
+              <cube-input class="BatteryDetailInput" :disabled="!edit" placeholder="质保期" v-model="detailForm.qualityGuaranteeDate"></cube-input>
             </div>
           </li>
         </ul>
@@ -95,10 +104,11 @@
 <script>
 import topHeader from '@/components/header/header';
 export default {
-  data () {
+  data() {
     return {
       detailForm: {},
-      selectComponentOption: {}
+      selectComponentOption: {},
+      edit: false
     };
   },
 
@@ -106,10 +116,27 @@ export default {
     topHeader
   },
 
-  mounted () { },
+  mounted() {
+    const batteryId = this.$route.query.id
+    this.getBatteryDetail(batteryId)
+  },
 
   methods: {
-    back () {
+    getBatteryDetail(id) {
+      this.$api.betteryDetails(id).then(res => {
+        console.log('betteryDetails', res.data)
+        if (res.data && res.data.code === 0) {
+          this.detailForm = res.data.data
+        }
+      })
+    },
+    doEditDetail() {
+      this.edit = true
+    },
+    doSaveEdit() {
+      this.edit = false
+    },
+    back() {
       this.$router.push({
         name: 'MonitorBattery'
       })

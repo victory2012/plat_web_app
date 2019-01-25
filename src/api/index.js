@@ -22,8 +22,7 @@ export default {
   betteryBlack: data => http.put('device', data),
 
   /* 电池详情 */
-  betteryDetails: data =>
-    http.get(`/battery_group/${data}?t=${new Date().getTime()}`),
+  betteryDetails: batteryId => http.get(`/battery_group/${batteryId}`),
 
   /* 修改电池详情 */
   changeBatteryDetail: (id, options) =>

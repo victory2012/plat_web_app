@@ -185,6 +185,7 @@ export default {
     /* 公司选项中 确定按钮  把选择的企业 emit出去 */
     companyConfirm() {
       const params = {}
+      console.log(this.defaultManufact)
       if (this.defaultManufact) {
         params.prod = this.defaultManufact
       }
@@ -255,7 +256,7 @@ export default {
             this.manufacturerNames.push(key)
           })
           this.getPurchaseNamesDefault()
-          this.$refs.scroll.refresh()
+          // this.$refs.scroll.refresh()
         }
       })
     },

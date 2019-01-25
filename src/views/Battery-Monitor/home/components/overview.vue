@@ -61,7 +61,7 @@ export default {
     })
   },
   mounted() {
-    this.height = this.$refs.wrapper.offsetHeight - this.$refs.subTabsContent.offsetHeight - 200 - 40
+    this.height = this.$refs.wrapper.offsetHeight - this.$refs.subTabsContent.offsetHeight - 200 - 40 - 30
     this.getCardData()
   },
   methods: {

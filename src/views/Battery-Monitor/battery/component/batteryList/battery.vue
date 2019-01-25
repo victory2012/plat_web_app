@@ -7,7 +7,7 @@
           <p class="subTsxt">电池编号</p>
         </div>
         <div class="bindStatus">
-          <p>已绑定</p>
+          <p :class="{'active': item.deviceId}">{{item.bindStatus}}</p>
         </div>
         <div class="deviceCode">
           <p>{{item.deviceCode}}</p>
@@ -28,6 +28,7 @@
         <span class="iconfont icon-right"></span>
       </p>
     </div>
+    <p v-if="randerData.length === 0" class="noData">暂无数据</p>
   </cube-scroll>
 </template>
 
@@ -53,6 +54,7 @@ export default {
     }
   },
   mounted() {
+    this.doGetBatteryList()
   },
   methods: {
     jisuan(a, b, c) {
@@ -70,22 +72,37 @@ export default {
     },
     DolookDetail(item) {
       this.$router.push({
-        name: 'MonitorBatteryDetail'
+        name: 'MonitorBatteryDetail',
+        query: {
+          id: item.hostId
+        }
       })
     },
-    doGetBatteryList(data) {
-      const { model, purchase, prod, status } = data
-      this.cacheParams = data;
+    parentCall(data) {
+      this.randerData = []
+      this.doGetBatteryList(data)
+    },
+    doGetBatteryList(data = {}) {
+      // const { model, purchase, prod, status } = data
       let params = {
         pageNum: this.pageNum,
         pageSize: 15,
         // batteryGroupOrDeviceCode: '',
-        modelId: model.id || '',
-        companyName: purchase.name || '',
-        parentCompanyId: prod.id || '',
-        bindingStatus: status.id || '',
         status: 0
       }
+      if (data.model && typeof data.model === 'object') {
+        params.modelId = data.model.id
+      }
+      if (data.purchase && typeof data.purchase === 'object') {
+        params.companyName = data.purchase.name
+      }
+      if (data.prod && typeof data.prod === 'object') {
+        params.parentCompanyId = data.prod.id
+      }
+      if (data.status && typeof data.status === 'object') {
+        params.bindingStatus = data.status.id
+      }
+      this.cacheParams = data;
       this.$api.batteryList(params).then(res => {
         console.log('batteryList', res);
         if (res.data && res.data.code === 0) {
@@ -113,6 +130,11 @@ export default {
 
 </script>
 <style lang='stylus' scoped>
+.noData
+  height 30px
+  line-height 30px
+  text-align center
+  color $icon-color-gray
 .batteryItem
   position relative
   padding 10px

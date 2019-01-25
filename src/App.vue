@@ -53,4 +53,7 @@ input:disabled, textarea:disabled
   color #ccc
 :-ms-input-placeholder /* Internet Explorer 10+ */
   color #ccc
+.BatteryDetailInput
+  .cube-input-field
+    text-align right
 </style>
