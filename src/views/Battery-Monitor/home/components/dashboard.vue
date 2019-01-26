@@ -4,6 +4,7 @@
 <script>
 /* eslint-disable */
 // import { mapGetters } from 'vuex';
+import echarts from 'echarts'
 import gaugeConfig from '@/echartConfig/gauge.config'
 export default {
   // props: {

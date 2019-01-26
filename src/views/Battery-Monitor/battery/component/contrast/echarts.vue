@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import echarts from 'echarts'
 import lineChartConfig from '@/echartConfig/lineChart.config'
 export default {
   name: '',

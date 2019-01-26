@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import AMap from 'AMap'
 import topHeader from '@/components/header/header';
 export default {
   name: '',

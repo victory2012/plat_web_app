@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import AMap from 'AMap'
 import topHeader from '@/components/header/header';
 import Mixins from '@/mixins/monitor-mixin'
 export default {
