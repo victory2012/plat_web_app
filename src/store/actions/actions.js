@@ -26,15 +26,6 @@ export default {
       }
     });
   },
-  // 获取未绑定的设备列表
-  getDeviceList({ commit }) {
-    api.DeviceList('/device/code?status=0&bindingStatus=0').then(res => {
-      console.log('设备编号', res);
-      if (res.data && res.data.code === 0) {
-        commit('SETdeviceList', res.data.data);
-      }
-    });
-  },
   // 获取生产企业列表
   getManufacturer({ commit }) {
     api.manufacturerNames().then(res => {

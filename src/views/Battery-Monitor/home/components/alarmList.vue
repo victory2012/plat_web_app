@@ -6,7 +6,7 @@
       <li class="battery">电池编号</li>
       <li class="device">设备编号</li>
     </ul>
-    <cube-scroll class="alarmList" :style="{height: height + 'px' }" ref="scroll">
+    <cube-scroll class="alarmList" :data='tableData' :style="{height: height + 'px' }" ref="scroll">
       <div class="alarmItem" v-for="alarm in tableData" :key="alarm.id">
         <div class="time">{{alarm.time}}</div>
         <div>{{alarm.items}}</div>

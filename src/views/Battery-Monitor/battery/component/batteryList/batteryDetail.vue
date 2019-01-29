@@ -16,7 +16,7 @@
           <li>
             <div class="tit">电池编号</div>
             <div class="inputContent">
-              <cube-input class="BatteryDetailInput" :disabled="!edit" placeholder="电池编号" v-model="detailForm.hostId"></cube-input>
+              <cube-input class="BatteryDetailInput" :disabled="true" placeholder="电池编号" v-model="detailForm.hostId"></cube-input>
             </div>
           </li>
           <li>
@@ -36,7 +36,7 @@
             <div class="inputContent">
               <!-- <cube-select title='请选择生产企业' v-model="detailForm.companyName" :options="selectComponentOption.production">
               </cube-select> -->
-              <cube-input class="BatteryDetailInput" :disabled="!edit" placeholder="生产企业" v-model="detailForm.companyName"></cube-input>
+              <cube-input class="BatteryDetailInput" :disabled="true" placeholder="生产企业" v-model="detailForm.companyName"></cube-input>
             </div>
           </li>
           <li>
@@ -44,7 +44,7 @@
             <div class="inputContent">
               <!-- <cube-select title='请选择客户企业' v-model="detailForm.customer" :options="selectComponentOption.customer">
               </cube-select> -->
-              <cube-input class="BatteryDetailInput" :disabled="!edit" placeholder="客户企业" v-model="detailForm.customer"></cube-input>
+              <cube-input class="BatteryDetailInput" :disabled="true" placeholder="客户企业" v-model="detailForm.customer"></cube-input>
             </div>
           </li>
           <li>
@@ -73,7 +73,7 @@
           </li>
           <li>
             <div class="tit">生产日期</div>
-            <div class="inputContent">
+            <div class="inputContent" @click="showDatePicker('productionDate')">
               <!-- <cube-select title='请选择生产日期' v-model="detailForm.productionDate" :options="selectComponentOption.productionDate">
               </cube-select> -->
               <cube-input class="BatteryDetailInput" :disabled="!edit" placeholder="生产日期" v-model="detailForm.productionDate"></cube-input>
@@ -81,7 +81,7 @@
           </li>
           <li>
             <div class="tit">出厂日期</div>
-            <div class="inputContent">
+            <div class="inputContent" @click="showDatePicker('manufacturerDate')">
               <!-- <cube-select title='请选择出厂日期' v-model="detailForm.manufacturerDate" :options="selectComponentOption.factoryDate">
               </cube-select> -->
               <cube-input class="BatteryDetailInput" :disabled="!edit" placeholder="出厂日期" v-model="detailForm.manufacturerDate"></cube-input>
@@ -89,7 +89,7 @@
           </li>
           <li>
             <div class="tit">质保期</div>
-            <div class="inputContent">
+            <div class="inputContent" @click="showDatePicker('qualityGuaranteeDate')">
               <!-- <cube-select title='请选择质保期' v-model="detailForm.qualityGuaranteeDate" :options="selectComponentOption.warranty">
               </cube-select> -->
               <cube-input class="BatteryDetailInput" :disabled="!edit" placeholder="质保期" v-model="detailForm.qualityGuaranteeDate"></cube-input>
@@ -140,9 +140,59 @@ export default {
       this.$router.push({
         name: 'MonitorBattery'
       })
+    },
+    showDatePicker(type) {
+      if (!this.edit) return
+      this.timeType = type
+      if (!this.datePicker) {
+        this.datePicker = this.$createDatePicker({
+          // title: 'Date Picker',
+          value: new Date(),
+          onSelect: this.selectHandle,
+          onCancel: this.cancelHandle
+        })
+      }
+
+      this.datePicker.show()
+    },
+    selectHandle(date, selectedVal, selectedText) {
+      const value = selectedVal.join('-')
+      if (this.timeType === 'productionDate') {
+        this.$set(this.detailForm, 'productionDate', value)
+      }
+      if (this.timeType === 'manufacturerDate') {
+        this.$set(this.detailForm, 'manufacturerDate', value)
+      }
+      if (this.timeType === 'qualityGuaranteeDate') {
+        this.$set(this.detailForm, 'qualityGuaranteeDate', value)
+      }
+    },
+    cancelHandle() {
+      this.$createToast({
+        type: 'correct',
+        txt: 'Picker canceled',
+        time: 1000
+      }).show()
+    },
+    pickers() {
+      if (!this.picker) {
+        this.picker = this.$createPicker({
+          title: 'Picker',
+          data: [],
+          onSelect: this.selectHandle,
+          onCancel: this.cancelHandle
+        })
+      }
+      this.picker.show()
+    },
+    selectHandles(selectedVal, selectedIndex, selectedText) {
+      this.$createDialog({
+        type: 'warn',
+        content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
+        icon: 'cubeic-alert'
+      }).show()
     }
   }
-
 }
 
 </script>
