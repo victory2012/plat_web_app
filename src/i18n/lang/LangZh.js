@@ -285,6 +285,8 @@ export default {
     cancel: '取消',
     sure: '确认',
     warn: {
+      voltageNumber: '电压必须为数字',
+      capacityNumber: '额定容量必须为数字',
       enterprise: '请填写生产商',
       customerCom: '请选择客户企业',
       batteryCode: '请输入电池编号',

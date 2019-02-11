@@ -22,7 +22,8 @@ export default {
     api.batteryModelList().then(res => {
       console.log('获取电池型号列表', res);
       if (res.data && res.data.code === 0) {
-        commit('SETGroupModelOpts', res.data.data);
+        const result = res.data.data;
+        commit('SETGroupModelOpts', result);
       }
     });
   },
@@ -40,16 +41,18 @@ export default {
     api.batteryGroupSpecif().then(res => {
       console.log('电池组规格', res);
       if (res.data && res.data.code === 0) {
-        commit('SETbatteryGroupSpecifOpts', res.data.data);
+        const result = res.data.data;
+        commit('SETbatteryGroupSpecifOpts', result);
       }
     });
   },
   // 获取电池单体型号列表
-  getbatterySingleModel({ commit }) {
+  getBatterySingleModel({ commit }) {
     api.batterySingleModel().then(res => {
-      console.log('电池组规格', res);
+      console.log('电池单体型号列表', res);
       if (res.data && res.data.code === 0) {
-        commit('SETsingleBatteryOpts', res.data.data);
+        const result = res.data.data;
+        commit('SETsingleBatteryOpts', result);
       }
     });
   }

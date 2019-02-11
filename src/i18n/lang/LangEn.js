@@ -292,6 +292,8 @@ export default {
     cancel: 'Cancel',
     sure: 'Close',
     warn: {
+      voltageNumber: 'Voltage must be digital',
+      capacityNumber: 'Rated capacity must be digital',
       enterprise: 'Please enter manufacturer id.',
       customerCom: 'Please enter Customer id.',
       batteryCode: 'Please enter battery id.',

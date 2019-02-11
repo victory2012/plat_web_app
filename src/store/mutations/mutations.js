@@ -30,5 +30,17 @@ export default {
   },
   setCardData(state, data) {
     state.OverviewAccount = data;
+  },
+  /* 电池组单体型号 */
+  SETsingleBatteryOpts(state, data) {
+    state.batterySingleModelList = data;
+  },
+  /* 电池组规格列表 */
+  SETbatteryGroupSpecifOpts(state, data) {
+    state.batterySpecifList = data;
+  },
+  /* 电池型号列表 */
+  SETGroupModelOpts(state, data) {
+    state.batteryModelList = data;
   }
 };

@@ -189,7 +189,7 @@ export default {
       if (this.defaultManufact) {
         params.prod = this.defaultManufact
       }
-      if (this.defaultManufact) {
+      if (this.defaultPurchase) {
         params.purchase = this.defaultPurchase
       }
       if (JSON.stringify(params) !== '{}') {

@@ -24,8 +24,7 @@ export default {
   },
   data() {
     return {
-      tabs: [],
-      defaultLable: ''
+      tabs: []
     }
   },
   mounted() {
