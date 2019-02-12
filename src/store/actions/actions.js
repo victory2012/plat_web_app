@@ -17,6 +17,15 @@ export default {
       }
     });
   },
+  // 获取未绑定的设备列表
+  getUnbindDeviceList({ commit }) {
+    api.DeviceList().then(res => {
+      console.log('SETunbindDeviceList', res);
+      if (res.data && res.data.code === 0) {
+        commit('SETunbindDeviceList', res.data.data);
+      }
+    });
+  },
   // 获取电池型号列表
   getBatteryModelList({ commit }) {
     api.batteryModelList().then(res => {

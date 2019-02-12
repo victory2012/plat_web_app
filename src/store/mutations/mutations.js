@@ -42,5 +42,13 @@ export default {
   /* 电池型号列表 */
   SETGroupModelOpts(state, data) {
     state.batteryModelList = data;
+  },
+  /* 客户企业列表 */
+  SETCustomOpts(state, data) {
+    state.customCompanyList = data;
+  },
+  /* 未绑定的设备列表 */
+  SETunbindDeviceList(state, data) {
+    state.unbindDeviceList = data;
   }
 };

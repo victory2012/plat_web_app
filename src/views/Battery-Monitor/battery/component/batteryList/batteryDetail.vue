@@ -149,8 +149,8 @@ export default {
     doEditDetail() {
       this.edit = true
     },
+    /* 保存修改 */
     doSaveEdit() {
-      console.log(this.detailForm);
       if (!this.detailForm.voltage) {
         ToastOnlyText(t('batteryList.warn.batteryVoltage'))
         return
@@ -197,6 +197,7 @@ export default {
         }
       });
     },
+    /* 返回 */
     back() {
       this.$router.push({
         name: 'MonitorBattery'
@@ -217,11 +218,14 @@ export default {
             date: 'DD'
           },
           value: new Date(this.detailForm.productionDate),
-          onSelect: this.selectHandle
+          onSelect: this.selectDateHandle
         })
       }
       this.ProductDatePicker.show()
     },
+    /**
+     * @param {string} [type] 日期类型 {生产日期、出厂日期、质保期}
+     */
     showManufacturerDatePicker(type) {
       if (!this.edit) return
       this.timeType = type
@@ -233,13 +237,16 @@ export default {
             month: 'MM',
             date: 'DD'
           },
-          min: new Date(this.detailForm.productionDate),
+          min: this.detailForm.productionDate ? new Date(this.detailForm.productionDate) : new Date(),
           value: new Date(this.detailForm.manufacturerDate),
-          onSelect: this.selectHandle
+          onSelect: this.selectDateHandle
         })
       }
       this.ManufacturerDatePicker.show()
     },
+    /**
+     * @param {string} [type] 日期类型 {生产日期、出厂日期、质保期}
+     */
     showQualityGuaranteeDatePicker(type) {
       if (!this.edit) return
       this.timeType = type
@@ -251,13 +258,16 @@ export default {
             month: 'MM',
             date: 'DD'
           },
-          min: new Date(this.detailForm.manufacturerDate),
+          min: this.detailForm.manufacturerDate ? new Date(this.detailForm.manufacturerDate) : new Date(),
           value: new Date(this.detailForm.qualityGuaranteeDate),
           onSelect: this.selectDateHandle
         })
       }
       this.QualitydatePicker.show()
     },
+    /**
+     * @param date selectedVal selectedText 时间确认后的处理函数 具体参数见cube-ui文档
+     */
     selectDateHandle(date, selectedVal, selectedText) {
       const value = selectedText.join('-')
       if (this.timeType === 'productionDate') {
@@ -270,12 +280,15 @@ export default {
         this.$set(this.detailForm, 'qualityGuaranteeDate', value)
       }
     },
+    /**
+     * @param {string} [type] 选择的类型，型号、单体型号、规格
+     */
     modelPickers(type) {
       if (!this.edit) return
       this.selectType = type
       if (!this.modelPicker) {
         this.modelPicker = this.$createPicker({
-          title: 'Picker',
+          title: '电池型号',
           data: [this.batteryModelList],
           alias: {
             value: 'id',
@@ -286,12 +299,15 @@ export default {
       }
       this.modelPicker.show()
     },
+    /**
+     * @param {string} [type] 选择的类型，型号、单体型号、规格
+     */
     spifPickers(type) {
       if (!this.edit) return
       this.selectType = type
       if (!this.spifPicker) {
         this.spifPicker = this.$createPicker({
-          title: 'Picker',
+          title: '电池规格',
           data: [this.batterySpecifList],
           alias: {
             value: 'id',
@@ -302,12 +318,15 @@ export default {
       }
       this.spifPicker.show()
     },
+    /**
+     * @param {string} [type] 选择的类型，型号、单体型号、规格
+     */
     singlePickers(type) {
       if (!this.edit) return
       this.selectType = type
       if (!this.singlePicker) {
         this.singlePicker = this.$createPicker({
-          title: 'Picker',
+          title: '单体型号',
           data: [this.batterySingleModelList],
           alias: {
             value: 'id',
@@ -318,10 +337,10 @@ export default {
       }
       this.singlePicker.show()
     },
+    /**
+     * @param selectedVal selectedVal selectedText picker确认后的处理函数 具体参数见cube-ui文档
+     */
     selectHandles(selectedVal, selectedIndex, selectedText) {
-      console.log(selectedVal);
-      console.log(selectedIndex);
-      console.log(selectedText);
       if (this.selectType === 'model') {
         this.detailForm.model = selectedText[0]
         this.detailForm.modelId = selectedVal[0]

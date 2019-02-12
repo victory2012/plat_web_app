@@ -45,7 +45,8 @@ const MonitorRegBattery = () =>
   import(/* webpackChunkName: "MonitorRegBattery" */ '@/views/Battery-Monitor/battery/component/batteryList/registerBattery.vue');
 const MonitorBatteryDetail = () =>
   import(/* webpackChunkName: "MonitorBatteryDetail" */ '@/views/Battery-Monitor/battery/component/batteryList/batteryDetail.vue');
-
+const MonitorBatteryBind = () =>
+  import(/* webpackChunkName: "MonitorBatteryBind" */ '@/views/Battery-Monitor/battery/component/batteryList/batteryBind.vue');
 const MonitorFence = () =>
   import(/* webpackChunkName: "MonitorFence" */ '@/views/Battery-Monitor/fence/fence.vue');
 const MonitorFenceMap = () =>
@@ -178,6 +179,11 @@ const route = [
     path: '/monitor/battery-register',
     name: 'MonitorBatteryRegister',
     component: MonitorRegBattery
+  },
+  {
+    path: '/monitor/battery-bind',
+    name: 'MonitorBatteryBind',
+    component: MonitorBatteryBind
   },
   {
     path: '/monitor/battery-detail',

@@ -10,7 +10,7 @@
           <p :class="{'active': item.deviceId}">{{item.bindStatus}}</p>
         </div>
         <div class="deviceCode">
-          <p>{{item.deviceCode}}</p>
+          <p>{{item.deviceCode || '暂无'}}</p>
           <p class="subTsxt">设备编号</p>
         </div>
       </div>
@@ -20,7 +20,7 @@
         <p><span class="subTsxt">额定电压：</span><span>{{item.voltage}}</span></p>
       </div>
       <div v-show="item.showBtn" class="itemHandle">
-        <p>解绑</p>|
+        <p>{{item.bindName}}</p>|
         <p>删除</p>|
         <p @click="DolookDetail(item)">详情</p>
       </div>
@@ -57,9 +57,6 @@ export default {
     this.doGetBatteryList()
   },
   methods: {
-    jisuan(a, b, c) {
-      console.log(a + b + c)
-    },
     pullingUp() {
       console.log('pullingUp')
       this.pageNum++
@@ -115,6 +112,7 @@ export default {
             key.batteryCode = key.code;
             key.showBtn = false
             key.bindStatus = key.deviceId ? t('batteryList.hasBind') : t('batteryList.noBind');
+            key.bindName = key.deviceId ? '解绑' : '绑定';
             this.randerData.push(key)
           });
         }

@@ -14,7 +14,7 @@
 export default {
   name: '',
   props: ['showComponent'],
-  data () {
+  data() {
     return {
       showOrhide: this.showComponent
     };
@@ -26,17 +26,17 @@ export default {
   },
   watch: {
     showComponent: {
-      handler (val) {
+      handler(val) {
         this.showOrhide = val
       }
     }
   },
   components: {},
 
-  mounted () { },
+  mounted() { },
 
   methods: {
-    closeThis () {
+    closeThis() {
       // this.showOrhide = false
       this.$emit('onchange', { 'showOrhide': false })
     }
@@ -52,11 +52,13 @@ export default {
   right 0
   bottom 0
   left 0
+  z-index 22
   .wraper
     position absolute
     top -6px
     right 8px
     color #ffffff
+    z-index 30
     .icon
       box-sizing border-box
       text-align right

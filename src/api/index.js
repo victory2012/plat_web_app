@@ -66,11 +66,16 @@ export default {
   /* 获取电池组客户企业表 */
   purchaseNameByManufacturerId: manufacturerId =>
     http.get(`/company/${manufacturerId}/purchase_names`),
+
   /* 获取电池组客户企业表 -- 无待定企业 */
   purchaseNames2: () => http.get(`/company/purchase_names2`),
+
   /* 获取未绑定设备 */
   DeviceList: () => http.get(`/device/code?status=0&bindingStatus=0`),
 
+  /* 模糊搜索未绑定的设备列表 */
+  DeviceListByCode: deviceCode =>
+    http.get(`/device/code?status=0&bindingStatus=0&code=${deviceCode}`),
   /* 获取生产企业列表 */
   manufacturerNames: () => http.get(`company/manufacturer_names`),
   /* ----------------------------------- 电池列表结束 ---------------------------------------- */
