@@ -20,6 +20,8 @@ input:disabled, textarea:disabled
   color #a0a0a0
 .color-green
   color green
+.cube-dialog-content-def > p
+  text-align center
 .cube-dialog-icon .font44
   font-size 44px
 .mainApp

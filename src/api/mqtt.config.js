@@ -6,7 +6,7 @@ const mqtt = {
   hostname: domain > 0 ? 'www.myriadiot.net' : '47.96.8.239',
   port: domain > 0 ? 443 : 8083,
   useSSL: domain > 0,
-  clientId: `pc${new Date().getTime()}`,
+  clientId: `app${Math.random()}`,
   timeout: 30,
   keepAliveInterval: 100,
   cleanSession: false,

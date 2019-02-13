@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="moreSelectWrapper">
     <div ref="filterPart" class="filterPart">
       <div @click="companyClick" :class="{'selcetBy': company}" class="select">
         <span>客户企业</span>
@@ -338,6 +338,8 @@ export default {
 
 </script>
 <style lang='stylus' scoped>
+.moreSelectWrapper
+  position relative
 .listTit
   line-height 30px
   padding-left 15px
@@ -412,7 +414,7 @@ export default {
       color $icon-color-gray
 .popupWraper
   position absolute
-  top 85px
+  top 40px
   left 0
   width 100%
   z-index 11

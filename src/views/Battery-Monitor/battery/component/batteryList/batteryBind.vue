@@ -14,14 +14,16 @@
     </top-header>
     <cube-scroll class="deviceList">
       <ul class="listWraper">
-        <li v-for="item in deviceList" :key="item.id">{{item.code}}</li>
-        <li v-show="deviceList.length === 0" class="noDate">暂无数据</li>
+        <li v-for="item in deviceList" :key="item.id" @click="doBindDeviceCode(item)"><span>设备编号：</span>{{item.code}}</li>
+        <li v-show="deviceList.length === 0" class="noDate">暂无未绑定的设备数据</li>
       </ul>
     </cube-scroll>
   </div>
 </template>
 
 <script>
+import { ToastOnlyText } from '@/utils/Toast'
+import t from '@/utils/translate';
 import topHeader from '@/components/header/header';
 export default {
   data() {
@@ -42,6 +44,7 @@ export default {
     }
   },
   mounted() {
+    this.bindBattery = this.$route.query;
     this.getDeviceListByCode()
   },
   methods: {
@@ -58,6 +61,39 @@ export default {
           this.deviceList = result
         }
       })
+    },
+    doBindDeviceCode(item) {
+      this.$createDialog({
+        type: 'confirm',
+        title: '电池绑定',
+        content: `确定要电池(编号:${this.bindBattery.code})与设备(编号:${item.code})绑定吗？`,
+        confirmBtn: {
+          text: '确定',
+          active: true
+        },
+        cancelBtn: {
+          text: '取消',
+          active: false
+        },
+        onConfirm: () => {
+          const bindObj = {
+            hostId: this.bindBattery.id,
+            deviceId: item.id,
+            hostCode: this.bindBattery.code,
+            deviceCode: item.code
+          };
+          this.$api.betteryBind(bindObj).then((res) => {
+            console.log(res)
+            if (res.data && res.data.code === 0) {
+              ToastOnlyText(t('successTips.bindSuccess'))
+              // const message = new Paho.MQTT.Message(`k:${this.bindBattery.code}`);
+              // message.destinationName = `cmd/${item.code}`;
+              // this.mqttClient.send(message);
+              this.getDeviceListByCode(this.searchDeviceCode);
+            }
+          });
+        }
+      }).show()
     }
   }
 

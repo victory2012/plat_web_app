@@ -32,72 +32,23 @@
         <span class="iconfont icon-downarrow1"></span>
       </div>
     </div>
-    <div ref="filterPart" class="filterPart" v-show="moreSelect">
-      <div @click="companyClick" :class="{'selcetBy': showPopup.company}" class="select">
-        <span>客户企业</span>
+    <div v-show="moreSelect" class="moreSelectWraper">
+      <div @click="alarmItemClick" :class="{'selcetBy': alarmActive == 'alarmItem'}" class="select">
+        <span>告警项目</span>
         <span class="iconfont icon-downarrow1"></span>
       </div>
-      <div @click="showBatteryList" class="select">
-        <span>电池型号</span>
+      <div @click="alarmLevelClick" :class="{'selcetBy': alarmActive == 'alarmLevel'}" class="select">
+        <span>告警级别</span>
         <span class="iconfont icon-downarrow1"></span>
       </div>
-      <div @click="StatusClick" :class="{'selcetBy': showPopup.status}" class="select">
-        <span>状态</span>
+      <div @click="HierarchyClick" :class="{'selcetBy': alarmActive == 'Hierarchy'}" class="select">
+        <span>告警层级</span>
         <span class="iconfont icon-downarrow1"></span>
-      </div>
-      <!-- <span @click="swichMapOrList" class="iconfont icon-map">
-      </span> -->
-    </div>
-    <div class="popupWraper" v-show="showPopup.wrap">
-      <div class="company" v-show="showPopup.company">
-        <div class="production">
-          <h2>生产企业</h2>
-          <cube-scroll class="productionList" ref="productionscroll" :options="options">
-            <ul>
-              <li v-for="item in testCompany" :key="item.id" @click="chooseItem(item)" :class="{'choosed': item.choose}">{{item.name}}</li>
-            </ul>
-          </cube-scroll>
-        </div>
-        <div class="purchase">
-          <h2>采购企业</h2>
-          <cube-scroll class="productionList" ref="purchasescroll" :options="options">
-            <ul>
-              <li v-for="item in testCompany" :key="item.id" @click="chooseItem(item)" :class="{'choosed': item.choose}">{{item.name}}</li>
-            </ul>
-          </cube-scroll>
-        </div>
-        <section class="companyBtn">
-          <p @click="companyCancelHandle">取消</p>
-          <p class="sure">确定</p>
-        </section>
-      </div>
-      <div class="allStatus" v-show="showPopup.status">
-        <div class="status" v-for="item in status" :key="item.id">
-          <h2>{{item.title}}</h2>
-          <ul>
-            <li v-for="info in item.data" @click="choosStatuItem(info, item.data)" :key="info.id" :class="{'active': info.choose}">{{info.label}}</li>
-          </ul>
-        </div>
-        <section class="companyBtn">
-          <p @click="companyCancelHandle">取消</p>
-          <p class="sure">确定</p>
-        </section>
       </div>
     </div>
     <div class="alarmWraper">
-      <alarm-itme></alarm-itme>
+      <alarm-itme ref="alarmItem"></alarm-itme>
     </div>
-    <!-- <div class="mapWrapper" :class="{'out': showPopupMap}">
-      <top-header>
-        <div slot="left" class="backIcon">
-          <i @click="closePopupMap" class="backIcon iconfont icon-back1"></i>
-        </div>
-        <div slot="mainTab">
-          告警位置
-        </div>
-      </top-header>
-      <div class="mapContent" id="mapContent"></div>
-    </div> -->
   </div>
 </template>
 
@@ -105,169 +56,68 @@
 import topHeader from '@/components/header/header';
 import Mixins from '@/mixins/monitor-mixin'
 import alarmItme from './alarmList/alarmItem'
-
-const column1 = [
-  { text: 'Text12346', value: '123456' },
-  { text: 'Text12346', value: 'aad' },
-  { text: 'Text12346', value: 'ddeef' },
-  { text: 'Text12346', value: 'gdfg' },
-  { text: 'Text12346', value: 'fgh' },
-  { text: 'Text12346', value: 'ddeghjef' }
-]
+import t from '@/utils/translate';
 export default {
-  data () {
+  data() {
     return {
-      showPopupMap: false,
       searchArr: [],
       startTime: '年/月/日',
       endTime: '年/月/日',
       moreSelect: false,
-      showPopup: {
-        wrap: false,
-        company: false,
-        status: false
-      },
-      status: [
+      alarmActive: '',
+      searchObj: {},
+      hierarchyArr: [
         {
-          id: Math.random(),
-          title: '绑定状态',
-          data: [
-            {
-              label: '全部',
-              id: 'all',
-              choose: true
-            },
-            {
-              label: '未绑定',
-              id: 'nobind',
-              choose: false
-            },
-            {
-              label: '已绑定',
-              id: 'hasbind',
-              choose: false
-            }
-          ]
+          value: '',
+          text: t('timeBtn.all')
         },
         {
-          id: Math.random(),
-          title: '在线状态',
-          data: [
-            {
-              label: '全部',
-              id: 'allOline',
-              choose: true
-            },
-            {
-              label: '在线',
-              id: 'online',
-              choose: false
-            },
-            {
-              label: '离线',
-              id: 'offline',
-              choose: false
-            }
-          ]
+          value: 'Group',
+          text: t('group.allGroup')
         },
         {
-          id: Math.random(),
-          title: '运行状态',
-          data: [
-            {
-              label: '全部',
-              id: 'runall',
-              choose: true
-            }, {
-              label: '已激活',
-              id: 'hasactive',
-              choose: false
-            }, {
-              label: '未激活',
-              id: 'noactive',
-              choose: false
-            }, {
-              label: '激活中',
-              id: 'activing',
-              choose: false
-            }, {
-              label: '取消告警中',
-              id: 'cancelActive',
-              choose: false
-            }
-          ]
+          value: 'Single',
+          text: t('group.single')
         }
       ],
-      testCompany: [],
-      companyData: [
+      levelArr: [
         {
-          id: Math.random(),
-          name: '生产企业',
-          choose: false
-        }, {
-          id: Math.random(),
-          name: '生产企业',
-          choose: false
-        }, {
-          id: Math.random(),
-          name: '生产企业',
-          choose: false
-        }, {
-          id: Math.random(),
-          name: '生产企业',
-          choose: false
-        }, {
-          id: Math.random(),
-          name: '生产企业',
-          choose: false
-        }, {
-          id: Math.random(),
-          name: '生产企业',
-          choose: false
-        }, {
-          id: Math.random(),
-          name: '生产企业',
-          choose: false
-        }, {
-          id: Math.random(),
-          name: '生产企业',
-          choose: false
-        }, {
-          id: Math.random(),
-          name: '生产企业',
-          choose: false
-        }, {
-          id: Math.random(),
-          name: '生产企业',
-          choose: false
-        }, {
-          id: Math.random(),
-          name: '生产企业',
-          choose: false
-        }, {
-          id: Math.random(),
-          name: '生产企业',
-          choose: false
-        }, {
-          id: Math.random(),
-          name: '生产企业',
-          choose: false
-        }, {
-          id: Math.random(),
-          name: '生产企业',
-          choose: false
-        }, {
-          id: Math.random(),
-          name: '生产企业',
-          choose: false
-        }, {
-          id: Math.random(),
-          name: '生产企业',
-          choose: false
-        }, {
-          id: Math.random(),
-          name: '生产企业',
-          choose: false
+          value: '',
+          text: t('timeBtn.all')
+        },
+        {
+          value: 1,
+          text: t('group.high')
+        },
+        {
+          value: 2,
+          text: t('group.mid')
+        },
+        {
+          value: 3,
+          text: t('group.low')
+        }
+      ],
+      alarmArr: [
+        {
+          value: '',
+          text: t('timeBtn.all')
+        },
+        {
+          value: 'Voltage',
+          text: t('realTime.voltage')
+        },
+        {
+          value: 'Current',
+          text: t('realTime.current')
+        },
+        {
+          value: 'Temperature',
+          text: t('realTime.temperature')
+        },
+        {
+          value: 'Fluid',
+          text: t('realTime.fluid')
         }
       ]
     };
@@ -277,87 +127,101 @@ export default {
     topHeader,
     alarmItme
   },
-  computed: {
-    options () {
-      return {
-        scrollbar: false, // 是否显示滚动条
-        click: true
-      }
-    }
-  },
-  mounted () {
-    this.mapInit()
+  mounted() {
   },
 
   methods: {
-    mapInit () {
-      const lang = sessionStorage.getItem('locale') === 'en' ? 'en' : 'zh_cn';
-      // eslint-disable-next-line
-      this.map = new AMap.Map('mapContent', {
-        resizeEnable: true,
-        zoom: 15,
-        lang
-      });
+    /* 告警项目 */
+    alarmItemClick() {
+      this.alarmActive = 'alarmItem';
+      if (!this.alarmItemPicker) {
+        this.alarmItemPicker = this.$createPicker({
+          title: '告警项目',
+          data: [this.alarmArr],
+          onSelect: this.selectHandle,
+          onCancel: () => { this.alarmActive = '' }
+        })
+      }
+      this.alarmItemPicker.show()
     },
-    timeSelect (type) {
+    /* 告警级别 */
+    alarmLevelClick() {
+      this.alarmActive = 'alarmLevel'
+      if (!this.alarmLevelPicker) {
+        this.alarmLevelPicker = this.$createPicker({
+          title: '告警级别',
+          data: [this.levelArr],
+          onSelect: this.selectHandle,
+          onCancel: () => { this.alarmActive = '' }
+        })
+      }
+      this.alarmLevelPicker.show()
+    },
+    /* 告警层级 */
+    HierarchyClick() {
+      this.alarmActive = 'Hierarchy'
+      if (!this.HierarchyPicker) {
+        this.HierarchyPicker = this.$createPicker({
+          title: '告警层级',
+          data: [this.hierarchyArr],
+          onSelect: this.selectHandle,
+          onCancel: () => { this.alarmActive = '' }
+        })
+      }
+      this.HierarchyPicker.show()
+    },
+    getBatteryAlarmList(data) {
+      this.$refs.alarmItem.parentCall(data)
+    },
+    timeSelect(type) {
       this.TimeType = type
       if (!this.datePicker) {
         this.datePicker = this.$createDatePicker({
-          title: 'Date Picker',
-          max: new Date(2040, 9, 20),
+          max: new Date(2100, 9, 20),
           value: new Date(),
-          onSelect: (data) => {
-            console.log('this.TimeType', this.TimeType)
+          format: {
+            year: 'YYYY',
+            month: 'MM',
+            date: 'DD'
+          },
+          onSelect: (data, selectedVal, selectedText) => {
+            const result = selectedText.join('/')
             if (this.TimeType === 'start') {
-              this.startTime = data
+              if (this.endTime && new Date(data) > new Date(this.endTime)) {
+                return
+              }
+              this.startTime = result
+              this.searchObj.startTime = result
             } else {
-              this.endTime = data
+              this.endTime = result
+              this.searchObj.endTime = result
             }
           }
         })
       }
       this.datePicker.show()
     },
-    showMoreSelect () {
-      if (this.moreSelect) {
-        this.companyCancelHandle()
-      }
+    showMoreSelect() {
       this.moreSelect = !this.moreSelect
     },
-    companyClick () {
-      this.showPopup.wrap = true
-      this.showPopup.company = true
-      this.showPopup.status = false
-      this.testCompany = this.companyData
-    },
-    companyCancelHandle () {
-      this.showPopup.wrap = false
-      this.showPopup.status = false
-      this.showPopup.company = false
-    },
-    StatusClick () {
-      this.showPopup.wrap = true
-      this.showPopup.status = true
-      this.showPopup.company = false
-    },
-    choosStatuItem (info, data) {
+    choosStatuItem(info, data) {
       data.forEach(key => {
         key.choose = false
       });
       info.choose = true
     },
-    showBatteryList () {
-      this.companyCancelHandle()
-      if (!this.picker) {
-        this.picker = this.$createPicker({
-          title: 'Picker',
-          data: [column1],
-          onSelect: this.selectHandle
-        })
+    selectHandle(selectedVal) {
+      const value = selectedVal[0];
+      if (this.alarmActive === 'alarmItem') {
+        this.searchObj.item = value
       }
-      this.picker.show()
-    },
-    selectHandle (selectedVal, selectedIndex, selectedText) {
+      if (this.alarmActive === 'alarmLevel') {
+        this.searchObj.level = value
+      }
+      if (this.alarmActive === 'Hierarchy') {
+        this.searchObj.hierarchy = value
+      }
+      console.log(this.searchObj);
     }
   }
 
@@ -476,18 +340,12 @@ section
           overflow hidden
           text-overflow ellipsis
           white-space nowrap
-  .filterPart
-    position absolute
-    top 80px
-    left 0
-    width 100vw
-    box-sizing border-box
+  .moreSelectWraper
     padding 5px 10px
     display flex
     justify-content space-between
     align-items center
-    z-index 99
-    background-color #ffffff
+    margin-top 5px
     SetBorder(1px, bottom)
     &>.iconfont
       margin-right 8px
@@ -507,65 +365,9 @@ section
       &.selcetBy
         color $color-project-blue
         border-color $color-project-blue
+        .iconfont
+          color $color-project-blue
       .iconfont
         font-size 28px
         color $icon-color-gray
-  .popupWraper
-    position absolute
-    top 125px
-    left 0
-    z-index 11
-    width 100vw
-    box-sizing border-box
-    background-color #ffffff
-    .company
-      .production
-        SetBorder(1px, bottom)
-      &>div
-        height 180px
-        .productionList
-          height 146px
-        h2
-          line-height 30px
-          padding-left 15px
-        ul
-          display flex
-          justify-content space-between
-          flex-wrap wrap
-          padding 10px
-          li
-            flex 0 0 26%
-            text-align center
-            line-height 26px
-            border 1px solid $color-project-blue
-            background #ffffff
-            color $color-project-blue
-            margin-bottom 10px
-            overflow hidden
-            white-space nowrap
-            text-overflow ellipsis
-            &.choosed
-              background-color $color-project-blue
-              color #ffffff
-    .allStatus
-      padding 0 10px 10px
-      .status
-        // padding 10px
-        h2
-          font-size 15px
-          line-height 30px
-        ul
-          display flex
-          flex-wrap wrap
-          li
-            flex 0 0 70px
-            line-height 28px
-            text-align center
-            border 1px solid $color-project-blue
-            margin-right 15px
-            font-size 13px
-            margin-bottom 15px
-            &.active
-              background-color $color-project-blue
-              color #ffffff
 </style>

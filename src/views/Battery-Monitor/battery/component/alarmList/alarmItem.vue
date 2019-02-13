@@ -1,14 +1,14 @@
 <template>
-  <cube-scroll class="alarmList" ref="scroll" :options="options" @pulling-up="pullingUp">
-    <div class="wrapper" v-for="item in list" :key="item.id">
+  <cube-scroll :data="randerList" class="alarmList" ref="scroll" :options="options" @pulling-up="pullingUp">
+    <div class="wrapper" v-for="item in randerList" :key="item.id">
       <div class="itemMain">
         <div class="leftMsg">
           <div class="time">
             <span>告警时间：</span>
-            <span>{{item.time}}</span>
+            <span>{{item.createTime}}</span>
           </div>
           <div class="code">
-            <span>设备编号：{{item.deviceCode}}</span><span>电池编号：{{item.batteryCode}}</span>
+            <span>设备编号：{{item.deviceCode}}</span><span>电池编号：{{item.hostCode}}</span>
           </div>
         </div>
         <div @click="doShowMore(item)" class="rightIcon" :class="{'down': item.showMore}">
@@ -20,11 +20,11 @@
           <div class="model">
             <span>电池型号：{{item.model}}</span>
             <span>告警层级：{{item.hierarchy}}</span>
-            <span>告警级别：{{item.level}}</span>
+            <span>告警级别：{{item.levels}}</span>
           </div>
           <div class="volatage">
             <span>电压：{{item.valatage}}</span>
-            <span>客户企业：{{item.company}}</span>
+            <span>客户企业：{{item.companyName}}</span>
           </div>
           <div class="alarmContent">
             <span>告警内容：{{item.content}}</span>
@@ -40,183 +40,87 @@
         </div>
       </div>
     </div>
+    <p class="noData" v-show="randerList.length == 0">暂无数据</p>
   </cube-scroll>
 </template>
 
 <script>
+import utils from '@/utils/utils';
+import t from '@/utils/translate';
 export default {
   name: '',
   props: [''],
-  data () {
+  data() {
     return {
-      pullDownRefreshObj: {
-        threshold: 500,
-        stop: 20
-      },
+      pageNum: 1,
       pullUpLoadObj: {
         threshold: 50
       },
-      list: [
-        {
-          time: '2018-12-12 12:12:12',
-          deviceCode: 'abc123456',
-          batteryCode: 'aa12457',
-          model: 'model1',
-          hierarchy: '5',
-          level: '高',
-          valatage: '12V',
-          company: '上海摩融信息科技',
-          content: '电解液位低，应该补水',
-          id: Math.random(),
-          showMore: false
-        }, {
-          time: '2018-12-12 12:12:12',
-          deviceCode: 'abc123456',
-          batteryCode: 'aa12457',
-          model: 'model1',
-          hierarchy: '5',
-          level: '高',
-          valatage: '12V',
-          company: '上海摩融信息科技',
-          content: '电解液位低，应该补水',
-          id: Math.random(),
-          showMore: false
-        }, {
-          time: '2018-12-12 12:12:12',
-          deviceCode: 'abc123456',
-          batteryCode: 'aa12457',
-          model: 'model1',
-          hierarchy: '5',
-          level: '高',
-          valatage: '12V',
-          company: '上海摩融信息科技',
-          content: '电解液位低，应该补水',
-          id: Math.random(),
-          showMore: false
-        }, {
-          time: '2018-12-12 12:12:12',
-          deviceCode: 'abc123456',
-          batteryCode: 'aa12457',
-          model: 'model1',
-          hierarchy: '5',
-          level: '高',
-          valatage: '12V',
-          company: '上海摩融信息科技',
-          content: '电解液位低，应该补水',
-          id: Math.random(),
-          showMore: false
-        }, {
-          time: '2018-12-12 12:12:12',
-          deviceCode: 'abc123456',
-          batteryCode: 'aa12457',
-          model: 'model1',
-          hierarchy: '5',
-          level: '高',
-          valatage: '12V',
-          company: '上海摩融信息科技',
-          content: '电解液位低，应该补水',
-          id: Math.random(),
-          showMore: false
-        }, {
-          time: '2018-12-12 12:12:12',
-          deviceCode: 'abc123456',
-          batteryCode: 'aa12457',
-          model: 'model1',
-          hierarchy: '5',
-          level: '高',
-          valatage: '12V',
-          company: '上海摩融信息科技',
-          content: '电解液位低，应该补水',
-          id: Math.random(),
-          showMore: false
-        }, {
-          time: '2018-12-12 12:12:12',
-          deviceCode: 'abc123456',
-          batteryCode: 'aa12457',
-          model: 'model1',
-          hierarchy: '5',
-          level: '高',
-          valatage: '12V',
-          company: '上海摩融信息科技',
-          content: '电解液位低，应该补水',
-          id: Math.random(),
-          showMore: false
-        }, {
-          time: '2018-12-12 12:12:12',
-          deviceCode: 'abc123456',
-          batteryCode: 'aa12457',
-          model: 'model1',
-          hierarchy: '5',
-          level: '高',
-          valatage: '12V',
-          company: '上海摩融信息科技',
-          content: '电解液位低，应该补水',
-          id: Math.random(),
-          showMore: false
-        }, {
-          time: '2018-12-12 12:12:12',
-          deviceCode: 'abc123456',
-          batteryCode: 'aa12457',
-          model: 'model1',
-          hierarchy: '5',
-          level: '高',
-          valatage: '12V',
-          company: '上海摩融信息科技',
-          content: '电解液位低，应该补水',
-          id: Math.random(),
-          showMore: false
-        }, {
-          time: '2018-12-12 12:12:12',
-          deviceCode: 'abc123456',
-          batteryCode: 'aa12457',
-          model: 'model1',
-          hierarchy: '5',
-          level: '高',
-          valatage: '12V',
-          company: '上海摩融信息科技',
-          content: '电解液位低，应该补水',
-          id: Math.random(),
-          showMore: false
-        }, {
-          time: '2018-12-12 12:12:12',
-          deviceCode: 'abc123456',
-          batteryCode: 'aa12457',
-          model: 'model1',
-          hierarchy: '5',
-          level: '高',
-          valatage: '12V',
-          company: '上海摩融信息科技',
-          content: '电解液位低，应该补水',
-          id: Math.random(),
-          showMore: false
-        }
-      ]
+      randerList: []
     };
   },
   computed: {
-    options () {
+    options() {
       return {
-        pullDownRefresh: this.pullDownRefreshObj,
         pullUpLoad: this.pullUpLoadObj,
         scrollbar: true,
         click: true
       }
     }
   },
-  mounted () { },
+  mounted() {
+    this.getAlarmList()
+  },
 
   methods: {
-    showLocation () {
+    showLocation() {
       console.log('showMap');
       this.$router.push({
         name: 'MonitorBatteryAlarmMap'
       })
     },
-    pullingUp () {
-      console.log('pullingUp')
+    pullingUp() {
+      this.pageNum++
+      if (this.pageNum > this.totalPage) {
+        this.pageNum = this.totalPage
+        this.$refs.scroll.forceUpdate();
+      } else {
+        this.getAlarmList()
+      }
     },
-    doShowMore (item) {
+    doShowMore(item) {
       item.showMore = !item.showMore
+    },
+    getAlarmListByOpts(data) {
+      this.randerList = []
+      this.getAlarmList(data)
+    },
+    getAlarmList(data = {}) {
+      const pageObj = {
+        pageSize: 15,
+        pageNum: this.pageNum
+      };
+      this.$api.alarmData(pageObj).then((res) => {
+        console.log(res)
+        if (res.data && res.data.code === 0) {
+          const result = res.data.data;
+          this.totalPage = result.totalPage
+          if (result.pageData.length === 0) {
+            return
+          }
+          result.pageData.forEach((key) => {
+            key.showMore = false
+            key.levels = utils.level(key.level);
+            key.hierarchy = key.hierarchy === 'Group' ? t('group.allGroup') : t('group.single');
+            key.items = utils.item(key.item);
+            if (key.item === 'Fluid') {
+              key.thresholdValue = '-';
+              key.actualValue = t('realTime.abnormal');
+            }
+            this.randerList.push(key);
+          });
+        }
+      });
     }
   }
 
@@ -224,6 +128,11 @@ export default {
 
 </script>
 <style lang='stylus' scoped>
+.noData
+  height 30px
+  line-height 30px
+  text-align center
+  color $icon-color-gray
 .alarmList
   height 100%
   .wrapper

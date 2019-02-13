@@ -26,8 +26,8 @@ export default {
       this.$store.commit('setMainTabBar', monitorFooterBar())
     }
     // let routerIndex = sessionStorage.getItem('routerIndex');
-    console.log('routerIndex......', this.routerIndex);
-    this.defaultLable = this.footerBar[this.routerIndex].link;
+    // console.log('routerIndex......', this.routerIndex);
+    // this.defaultLable = this.footerBar[this.routerIndex].link;
     // this.getTabIndex(this.$route);
   },
   methods: {

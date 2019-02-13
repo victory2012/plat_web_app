@@ -7,7 +7,7 @@
       </transition>
     </div>
     <div class="footerBar">
-      <footer-bar @tabIndex="tabIndex" :defaultValue='defaultLable' :tabs='footerBar'></footer-bar>
+      <footer-bar @tabIndex="tabIndex" :defaultValue='footerBar[routerIndex].link' :tabs='footerBar'></footer-bar>
     </div>
   </div>
 </template>
@@ -21,16 +21,6 @@ export default {
   mixins: [mixins],
   components: {
     footerBar
-  },
-  data() {
-    return {
-      tabs: []
-    }
-  },
-  mounted() {
-  },
-  methods: {
-
   }
 }
 </script>

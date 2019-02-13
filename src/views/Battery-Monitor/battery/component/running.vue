@@ -5,9 +5,9 @@
         <i @click="goBack" class="backIcon iconfont icon-back1"></i>
       </div>
       <div class="searchWarper" slot="mainTab">
-        <div class="searchIcon"><i class="iconfont icon-Search"></i></div>
+        <div @click="searchByCode" class="searchIcon"><i class="iconfont icon-Search"></i></div>
         <div class="inputPart">
-          <input type="text" placeholder="请输入搜索内容" />
+          <input type="text" v-model="searchBatteryCode" placeholder="请输入搜索内容" />
           <ul v-show="searchNull" class="searchTerm">
             <li v-for="(value, key) in searchObj" :key="value.id"><span class="label">{{value.name}}</span><span @click="CloseTag(key)" class="iconfont icon-close2"></span></li>
           </ul>
@@ -41,7 +41,7 @@ export default {
       height: 0,
       searchArr: [],
       searchObj: {},
-      testCompany: []
+      searchBatteryCode: ''
     };
   },
   computed: {
@@ -70,6 +70,12 @@ export default {
   },
 
   methods: {
+    searchByCode() {
+      if (!this.searchBatteryCode) return
+      if (this.showComponent === 'battery') {
+        this.$refs.battery.parentCallByBatteryCode(this.searchBatteryCode)
+      }
+    },
     getCompany(data) {
       if (data.prod) {
         this.$set(this.searchObj, 'prod', data.prod)
