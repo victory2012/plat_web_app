@@ -25,6 +25,7 @@
         <p>选电池</p>
       </div>
     </div>
+    <contrast-comp class="contrastBattery"></contrast-comp>
     <!-- 选中的企业、电池、设备 -->
     <div class="userInfo">
       <div class="select">
@@ -37,13 +38,13 @@
     <div class="chartsWraper">
       <charts-component></charts-component>
     </div>
-    <div class=""></div>
   </div>
 </template>
 
 <script>
 import topHeader from '@/components/header/header';
 import chartsComponent from './contrast/echarts'
+import contrastComp from '@/components/contrastComp'
 import Mixins from '@/mixins/monitor-mixin'
 export default {
   name: '',
@@ -68,7 +69,8 @@ export default {
 
   components: {
     topHeader,
-    chartsComponent
+    chartsComponent,
+    contrastComp
   },
 
   mounted() { },
@@ -104,7 +106,13 @@ export default {
       color #ffffff
       background-color $color-project-blue
 .contrastCenter
+  position relative
   padding-top $header-height + 5px
+  .contrastBattery
+    position absolute
+    top 80px
+    left 0
+    z-index 10
   .searchPart
     height 40px
     box-sizing border-box

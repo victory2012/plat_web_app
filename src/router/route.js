@@ -33,20 +33,23 @@ const MonitorBattery = () =>
   import(/* webpackChunkName: "MonitorBattery" */ '@/views/Battery-Monitor/battery/battery.vue');
 const MonitorBatteryRunning = () =>
   import(/* webpackChunkName: "MonitorBatteryRunning" */ '@/views/Battery-Monitor/battery/component/running.vue');
+
 const MonitorBatteryAlarm = () =>
   import(/* webpackChunkName: "MonitorBatteryAlarm" */ '@/views/Battery-Monitor/battery/component/alarm.vue');
-
+const MonitorAlarmDetail = () =>
+  import(/* webpackChunkName: "MonitorAlarmDetail" */ '@/views/Battery-Monitor/battery/component/alarmList/alarmDetail.vue');
 const MonitorBatteryAlarmMap = () =>
   import(/* webpackChunkName: "MonitorBatteryAlarmMap" */ '@/views/Battery-Monitor/battery/component/alarmList/alarmMap.vue');
 
 const MonitorBatteryContrast = () =>
-  import(/* webpackChunkName: "MonitorBatteryAlarm" */ '@/views/Battery-Monitor/battery/component/contrast.vue');
+  import(/* webpackChunkName: "MonitorBatteryContrast" */ '@/views/Battery-Monitor/battery/component/contrast.vue');
 const MonitorRegBattery = () =>
   import(/* webpackChunkName: "MonitorRegBattery" */ '@/views/Battery-Monitor/battery/component/batteryList/registerBattery.vue');
 const MonitorBatteryDetail = () =>
   import(/* webpackChunkName: "MonitorBatteryDetail" */ '@/views/Battery-Monitor/battery/component/batteryList/batteryDetail.vue');
 const MonitorBatteryBind = () =>
   import(/* webpackChunkName: "MonitorBatteryBind" */ '@/views/Battery-Monitor/battery/component/batteryList/batteryBind.vue');
+
 const MonitorFence = () =>
   import(/* webpackChunkName: "MonitorFence" */ '@/views/Battery-Monitor/fence/fence.vue');
 const MonitorFenceMap = () =>
@@ -167,6 +170,11 @@ const route = [
         path: '/MonitorBatteryAlarmMap',
         name: 'MonitorBatteryAlarmMap',
         component: MonitorBatteryAlarmMap
+      },
+      {
+        path: '/MonitorAlarmDetail',
+        name: 'MonitorAlarmDetail',
+        component: MonitorAlarmDetail
       },
       {
         path: '/MonitorBatteryContrast',

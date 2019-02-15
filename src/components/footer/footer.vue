@@ -3,7 +3,6 @@
     <cube-tab v-for="(item) in tabs" :label="item.link" :key="item.label">
       <i v-if="item.icon" slot="icon" class="tabIcon iconfont" :class="item.icon"></i>
       <span class="tabText">{{item.label}}</span>
-      <!-- <router-link :to="item.link">{{item.label}}</router-link> -->
     </cube-tab>
   </cube-tab-bar>
 </template>
@@ -33,20 +32,9 @@ export default {
   watch: {
     defaultValue: {
       handler: function (val) {
-        console.log('footer defaultValue', val);
         this.defaultlabel = val;
       }
     }
-    // '$route.name': {
-    //   handler: function (val) {
-    //     console.log('footer defaultValue', val);
-    //     this.defaultlabel = val;
-    //   }
-    // }
-  },
-  mounted() {
-    // const routeName = this.$route.name;
-    // this.getTabIndex(routeName)
   },
   methods: {
     getTabIndex(name) {

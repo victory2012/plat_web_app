@@ -35,7 +35,7 @@
             <span class="iconfont icon-location"></span>
           </div>
           <div class="detail">
-            <p>详情</p>
+            <p @click="showAlarmDetail(item)">详情</p>
           </div>
         </div>
       </div>
@@ -73,25 +73,39 @@ export default {
   },
 
   methods: {
+    /* 展示地图位置 */
     showLocation() {
-      console.log('showMap');
       this.$router.push({
         name: 'MonitorBatteryAlarmMap'
       })
     },
+    /* 查看详情 */
+    showAlarmDetail(item) {
+      this.$store.commit('SETalarmItemDetail', item)
+      this.$router.push({
+        name: 'MonitorAlarmDetail',
+        query: {
+          id: item.dataId
+        }
+      })
+    },
+    /* 上拉加载更多 */
     pullingUp() {
       this.pageNum++
       if (this.pageNum > this.totalPage) {
         this.pageNum = this.totalPage
         this.$refs.scroll.forceUpdate();
       } else {
-        this.getAlarmList()
+        this.pullingUpGetMore(this.cacheParams)
       }
     },
     doShowMore(item) {
       item.showMore = !item.showMore
     },
-    getAlarmListByOpts(data) {
+    pullingUpGetMore(data) {
+      this.getAlarmList(data)
+    },
+    getAlarmListByOpts(data = {}) {
       this.randerList = []
       this.getAlarmList(data)
     },
@@ -100,6 +114,25 @@ export default {
         pageSize: 15,
         pageNum: this.pageNum
       };
+      if (data.startTime) {
+        pageObj.startCreateTime = utils.creatTimeStart(data.startTime)
+      }
+      if (data.endTime) {
+        pageObj.endCreateTime = utils.creatTimeEnd(data.endTime)
+      }
+      if (data.item) {
+        pageObj.item = data.item;
+      }
+      if (data.searchCode) {
+        pageObj.code = data.searchCode;
+      }
+      if (data.level) {
+        pageObj.level = data.level;
+      }
+      if (data.hierarchy) {
+        pageObj.hierarchy = data.hierarchy;
+      }
+      this.cacheParams = data // 缓存搜索条件
       this.$api.alarmData(pageObj).then((res) => {
         console.log(res)
         if (res.data && res.data.code === 0) {

@@ -4,10 +4,10 @@ import t from '@/utils/translate';
 import router from '@/router';
 import Toast from '@/components/Toast/toast';
 
-const baseURL =
-  process.env.NODE_ENV === 'production'
-    ? 'http://47.96.8.239:8000'
-    : 'http://192.168.1.143:8000'; // '/api';
+const baseURL = '/api';
+// process.env.NODE_ENV === 'production'
+//   ? 'http://47.96.8.239:8000'
+//   : 'http://192.168.1.143:8000'; // '/api';
 const timeout = 30000; // 超时时间
 axios.interceptors.request.use(
   config => {

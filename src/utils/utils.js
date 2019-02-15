@@ -432,21 +432,23 @@ export default {
     const result = new Date(times).getTime();
     return result;
   },
-  creatTimeEnd: date => {
-    const endTime = new Date(date).getTime() + 86400000;
-    const timeDate = new Date(endTime);
-    const year = timeDate.getFullYear();
-    let mounth = timeDate.getMonth() + 1;
-    let day = timeDate.getDate();
-    let hours = timeDate.getHours();
-    let minute = timeDate.getMinutes();
-    let second = timeDate.getSeconds();
+  creatTimeStart: date => {
+    const StartTime = new Date(date);
+    const year = StartTime.getFullYear();
+    let mounth = StartTime.getMonth() + 1;
+    let day = StartTime.getDate();
     mounth = mounth < 10 ? `0${mounth}` : mounth;
     day = day < 10 ? `0${day}` : day;
-    hours = hours < 10 ? `0${hours}` : hours;
-    minute = minute < 10 ? `0${minute}` : minute;
-    second = second < 10 ? `0${second}` : second;
-    return `${year}-${mounth}-${day} ${hours}:${minute}:${second}`;
+    return `${year}-${mounth}-${day} 00:00:00`;
+  },
+  creatTimeEnd: date => {
+    const EndTime = new Date(date);
+    const year = EndTime.getFullYear();
+    let mounth = EndTime.getMonth() + 1;
+    let day = EndTime.getDate();
+    mounth = mounth < 10 ? `0${mounth}` : mounth;
+    day = day < 10 ? `0${day}` : day;
+    return `${year}-${mounth}-${day} 23:59:59`;
   },
   trakTimeformat: str => {
     const yy = str.substring(0, 2);

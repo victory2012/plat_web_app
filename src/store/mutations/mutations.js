@@ -50,5 +50,9 @@ export default {
   /* 未绑定的设备列表 */
   SETunbindDeviceList(state, data) {
     state.unbindDeviceList = data;
+  },
+  /* 保存选中的告警列表中某一项 的数据 */
+  SETalarmItemDetail(state, data) {
+    state.alarmItemDetail = data;
   }
 };

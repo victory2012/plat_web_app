@@ -287,7 +287,6 @@ export default {
             key.item = 'purchase'
             this.PurchaseNames.push(key)
           })
-          this.$refs.scroll.refresh()
         }
       })
     },

@@ -5,9 +5,9 @@
         <i @click="goBack" class="backIcon iconfont icon-back1"></i>
       </div>
       <div class="searchWarper" slot="mainTab">
-        <div class="searchIcon"><i class="iconfont icon-Search"></i></div>
+        <div class="searchIcon" @click="getAlarmListByCode"><i class="iconfont icon-Search"></i></div>
         <div class="inputPart">
-          <input type="text" placeholder="请输入搜索内容" />
+          <input type="text" v-model="searchObj.searchCode" placeholder="请输入搜索内容" />
           <ul v-show="searchArr.length > 0" class="searchTerm">
             <li v-for="item in searchArr" :key="item.id"><span class="label">{{item.name}}</span><span class="iconfont icon-close2"></span></li>
           </ul>
@@ -20,11 +20,11 @@
     <div class="timeSelect">
       <div class="timeInfo">
         <span>从</span>
-        <span @click="timeSelect('start')" class="timeInput">
+        <span @click="timeStartTimeSelect" class="timeInput">
           {{startTime}}
         </span>
         <span>至</span>
-        <span @click="timeSelect('end')" class="timeInput">
+        <span @click="timeEndTimeSelect" class="timeInput">
           {{endTime}}
         </span>
       </div>
@@ -55,6 +55,7 @@
 <script>
 import topHeader from '@/components/header/header';
 import Mixins from '@/mixins/monitor-mixin'
+import { ToastOnlyText } from '@/utils/Toast'
 import alarmItme from './alarmList/alarmItem'
 import t from '@/utils/translate';
 export default {
@@ -170,13 +171,16 @@ export default {
       }
       this.HierarchyPicker.show()
     },
-    getBatteryAlarmList(data) {
-      this.$refs.alarmItem.parentCall(data)
+    getAlarmListByCode() {
+      this.getBatteryAlarmList()
     },
-    timeSelect(type) {
-      this.TimeType = type
-      if (!this.datePicker) {
-        this.datePicker = this.$createDatePicker({
+    getBatteryAlarmList() {
+      this.$refs.alarmItem.getAlarmListByOpts(this.searchObj)
+    },
+    /* 选择开始时间 */
+    timeStartTimeSelect() {
+      if (!this.StartTimePicker) {
+        this.StartTimePicker = this.$createDatePicker({
           max: new Date(2100, 9, 20),
           value: new Date(),
           format: {
@@ -185,31 +189,57 @@ export default {
             date: 'DD'
           },
           onSelect: (data, selectedVal, selectedText) => {
-            const result = selectedText.join('/')
-            if (this.TimeType === 'start') {
-              if (this.endTime && new Date(data) > new Date(this.endTime)) {
+            const result = selectedText.join('-')
+            this.startTime = result
+            this.searchObj.startTime = result
+            if (this.searchObj.endTime) {
+              if (new Date(this.searchObj.startTime) > new Date(this.searchObj.endTime)) {
+                ToastOnlyText('开始时间应小于结束时间')
+                this.startTime = '年/月/日'
+                this.searchObj.startTime = null
                 return
               }
-              this.startTime = result
-              this.searchObj.startTime = result
-            } else {
-              this.endTime = result
-              this.searchObj.endTime = result
+              this.getBatteryAlarmList()
             }
           }
         })
       }
-      this.datePicker.show()
+      this.StartTimePicker.show()
     },
+    /* 选择结束时间 */
+    timeEndTimeSelect() {
+      if (!this.EndTimePicker) {
+        this.EndTimePicker = this.$createDatePicker({
+          max: new Date(2100, 9, 20),
+          value: new Date(),
+          format: {
+            year: 'YYYY',
+            month: 'MM',
+            date: 'DD'
+          },
+          onSelect: (data, selectedVal, selectedText) => {
+            const result = selectedText.join('-')
+            this.endTime = result
+            this.searchObj.endTime = result
+            if (this.searchObj.startTime) {
+              if (new Date(this.searchObj.startTime) > new Date(this.searchObj.endTime)) {
+                ToastOnlyText('开始时间应小于结束时间')
+                this.endTime = '年/月/日'
+                this.searchObj.endTime = null
+                return
+              }
+              this.getBatteryAlarmList()
+            }
+          }
+        })
+      }
+      this.EndTimePicker.show()
+    },
+    /* 显示更多筛选条件 */
     showMoreSelect() {
       this.moreSelect = !this.moreSelect
     },
-    choosStatuItem(info, data) {
-      data.forEach(key => {
-        key.choose = false
-      });
-      info.choose = true
-    },
+    /* 确认筛选条件 处理方法 */
     selectHandle(selectedVal) {
       const value = selectedVal[0];
       if (this.alarmActive === 'alarmItem') {
@@ -221,7 +251,7 @@ export default {
       if (this.alarmActive === 'Hierarchy') {
         this.searchObj.hierarchy = value
       }
-      console.log(this.searchObj);
+      this.getBatteryAlarmList()
     }
   }
 

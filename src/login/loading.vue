@@ -40,6 +40,7 @@ export default {
   methods: {
     doAccountLogin(local) {
       this.$api.login(local).then(res => {
+        console.log(res)
         const data = res.data;
         if (data.code === 0) {
           localStorage.setItem('accPwd', JSON.stringify(local))

@@ -25,5 +25,6 @@ export default {
   batterySpecifList: [], // 监测项目 电池组规格列表
   batteryModelList: [], // 监测项目 电池型号列表
   customCompanyList: [], // 监测项目 客户企业列表
-  unbindDeviceList: [] // 监测项目 未绑定的设备列表
+  unbindDeviceList: [], // 监测项目 未绑定的设备列表
+  alarmItemDetail: {} // 监测项目 未绑定的设备列表
 };
