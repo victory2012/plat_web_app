@@ -28,8 +28,8 @@
       </cube-scroll>
     </div>
     <div class="bottomBtn">
-      <div class="active">修改阈值</div>
-      <div>恢复全局</div>
+      <div @click="modifyThreshold" class="active">修改阈值</div>
+      <div @click="getTemplate">恢复全局</div>
     </div>
   </div>
 </template>
@@ -37,20 +37,14 @@
 <script>
 import topHeader from '@/components/header/header';
 import mixins from '@/mixins/monitor-mixin'
-const column1 = [
-  { text: 'Text12346', value: '123456' },
-  { text: 'Text12346', value: 'aad' },
-  { text: 'Text12346', value: 'ddeef' },
-  { text: 'Text12346', value: 'gdfg' },
-  { text: 'Text12346', value: 'fgh' },
-  { text: 'Text12346', value: 'ddeghjef' }
-]
+import t from '@/utils/translate';
 export default {
   mixins: [mixins],
   data() {
     return {
       activeByModel: true,
       regForm: {},
+      BatteryModel: [],
       thresholdArr: [
         {
           id: Math.random(),
@@ -132,7 +126,9 @@ export default {
     topHeader
   },
 
-  mounted() { },
+  mounted() {
+    this.getBatteryModel()
+  },
 
   methods: {
 
@@ -142,16 +138,117 @@ export default {
     selectByCompany() {
       this.activeByModel = false
     },
+    modifyThreshold() {
+      if (!this.batteryModelId && !this.hasTemp) {
+        // this.$message({
+        //   message: t('threshold.warn.selectBatModel'), // "请选择电池型号",
+        //   type: 'error',
+        // });
+        return;
+      }
+      this.$refs.batteryForm.validate((valid) => {
+        if (valid) {
+          const params = {
+            modelId: this.batteryModelId,
+            singleMaxChargeVoltage: this.batteryForm.singleMaxChargeVoltage,
+            singleMinDischargeVoltage: this.batteryForm
+              .singleMinDischargeVoltage,
+            maxChargeVoltage: this.batteryForm.maxChargeVoltage,
+            minDischargeVoltage: this.batteryForm.minDischargeVoltage,
+            maxChargeCurrent: this.batteryForm.maxChargeCurrent,
+            maxDischargeCurrent: this.batteryForm.maxDischargeCurrent,
+            maxChargeTemperature: this.batteryForm.maxChargeTemperature,
+            minChargeTemperature: this.batteryForm.minChargeTemperature,
+            maxDischargeTemperature: this.batteryForm.maxDischargeTemperature,
+            minDischargeTemperature: this.batteryForm.minDischargeTemperature,
+            maxFluidOverDays: this.batteryForm.maxFluidOverDays,
+            maxChargeCapacity: this.batteryForm.maxChargeCapacity,
+            minChargeCapacity: this.batteryForm.minChargeCapacity
+          };
+          console.log(params);
+          if (this.hasTemp) {
+            params.id = this.batteryModelTempId;
+            this.modifyFunction(params);
+          } else {
+            this.addFunction(params);
+          }
+        }
+      });
+    },
+    /* 获取电池型号 */
+    getBatteryModel() {
+      this.$api.batteryModelList().then((res) => {
+        // console.log("获取电池型号列表", res);
+        if (res.data && res.data.code === 0) {
+          console.log(res.data);
+          this.BatteryModel = res.data.data;
+        }
+      });
+    },
     selectBatteryCode() {
       if (!this.picker) {
         this.picker = this.$createPicker({
           title: '电池型号',
-          data: [column1],
-          onSelect: this.selectHandle,
-          onCancel: this.cancelHandle
+          alias: {
+            text: 'dicKey',
+            value: 'id'
+          },
+          data: [this.BatteryModel],
+          onSelect: (id, index, selectedText) => {
+            // console.log(val, index, selectedText)
+            this.selectModel = {
+              model: selectedText[0],
+              modelId: id[0]
+            }
+            this.getByModelId(this.selectModel.modelId)
+          },
+          onCancel: () => { }
         })
       }
       this.picker.show()
+    },
+    getByModelId(modelId) {
+      this.$api.getBatteryPolicy(modelId).then((res) => {
+        if (res.data && res.data.code === 0) {
+          const result = res.data;
+          console.log(result)
+          if (result.data === null) {
+            // this.$message({
+            //   message: t('threshold.warn.modelNoThres'), // "此电池型号暂未设置阈值",
+            //   type: 'warning'
+            // });
+            this.hasTemp = false;
+          } else {
+            // this.hasTemp = true;
+            // this.batteryForm = result.data;
+            // this.batteryModelTempId = result.data.id;
+          }
+        }
+      });
+    },
+    /* 恢复全局 */
+    getTemplate() {
+      if (!this.selectModel.modelId) {
+        this.$message({
+          message: t('threshold.warn.selectBatModel'), // "请选择电池型号",
+          type: 'error'
+        });
+        return;
+      }
+      this.$api.getTempPolicy().then((res) => {
+        console.log(res);
+        if (res.data && res.data.code === 0) {
+          const result = res.data;
+          if (result.data === null) {
+            // this.$message({
+            //   message: t('threshold.warn.NOverall'), // "暂未设置全局阈值",
+            //   type: 'warning'
+            // });
+          } else {
+            this.batteryForm = result.data;
+          }
+        }
+      });
     }
   }
 

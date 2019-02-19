@@ -33,12 +33,12 @@
 </template>
 
 <script>
-import topHeader from '../../../components/header/header.vue';
+import topHeader from '@/components/header/header.vue';
 export default {
   components: { topHeader },
   methods: {
     goBack() {
-      this.$router.push({ name: 'MonitorDevice' });
+      this.$router.push({ name: 'HomeDevice' });
     },
     submitFrom() {
       alert('确定')
@@ -51,44 +51,27 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-.right {
-  width: 1.2rem;
-
-  span {
-    font-weight: bold;
-  }
-}
-
-.submit {
-  display: flex;
-  margin: 1.5rem 0 0 1.5rem;
-
-  .submitBtn {
-    width: 3rem;
-    margin-left: 1rem;
-    background: red;
-  }
-
-  .cancelBtn {
-    width: 3rem;
-  }
-}
-
-.main {
-  margin: 1rem 0 0 1rem;
-
-  div {
-    display: flex;
-    margin-bottom: 0.5rem;
-
-    .input {
-      width: 6rem;
-    }
-
-    p {
-      line-height: 1rem;
-      padding-right: 0.5rem;
-    }
-  }
-}
+.right
+  width 1.2rem
+  span
+    font-weight bold
+.submit
+  display flex
+  margin 1.5rem 0 0 1.5rem
+  .submitBtn
+    width 3rem
+    margin-left 1rem
+    background red
+  .cancelBtn
+    width 3rem
+.main
+  margin 1rem 0 0 1rem
+  div
+    display flex
+    margin-bottom 0.5rem
+    .input
+      width 6rem
+    p
+      line-height 1rem
+      padding-right 0.5rem
 </style>

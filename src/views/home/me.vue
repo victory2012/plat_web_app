@@ -62,7 +62,7 @@ export default {
     })
   },
   mounted() {
-    if (this.userInfomation.photo) {
+    if (this.userInfomation.photo && this.userInfomation.photo.toString().indexOf(photoSagema) < 0) {
       this.userInfomation.photo = `${photoSagema}/${this.userInfomation.photo}`
     }
   },

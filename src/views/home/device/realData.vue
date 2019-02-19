@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import topHeader from '../../../components/header/header.vue';
+import topHeader from '@/components/header/header.vue';
 import eChacts from './echacts'
 export default {
   components: { topHeader, eChacts },
@@ -89,139 +89,98 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.push({ name: 'MonitorDevice' });
+      this.$router.push({ name: 'registerDevice' });
     }
   }
 }
 </script>
 
 <style lang='stylus' scoped>
-.realMain {
-  position: fixed;
-  top: contentFixedTop(5);
-  left: 0;
-  height: 100%;
-  -webkit-overflow-scrolling: touch;
-  overflow: scroll;
-  overflow-scrolling: touch;
-  width: 100%;
-
-  .tit {
-    font-weight: bold;
-    font-size: 0.4rem;
-    margin-left: 0.5rem;
-  }
-
-  .realTitles {
-    width: 9.5rem;
-    height: 2.4rem;
-    border-radius: 0.3rem;
-    border: 1px solid #a9a9a9;
-    margin: 0 auto;
-    margin-top: 0.2rem;
-    box-shadow: 0.1rem 0.1rem 0.1rem #888888;
-
-    .message {
-      display: flex;
-
-      div {
-        display: flex;
-
-        p {
-          line-height: 1.1rem;
-        }
-      }
-    }
-
-    div {
-      margin-top: 0.1rem;
-
-      img {
-        width: 1rem;
-        height: 1rem;
-        margin-left: 0.5rem;
-      }
-
-      .img2 {
-        width: 0.8rem;
-        height: 0.8rem;
-        margin-left: 2.7rem;
-        margin-bottom: 0.1rem;
-      }
-
-      span {
-        margin-left: 0.2rem;
-      }
-    }
-  }
-
-  .data {
-    margin-top: 0.5rem;
-    display: flex;
-    flex-wrap: wrap;
-
-    div {
-      display: flex;
-      flex: 1;
-      width: 3rem;
-      margin-bottom: 0.2rem;
-
-      div {
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-
-        h2 {
-          text-align: center;
-          font-size: 0.35rem;
-          padding: 0.3rem 0 0.1rem;
-        }
-
-        img {
-          width: 0.8rem;
-          height: 0.8rem;
-          margin: 0 auto;
-        }
-      }
-    }
-  }
-
-  .realBtn {
-    display: flex;
-    padding: 0.3rem 0;
-
-    .cube-btn {
-      height: 0.95rem;
-      width: 2.6rem;
-      border-radius: 0.2rem;
-      line-height: 0.1rem;
-      background: white;
-      border: 1px solid black;
-      color: black;
-      margin-right: 0.5rem;
-    }
-  }
-
-  .realFrom {
-    width: 9.8rem;
-    margin: 0 auto;
-    margin-top: -0.8rem;
-  }
-}
-
-.realBtn {
-  display: flex;
-  line-height: 1rem;
-  margin: 0.3rem 0 0.4rem 0.55rem;
-
-  span {
-    font-size: 0.48rem;
-    width: 6rem;
-  }
-
-  .cube-btn {
-    margin-left: 0.5rem;
-    height: 0.8rem;
-  }
-}
+.realMain
+  position fixed
+  top contentFixedTop(5)
+  left 0
+  height 100%
+  -webkit-overflow-scrolling touch
+  overflow scroll
+  overflow-scrolling touch
+  width 100%
+  .tit
+    font-weight bold
+    font-size 0.4rem
+    margin-left 0.5rem
+  .realTitles
+    width 9.5rem
+    height 2.4rem
+    border-radius 0.3rem
+    border 1px solid #a9a9a9
+    margin 0 auto
+    margin-top 0.2rem
+    box-shadow 0.1rem 0.1rem 0.1rem #888888
+    .message
+      display flex
+      div
+        display flex
+        p
+          line-height 1.1rem
+    div
+      margin-top 0.1rem
+      img
+        width 1rem
+        height 1rem
+        margin-left 0.5rem
+      .img2
+        width 0.8rem
+        height 0.8rem
+        margin-left 2.7rem
+        margin-bottom 0.1rem
+      span
+        margin-left 0.2rem
+  .data
+    margin-top 0.5rem
+    display flex
+    flex-wrap wrap
+    div
+      display flex
+      flex 1
+      width 3rem
+      margin-bottom 0.2rem
+      div
+        display flex
+        flex-direction column
+        text-align center
+        h2
+          text-align center
+          font-size 0.35rem
+          padding 0.3rem 0 0.1rem
+        img
+          width 0.8rem
+          height 0.8rem
+          margin 0 auto
+  .realBtn
+    display flex
+    padding 0.3rem 0
+    .cube-btn
+      height 0.95rem
+      width 2.6rem
+      border-radius 0.2rem
+      line-height 0.1rem
+      background white
+      border 1px solid black
+      color black
+      margin-right 0.5rem
+  .realFrom
+    width 9.8rem
+    margin 0 auto
+    margin-top -0.8rem
+.realBtn
+  display flex
+  line-height 1rem
+  margin 0.3rem 0 0.4rem 0.55rem
+  span
+    font-size 0.48rem
+    width 6rem
+  .cube-btn
+    margin-left 0.5rem
+    height 0.8rem
 </style>

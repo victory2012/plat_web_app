@@ -10,6 +10,7 @@ export function mainFooterBar() {
     { label: '首页', icon: 'icon-aui-icon-home', link: 'Home' },
     // { label: '消息', icon: 'icon-SupportNotification', link: 'HomeNews' },
     { label: '用户', icon: 'icon-iconset0203', link: 'HomeUser' },
+    { label: '设备', icon: 'icon-device', link: 'HomeDevice' },
     { label: '我的', icon: 'icon-me', link: 'HomeMe' }
   ];
 }
@@ -25,7 +26,7 @@ export function monitorFooterBar() {
   return [
     { label: '首页', icon: 'icon-74', link: 'Monitor' },
     { label: '电池', icon: 'icon-battery', link: 'MonitorBattery' },
-    { label: '设备', icon: 'icon-device', link: 'MonitorDevice' },
+    // { label: '设备', icon: 'icon-device', link: 'MonitorDevice' },
     { label: '围栏', icon: 'icon-electricfence', link: 'MonitorFence' },
     { label: '操作', icon: 'icon-alert', link: 'MonitorOperateDeployment' }
   ];

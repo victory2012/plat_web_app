@@ -12,8 +12,6 @@
       </div>
     </top-header>
     <more-select ref="moreSelect" @statusChange="getStatus" @modelChange="getModel" @companyChange="getCompany">
-      <!-- <span slot="mapIcon" @click="swichMapOrList" class="iconfont icon-map">
-      </span> -->
     </more-select>
     <device-item class="deviceListWraper"></device-item>
     <div class="register" @click="register">注册设备</div>
@@ -44,14 +42,7 @@ export default {
   methods: {
     searchByCode() { },
     register() {
-      this.$router.push({ name: 'register' })
-    },
-    swichMapOrList() {
-      if (this.showComponent === 'battery') {
-        this.showComponent = 'batteryMap';
-      } else {
-        this.showComponent = 'battery';
-      }
+      this.$router.push({ name: 'registerDevice' })
     },
     getCompany(data) {
       if (data.prod) {
