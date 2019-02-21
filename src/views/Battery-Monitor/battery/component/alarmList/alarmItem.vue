@@ -11,11 +11,12 @@
             <span>设备编号：{{item.deviceCode}}</span><span>电池编号：{{item.hostCode}}</span>
           </div>
         </div>
-        <div @click="doShowMore(item)" class="rightIcon" :class="{'down': item.showMore}">
+        <!-- <div @click="doShowMore(item)" class="rightIcon" :class="{'down': item.showMore}">
           <span class="iconfont icon-right"></span>
-        </div>
+        </div> -->
       </div>
-      <div class="Bottom" v-show="item.showMore">
+      <!--  v-show="item.showMore" -->
+      <div class="Bottom">
         <div class="LeftInfo">
           <div class="model">
             <span>电池型号：{{item.model}}</span>

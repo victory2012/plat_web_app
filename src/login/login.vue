@@ -9,26 +9,10 @@
           <img :src="LogoSrc" alt="">
         </div>
         <div class="logForm">
-          <div v-show="accountLogin" class="account flex">
-            <p>{{$t('loginMsg.accountPlace')}}:</p>
-            <cube-input class="input" v-model="logObj.account" :placeholder="$t('loginMsg.errorMsg.account')"></cube-input>
-          </div>
-          <div v-show="accountLogin" class="password flex">
-            <p>{{$t('loginMsg.passwordPlace')}}:</p>
-            <cube-input class="input" v-model="logObj.password" type='password' :placeholder="$t('loginMsg.errorMsg.password')"></cube-input>
-          </div>
-          <div v-show="!accountLogin" class="account flex">
-            <p>{{$t('loginMsg.phone')}}:</p>
-            <cube-input class="input" v-model="logObj.phone" :maxlength='11' :placeholder="$t('loginMsg.errorMsg.phoneNub')"></cube-input>
-          </div>
-          <div v-show="!accountLogin" class="password flex">
-            <p>{{$t('loginMsg.smsCode')}}:</p>
-            <cube-input class="input" v-model="logObj.smscode" :placeholder="$t('loginMsg.errorMsg.smsCodeErr')"></cube-input>
-            <div @click="getSmsCode" :class="{'disable': hasGetSms}" class="getSmsBtn">{{smsCode}}</div>
-          </div>
-          <cube-button @click="signIn" type="submit">{{$t('loginMsg.loginBtn')}}</cube-button>
+          <component :is="componentId"></component>
           <div class="tagWarp">
-            <p @click="changeLoginWay('account')" :class="{'active': !accountLogin}">{{$t('loginMsg.labelAccPass')}}</p>
+            <p v-show="!accountLogin" @click="changeLoginWay('account')" :class="{'active': !accountLogin}">{{$t('loginMsg.labelAccPass')}}</p>
+            <p v-show="accountLogin" @click="changeLoginWay('findpwd')" class="active">找回密码</p>
             <p @click="changeLoginWay('sms')" :class="{'active': accountLogin}" class="smsCode">{{$t('loginMsg.labelSmsCode')}}</p>
           </div>
         </div>
@@ -37,10 +21,8 @@
   </div>
 </template>
 <script>
-import Toast from '@/components/Toast/toast';
-import { ToastWithLoading } from '@/utils/Toast';
-import { phoneNumCheck } from '../utils/check.js';
 import t from '@/utils/translate';
+import mixin from './mixin'
 export default {
   name: 'login',
   data() {
@@ -49,161 +31,31 @@ export default {
       localLanguge: '中文',
       accountLogin: true,
       smsCode: t('loginMsg.getSmsCode'),
-      logObj: {},
+      componentId: 'accountLogin',
       hasGetSms: false // 是否已经获取了短信验证码
     }
   },
-  mounted() {
+  mixins: [mixin],
+  components: {
+    accountLogin: () => import('./component/account_login.vue'),
+    phoneLogin: () => import('./component/phone_login.vue'),
+    findPwd: () => import('./component/find_password.vue')
   },
   methods: {
-    signIn() {
-      // this.$router.push({ name: 'Home' })
-      if (this.accountLogin) {
-        this.doAccountLogin()
-      } else {
-        this.phoneLogon()
-      }
-    },
-    doAccountLogin() {
-      if (!this.logObj.account) {
-        Toast(t('loginMsg.errorMsg.account'))
-        return
-      }
-      if (!this.logObj.password) {
-        Toast(t('loginMsg.errorMsg.password'))
-        return
-      }
-      const person = {
-        account: this.logObj.account,
-        password: this.logObj.password
-      };
-      ToastWithLoading().show('登录中...')
-      this.$api.login(person).then(res => {
-        ToastWithLoading().hide()
-        const data = res.data;
-        if (data.code === 0) {
-          localStorage.setItem('accPwd', JSON.stringify(person))
-          sessionStorage.setItem('token', res.headers.token);
-          sessionStorage.setItem('loginData', JSON.stringify(data.data));
-          this.$store.commit('setUserLoginData', data.data)
-          const result = data.data;
-          const { companyId, id } = result;
-          this.getCompanyPermissions(companyId, id);
-        }
-      })
-    },
-    /* 获取公司权限 */
-    getCompanyPermissions(companyId, userId) {
-      this.$api.getCompanyRole(companyId).then(({ data }) => {
-        console.log('CompanyPermissions', data)
-        if (data.code === 0) {
-          sessionStorage.setItem('CompanyPermissions', data.data)
-          this.getUserPermissions(userId)
-        }
-      })
-    },
-    /* 获取个人权限 */
-    getUserPermissions(userId) {
-      this.$api.permissions(userId).then(({ data }) => {
-        console.log('UserPermissions', data)
-        if (data.code === 0) {
-          sessionStorage.setItem('UserPermissions', JSON.stringify(data.data))
-          this.$router.push({ name: 'Home' })
-          this.$store.commit('setRouterIndex', 0);
-        }
-      })
-    },
-    /* 获取验证码 */
-    getSmsCode() {
-      if (this.hasGetSms) {
-        return
-      }
-      if (!this.logObj.phone) {
-        Toast(t('loginMsg.errorMsg.phoneNub'))
-        return
-      }
-      if (!phoneNumCheck(this.logObj.phone)) {
-        Toast(t('loginMsg.errorMsg.checkPhone'))
-        return
-      }
-      let conut = 60;
-      this.$api.SMScode({ phone: this.logObj.phone }).then((res) => {
-        console.log(res);
-        if (res.data && res.data.code === 0) {
-          this.hasGetSms = true;
-          const Timer = setInterval(() => {
-            conut--;
-            this.smsCode = `${conut}s`;
-            if (conut < 1) {
-              this.smsCode = t('loginMsg.getSmsCode');
-              this.hasGetSms = false;
-              clearInterval(Timer);
-            }
-          }, 1000);
-          Toast(t('loginMsg.smsSuccess'))
-        }
-      });
-    },
-    phoneLogon() {
-      if (!this.logObj.phone) {
-        Toast(t('loginMsg.errorMsg.phoneNub'))
-        return
-      }
-      if (!phoneNumCheck(this.logObj.phone)) {
-        Toast(t('loginMsg.errorMsg.checkPhone'))
-        return
-      }
-      if (!this.logObj.smscode) {
-        Toast(t('loginMsg.errorMsg.smsCodeErr'))
-        return
-      }
-      const phoneObj = {
-        phone: this.logObj.phone,
-        code: this.logObj.smscode
-      };
-      ToastWithLoading().show('登录中...')
-      this.$api.SMSVertify(phoneObj).then((res) => {
-        console.log(res);
-        ToastWithLoading().hide()
-        const data = res.data;
-        if (data.code === 0) {
-          sessionStorage.setItem('token', res.headers.token);
-          sessionStorage.setItem('loginData', JSON.stringify(data.data));
-          this.$store.commit('setUserLoginData', data.data)
-          const result = data.data;
-          const { companyId, id } = result;
-          this.getCompanyPermissions(companyId, id);
-        }
-      });
-    },
-    /* 切换语言 */
     changeLoginWay(str) {
-      if (str === 'account') {
-        this.accountLogin = true
-      } else {
+      if (str === 'sms') {
+        this.componentId = 'phoneLogin'
         this.accountLogin = false
+      };
+      if (str === 'account') {
+        this.componentId = 'accountLogin'
+        this.accountLogin = true
       }
-    },
-    showActive() {
-      this.$createActionSheet({
-        data: [
-          {
-            content: '中文',
-            local: 'zh'
-          },
-          {
-            content: 'English',
-            local: 'en'
-          }
-        ],
-        onSelect: (item) => {
-          console.log(item)
-          this.localLanguge = item.content
-        }
-      }).show()
+      if (str === 'findpwd') {
+        this.componentId = 'findPwd'
+      }
     }
   }
-
 }
 
 </script>
