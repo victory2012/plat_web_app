@@ -1,7 +1,7 @@
 <template>
   <cube-scroll :data="randerData" class="batteryList" ref="scroll" :options="options" @pulling-up="pullingUp">
     <div class="batteryItem" v-for="item in randerData" :key="item.id">
-      <div class="itemTop">
+      <div class="itemTop" @click="ToLookRealData">
         <div class="batteryCode">
           <p>{{item.batteryCode}}</p>
           <p class="subTsxt">电池编号</p>
@@ -66,6 +66,11 @@ export default {
       } else {
         this.doGetBatteryList(this.cacheParams)
       }
+    },
+    ToLookRealData() {
+      this.$router.push({
+        name: 'MonitorBatteryRealTime'
+      })
     },
     deleteBattery(item) {
       if (item.deviceId) return

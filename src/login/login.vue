@@ -12,7 +12,7 @@
           <component :is="componentId"></component>
           <div class="tagWarp">
             <p v-show="!accountLogin" @click="changeLoginWay('account')" :class="{'active': !accountLogin}">{{$t('loginMsg.labelAccPass')}}</p>
-            <p v-show="accountLogin" @click="changeLoginWay('findpwd')" class="active">找回密码</p>
+            <p v-show="accountLogin" @click="changeLoginWay('findpwd')" :class="{'active': accountLogin}">找回密码</p>
             <p @click="changeLoginWay('sms')" :class="{'active': accountLogin}" class="smsCode">{{$t('loginMsg.labelSmsCode')}}</p>
           </div>
         </div>
@@ -53,6 +53,7 @@ export default {
       }
       if (str === 'findpwd') {
         this.componentId = 'findPwd'
+        this.accountLogin = false
       }
     }
   }

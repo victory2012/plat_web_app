@@ -53,16 +53,16 @@ export default {
     return {
       sameBattery: true,
       searchArr: [
-        {
-          id: Math.random(),
-          name: '摩融生sss搜索'
-        }, {
-          id: Math.random(),
-          name: '客户企业'
-        }, {
-          id: Math.random(),
-          name: '电池12'
-        }
+        // {
+        //   id: Math.random(),
+        //   name: '摩融生sss搜索'
+        // }, {
+        //   id: Math.random(),
+        //   name: '客户企业'
+        // }, {
+        //   id: Math.random(),
+        //   name: '电池12'
+        // }
       ]
     };
   },

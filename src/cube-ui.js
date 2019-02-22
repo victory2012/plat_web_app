@@ -21,7 +21,7 @@ import {
   Input,
   // Textarea,
   Select,
-  // Switch,
+  Switch,
   // Rate,
   // Validator,
   Upload,
@@ -55,14 +55,14 @@ Vue.use(Loading);
 // Vue.use(Toolbar);
 Vue.use(TabBar);
 // Vue.use(TabPanels);
-Vue.use(Checkbox)
+Vue.use(Checkbox);
 // Vue.use(CheckboxGroup)
 // Vue.use(Radio)
 // Vue.use(RadioGroup)
 Vue.use(Input);
 // Vue.use(Textarea)
 Vue.use(Select);
-// Vue.use(Switch)
+Vue.use(Switch);
 // Vue.use(Rate)
 // Vue.use(Validator);
 Vue.use(Upload);

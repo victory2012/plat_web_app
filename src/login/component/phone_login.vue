@@ -9,7 +9,7 @@
       <cube-input class="input" v-model="logObj.smscode" :placeholder="$t('loginMsg.errorMsg.smsCodeErr')"></cube-input>
       <div @click="getSmsCode" :class="{'disable': hasGetSms}" class="getSmsBtn">{{smsCode}}</div>
     </div>
-    <cube-button @click="phoneSignIn" type="submit">Submit Button</cube-button>
+    <cube-button @click="phoneSignIn" type="submit">登录</cube-button>
   </div>
 </template>
 

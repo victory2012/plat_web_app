@@ -13,6 +13,8 @@ const MonitorAlarmDetail = () =>
   import(/* webpackChunkName: "MonitorAlarmDetail" */ '@/views/Battery-Monitor/battery/component/alarmList/alarmDetail.vue');
 const MonitorBatteryAlarmMap = () =>
   import(/* webpackChunkName: "MonitorBatteryAlarmMap" */ '@/views/Battery-Monitor/battery/component/alarmList/alarmMap.vue');
+const MonitorBatteryRealData = () =>
+  import(/* webpackChunkName: "MonitorBatteryRealData" */ '@/views/Battery-Monitor/battery/component/realTime.vue');
 
 const MonitorBatteryContrast = () =>
   import(/* webpackChunkName: "MonitorBatteryContrast" */ '@/views/Battery-Monitor/battery/component/contrast.vue');
@@ -79,6 +81,11 @@ const route = [
         component: MonitorBatteryContrast
       }
     ]
+  },
+  {
+    path: '/MonitorBatteryRealTime',
+    name: 'MonitorBatteryRealTime',
+    component: MonitorBatteryRealData
   },
   {
     path: '/monitor/battery-register',

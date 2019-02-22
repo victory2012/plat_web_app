@@ -1,15 +1,24 @@
 <template>
   <div>
-    <div class="account flex">
+    <div v-show="!newPassword" class="account flex">
       <p>{{$t('loginMsg.phone')}}:</p>
       <cube-input class="input" v-model="logObj.phone" :maxlength='11' :placeholder="$t('loginMsg.errorMsg.phoneNub')"></cube-input>
     </div>
-    <div class="password flex">
+    <div v-show="!newPassword" class="password flex">
       <p>{{$t('loginMsg.smsCode')}}:</p>
       <cube-input class="input" v-model="logObj.smscode" :placeholder="$t('loginMsg.errorMsg.smsCodeErr')"></cube-input>
       <div @click="getSmsCode" :class="{'disable': hasGetSms}" class="getSmsBtn">{{smsCode}}</div>
     </div>
-    <cube-button type="submit">下一步</cube-button>
+    <div v-show="newPassword" class="account flex">
+      <p>输入密码:</p>
+      <cube-input class="input" v-model="password.newPassword" type='password'></cube-input>
+    </div>
+    <div v-show="newPassword" class="password flex">
+      <p>确认密码:</p>
+      <cube-input class="input" v-model="password.repeatPassword" type='password'></cube-input>
+    </div>
+    <cube-button v-show="!newPassword" type="submit" @click="nextStep">下一步</cube-button>
+    <cube-button v-show="newPassword" type="submit" @click="sureBtn">确认</cube-button>
   </div>
 </template>
 
@@ -19,12 +28,19 @@ import t from '@/utils/translate';
 export default {
   data() {
     return {
+      password: {},
+      newPassword: false,
       smsCode: t('loginMsg.getSmsCode'),
       hasGetSms: false // 是否已经获取了短信验证码
     };
   },
-  mixins: [mixin]
-
+  mixins: [mixin],
+  methods: {
+    nextStep() {
+      this.newPassword = true
+    },
+    sureBtn() { }
+  }
 }
 
 </script>
