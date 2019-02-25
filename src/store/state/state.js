@@ -26,5 +26,6 @@ export default {
   batteryModelList: [], // 监测项目 电池型号列表
   customCompanyList: [], // 监测项目 客户企业列表
   unbindDeviceList: [], // 监测项目 未绑定的设备列表
-  alarmItemDetail: {} // 监测项目 未绑定的设备列表
+  alarmItemDetail: {}, // 监测项目 未绑定的设备列表
+  batteryGroupInfo: {} // 监测项目 实时数据页面 根据电池编号获取的信息（公司名、设备编号、电池编号等等）
 };

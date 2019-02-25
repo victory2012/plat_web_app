@@ -54,5 +54,8 @@ export default {
   /* 保存选中的告警列表中某一项 的数据 */
   SETalarmItemDetail(state, data) {
     state.alarmItemDetail = data;
+  },
+  SetBatteryGroupInfo(state, data) {
+    state.batteryGroupInfo = data;
   }
 };

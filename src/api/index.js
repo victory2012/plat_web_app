@@ -99,12 +99,10 @@ export default {
 
   /* 运行状况 */
   /* 获取电池 info 信息 */
-  batteryGroupInfo: data =>
-    http.get(`/battery_group/${data}/info?t=${Math.random()}`),
+  batteryGroupInfo: data => http.get(`/battery_group/${data}/info`),
 
   /* 获取电量 */
-  batteryCapacity: data =>
-    http.get(`/battery_group/${data}/capacity?t=${Math.random()}`),
+  batteryCapacity: data => http.get(`/battery_group/${data}/capacity`),
 
   /* 发送设备地址 到后台 */
   sendAddress: data => http.put('battery_group/address', data),

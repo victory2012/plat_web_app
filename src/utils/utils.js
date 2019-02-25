@@ -16,7 +16,6 @@ const daysInMonth = [
   [31]
 ];
 
-// console.log('i18n in utils', i18n);
 export default {
   accountType: type => {
     const str = type.toString();
@@ -54,7 +53,7 @@ export default {
     hours = hours < 10 ? `0${hours}` : hours;
     minute = minute < 10 ? `0${minute}` : minute;
     second = second < 10 ? `0${second}` : second;
-    return `${year}/${mounth}/${day} ${hours}:${minute}:${second}`;
+    return `${year}-${mounth}-${day} ${hours}:${minute}:${second}`;
   },
   /* 硬件的格林威治时间 转北京时间 并格式化 */
   UTCTime: str => {
@@ -128,9 +127,7 @@ export default {
   },
   getFourHours: () => {
     const now = new Date().getTime();
-    const yestoday = now - 14400000;
-    const yesTime = this.a.dateFomat(yestoday);
-    return this.a.toUTCTime(yesTime);
+    return now - 14400000;
   },
   getWeek: () => {
     const now = new Date().getTime();
@@ -458,5 +455,9 @@ export default {
     const minute = str.substring(8, 10);
     const seconds = str.substring(10, 12);
     return `20${yy}-${mm}-${day} ${hour}:${minute}:${seconds}`;
+  },
+  cloneDeep: data => {
+    let _obj = JSON.stringify(data);
+    return JSON.parse(_obj);
   }
 };
