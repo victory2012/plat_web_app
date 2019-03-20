@@ -16,13 +16,11 @@ export default {
   props: {
     chartData: {
       type: Object,
-      default: () => {
-        return {};
-      }
+      default: () => ({})
     },
     mqttData: {
       type: Object,
-      default: () => { }
+      default: () => ({})
     }
   },
   data() {

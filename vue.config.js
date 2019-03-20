@@ -7,6 +7,7 @@ function resolve(dir) {
 }
 
 module.exports = {
+  baseUrl: process.env.NODE_ENV === 'production' ? 'test/app/' : '',
   css: {
     loaderOptions: {
       stylus: {

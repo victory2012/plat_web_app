@@ -2,7 +2,7 @@
   <div>
     <div v-show="!newPassword" class="account flex">
       <p>{{$t('loginMsg.phone')}}:</p>
-      <cube-input class="input" v-model="logObj.phone" :maxlength='11' :placeholder="$t('loginMsg.errorMsg.phoneNub')"></cube-input>
+      <cube-input class="input" v-model="logObj.phone" type='tel' :maxlength='11' :placeholder="$t('loginMsg.errorMsg.phoneNub')"></cube-input>
     </div>
     <div v-show="!newPassword" class="password flex">
       <p>{{$t('loginMsg.smsCode')}}:</p>
@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import { phoneNumCheck } from '@/utils/check'
+import { ToastOnlyText } from '@/utils/Toast'
 import mixin from '../mixin'
 import t from '@/utils/translate';
 export default {
@@ -37,6 +39,12 @@ export default {
   mixins: [mixin],
   methods: {
     nextStep() {
+      if (!this.logObj.phone || !this.logObj.smscode) return
+      console.log('phoneNumCheck(this.logObj.phone)', phoneNumCheck(this.logObj.phone))
+      if (!phoneNumCheck(this.logObj.phone)) {
+        ToastOnlyText('手机号格式不正确')
+        return
+      }
       this.newPassword = true
     },
     sureBtn() { }
